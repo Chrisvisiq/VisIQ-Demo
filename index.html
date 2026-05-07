@@ -42,7 +42,7 @@
     position: fixed; top: 0; left: 0; z-index: 10; overflow: hidden;
   }
   #sidebar-nav {
-    flex: 1; overflow-y: auto; overflow-x: hidden;
+    flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;
     scrollbar-width: thin; scrollbar-color: var(--border) transparent;
   }
   #sidebar-nav::-webkit-scrollbar { width: 4px; }
@@ -530,7 +530,7 @@
     </div>
     <div>
       <div class="brand-name">VisIQ</div>
-      <div class="brand-org">Runtime Control and Proof for AI Agents</div>
+      <div class="brand-org">Browser-Native Enforcement for AI Execution</div>
     </div>
   </div>
 
@@ -541,9 +541,6 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
       Dashboard
     </button>
-  </div>
-
-   </button>
   </div>
 
   <div class="nav-divider"></div>
@@ -641,7 +638,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       Merge Review
       <span class="pending-badge" id="disc-merge-badge" style="background:var(--purple);color:white">3</span>
-   <div class="nav-divider"></div>
+    </button>
+  </div>
+
+  <div class="nav-divider"></div>
 
   <div class="nav-section">
     <div class="nav-label">SDK</div>
@@ -681,7 +681,7 @@
     <div class="page-header">
       <div>
         <div class="page-title">Dashboard</div>
-        <div class="page-desc">Employee AI Governance — shadow AI detection, policy enforcement, and human review</div>
+        <div class="page-desc">Browser-native enforcement for AI execution — intercept, validate, enforce, prove.</div>
       </div>
     </div>
     <div class="stats-grid">
