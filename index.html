@@ -2465,7 +2465,59 @@ function triggerSync(id, name, btn) {
 }
 
 function openAddSourceModal() {
-  toast('Add Source', 'Preset-aware onboarding connector — coming next sprint');
+  const m = document.getElementById('add-source-modal');
+  // Reset form
+  document.getElementById('asm-browser').value = 'chrome';
+  document.getElementById('asm-group').value = '';
+  document.getElementById('asm-seats').value = '';
+  document.getElementById('asm-deploy').value = 'mdm';
+  document.getElementById('asm-success').style.display = 'none';
+  document.getElementById('asm-form').style.display = '';
+  m.style.display = 'flex';
+}
+
+function closeAddSourceModal() {
+  document.getElementById('add-source-modal').style.display = 'none';
+}
+
+function submitAddSource() {
+  const browser = document.getElementById('asm-browser').value;
+  const group   = document.getElementById('asm-group').value.trim();
+  const seats   = parseInt(document.getElementById('asm-seats').value) || 0;
+  const deploy  = document.getElementById('asm-deploy').value;
+  if (!group || !seats) { toast('Missing fields', 'Group name and seat count are required'); return; }
+
+  const browserLabel = { chrome:'Chrome', edge:'Edge', safari:'Safari', firefox:'Firefox' }[browser] || browser;
+  const deployLabel  = { mdm:'MDM (force-install)', store:'Chrome Web Store (self-serve)', gpo:'Group Policy (GPO)', jamf:'Jamf' }[deploy] || deploy;
+
+  // Show success state
+  document.getElementById('asm-form').style.display = 'none';
+  const suc = document.getElementById('asm-success');
+  suc.innerHTML = `
+    <div style="text-align:center;padding:12px 0 8px">
+      <div style="font-size:28px;margin-bottom:10px">✓</div>
+      <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">${browserLabel} · ${group}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">${seats.toLocaleString()} seats · ${deployLabel}</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;text-align:left;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">Next Steps</div>
+        ${deploy === 'mdm' ? `
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.8">
+            1. Download the MDM configuration profile below<br>
+            2. Upload to your MDM console (Intune / Jamf / Workspace Admin)<br>
+            3. Assign to <strong style="color:var(--text)">${group}</strong> device group<br>
+            4. Extension installs silently — users authenticate via SSO on first launch<br>
+            5. Sessions appear in DISCOVER within 5 minutes of first AI tool usage
+          </div>` : `
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.8">
+            1. Share the install link with users in <strong style="color:var(--text)">${group}</strong><br>
+            2. Users install from the ${browserLabel} Web Store and sign in with SSO<br>
+            3. Sessions appear in DISCOVER within 5 minutes of first AI tool usage
+          </div>`}
+      </div>
+      ${deploy === 'mdm' ? `<button class="btn btn-primary" style="width:100%;margin-bottom:8px" onclick="toast('Download', 'VisIQ-${group.replace(/\s+/g,'-')}.mobileconfig downloading…');closeAddSourceModal()">⬇ Download MDM Profile</button>` : `<button class="btn btn-primary" style="width:100%;margin-bottom:8px" onclick="toast('Link copied', 'Install link copied to clipboard');closeAddSourceModal()">Copy Install Link</button>`}
+      <button class="btn" style="width:100%;border:1px solid var(--border2);background:transparent;color:var(--text-muted)" onclick="closeAddSourceModal()">Done</button>
+    </div>`;
+  suc.style.display = 'block';
 }
 
 // ── Inventory ─────────────────────────────────────────────────────────────────
@@ -3146,5 +3198,55 @@ function initStats() {
 buildChart(); buildStream(); buildRules(); buildAgents(); buildAudit(); buildHITL(); initStats(); renderAudit();
 buildDiscSources(); buildDiscInventory(); buildDiscFindings(); buildDiscMerge();
 </script>
+
+<!-- ══ ADD SOURCE MODAL ══ -->
+<div id="add-source-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;width:100%;max-width:460px;padding:28px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.4)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-size:16px;font-weight:700;color:var(--text)">Add Browser Extension Source</div>
+      <button onclick="closeAddSourceModal()" style="background:none;border:none;color:var(--text-muted);font-size:18px;cursor:pointer;line-height:1">✕</button>
+    </div>
+    <div id="asm-form">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px;line-height:1.6">The VisIQ extension intercepts AI API calls directly in the browser — above TLS, inside the application layer. Deploy to a device group and every AI tool session is visible within minutes.</div>
+      <div style="margin-bottom:14px">
+        <label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:6px">Browser</label>
+        <select id="asm-browser" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:var(--font)">
+          <option value="chrome">Chrome</option>
+          <option value="edge">Edge</option>
+          <option value="safari">Safari</option>
+          <option value="firefox">Firefox</option>
+        </select>
+      </div>
+      <div style="margin-bottom:14px">
+        <label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:6px">Deployment Group Name</label>
+        <input id="asm-group" type="text" placeholder="e.g. All Employees, Engineering, Exec Suite" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:var(--font);box-sizing:border-box">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:6px">Seat Count</label>
+          <input id="asm-seats" type="number" placeholder="e.g. 500" min="1" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:var(--font);box-sizing:border-box">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;display:block;margin-bottom:6px">Deployment Method</label>
+          <select id="asm-deploy" style="width:100%;padding:8px 10px;border-radius:6px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);font-size:13px;font-family:var(--font)">
+            <option value="mdm">MDM (force-install)</option>
+            <option value="store">Web Store (self-serve)</option>
+            <option value="gpo">Group Policy (GPO)</option>
+            <option value="jamf">Jamf</option>
+          </select>
+        </div>
+      </div>
+      <div style="background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:10px 12px;margin-bottom:20px;display:flex;gap:8px;align-items:flex-start">
+        <span style="font-size:14px">🔒</span>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.6">Users authenticate once via SSO. No prompts per session. The extension observes passively — employees see no change in their browser experience.</div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button onclick="closeAddSourceModal()" style="flex:1;padding:9px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)">Cancel</button>
+        <button onclick="submitAddSource()" class="btn btn-primary" style="flex:2;padding:9px;font-size:13px">Connect Source →</button>
+      </div>
+    </div>
+    <div id="asm-success" style="display:none"></div>
+  </div>
+</div>
 </body>
 </html>
