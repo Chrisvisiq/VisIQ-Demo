@@ -193,7 +193,7 @@
   .btn-sm { padding: 4px 10px; font-size: 12px; }
 
   /* ─────────────────────────────────────────────────────────────
-     HITL — CHRIS ROCKS
+     HITL — THE MONEY SHOT
   ───────────────────────────────────────────────────────────── */
   .hitl-item {
     border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
@@ -681,22 +681,22 @@
       </div>
     </div>
     <div class="stats-grid">
-      <div class="stat-card">
+      <div class="stat-card" onclick="goTo('audit')" style="cursor:pointer" title="View Audit Log">
         <div class="stat-label">Runtime Validations</div>
         <div class="stat-value" id="s-decisions">247</div>
         <div class="stat-desc">Execution trust validations</div>
       </div>
-      <div class="stat-card yellow-accent">
+      <div class="stat-card yellow-accent" onclick="goTo('hitl')" style="cursor:pointer" title="View Escalation Queue">
         <div class="stat-label">Runtime Escalations</div>
         <div class="stat-value" id="s-hitl" style="color:var(--yellow)">11</div>
         <div class="stat-desc">Actions requiring escalation</div>
       </div>
-      <div class="stat-card green-accent">
+      <div class="stat-card green-accent" onclick="goTo('rules')" style="cursor:pointer" title="View Enforcement Rules">
         <div class="stat-label">Execution Coverage</div>
         <div class="stat-value" style="color:var(--green)">94%</div>
         <div class="stat-desc">Runtime-enforced actions</div>
       </div>
-      <div class="stat-card blue-accent">
+      <div class="stat-card blue-accent" onclick="goTo('agents')" style="cursor:pointer" title="View Agents">
         <div class="stat-label">Protected Agents</div>
         <div class="stat-value" style="color:var(--blue)">11</div>
         <div class="stat-desc">Agents under runtime enforcement</div>
@@ -714,31 +714,31 @@
         <span class="badge badge-green" style="font-size:10px;padding:3px 10px">● LIVE</span>
       </div>
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden">
-        <div style="padding:14px 12px;background:rgba(6,182,212,0.04);border-right:1px solid var(--border2)">
+        <div style="padding:14px 12px;background:rgba(6,182,212,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('disc-sources')" onmouseover="this.style.background='rgba(6,182,212,0.1)'" onmouseout="this.style.background='rgba(6,182,212,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">DISCOVER</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">6</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Open findings</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">24 assets · 6 sources</div>
         </div>
-        <div style="padding:14px 12px;background:rgba(99,102,241,0.04);border-right:1px solid var(--border2)">
+        <div style="padding:14px 12px;background:rgba(99,102,241,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('rules')" onmouseover="this.style.background='rgba(99,102,241,0.1)'" onmouseout="this.style.background='rgba(99,102,241,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--primary-hover);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">ALLOW</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1" id="s-pipe-allow">—</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Decisions today</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">11 rules · 14 agents</div>
         </div>
-        <div style="padding:14px 12px;background:rgba(16,185,129,0.04);border-right:1px solid var(--border2)">
+        <div style="padding:14px 12px;background:rgba(16,185,129,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('trust-p19')" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='rgba(16,185,129,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">TRUST</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">6</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Invalidations today</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">Execution re-validation</div>
         </div>
-        <div style="padding:14px 12px;background:rgba(245,158,11,0.04);border-right:1px solid var(--border2)">
+        <div style="padding:14px 12px;background:rgba(245,158,11,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('hitl')" onmouseover="this.style.background='rgba(245,158,11,0.1)'" onmouseout="this.style.background='rgba(245,158,11,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--yellow);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">SEE</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1" id="s-pipe-hitl">—</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Escalations pending</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">Escalation · receipt chain</div>
         </div>
-        <div style="padding:14px 12px;background:rgba(6,182,212,0.03)">
+        <div style="padding:14px 12px;background:rgba(6,182,212,0.03);cursor:pointer;transition:background 0.15s" onclick="goTo('record')" onmouseover="this.style.background='rgba(6,182,212,0.08)'" onmouseout="this.style.background='rgba(6,182,212,0.03)'">
           <div style="font-size:9px;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">RECORD</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">100%</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Audit coverage</div>
@@ -748,7 +748,7 @@
     </div>
 
     <!-- ── Protection Coverage ─────────────────────────────────────────────────── -->
-    <div class="card" style="margin-bottom:18px;padding:16px 20px">
+    <div class="card" style="margin-bottom:18px;padding:16px 20px;cursor:pointer" onclick="goTo('rules')" title="View Enforcement Rules">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
         <div>
           <div class="card-title" style="margin-bottom:2px">Protection Coverage</div>
@@ -781,7 +781,7 @@
     </div>
 
     <!-- ── Execution Invalidations ─────────────────────────────────────────── -->
-    <div class="card" style="margin-bottom:18px;padding:16px 20px">
+    <div class="card" style="margin-bottom:18px;padding:16px 20px;cursor:pointer" onclick="goTo('trust-p19')" title="View Trust & Invalidations">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div>
           <div class="card-title" style="margin-bottom:2px">Execution Invalidations</div>
@@ -3079,6 +3079,17 @@ function nav(pageId, el) {
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+pageId).classList.add('active');
   if(el) el.classList.add('active');
+}
+
+function goTo(pageId) {
+  const navItems = document.querySelectorAll('.nav-item');
+  let targetEl = null;
+  navItems.forEach(item => {
+    const oc = item.getAttribute('onclick') || '';
+    if(oc.includes("'"+pageId+"'")) targetEl = item;
+  });
+  nav(pageId, targetEl);
+  window.scrollTo(0,0);
 }
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
