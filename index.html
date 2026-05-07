@@ -669,7 +669,7 @@
   <div id="live-bar">
     <div class="live-dot"></div>
     <div class="live-label">Live</div>
-    <div class="live-ticker" id="ticker">Intercepting · sales-assistant-v2 → read_crm · RELEASED · 14ms</div>
+    <div class="live-ticker" id="ticker">Intercepting · alice@demo.org → ChatGPT · support query · RELEASED · 12ms</div>
   </div>
 
   <!-- ══ DASHBOARD ══ -->
@@ -799,18 +799,18 @@
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
           <span class="badge badge-red" style="font-size:11px;padding:3px 10px">SCOPE DRIFT DETECTED</span>
           <span style="font-size:11px;color:var(--text-muted);font-family:var(--mono)">14:36:55</span>
-          <span style="font-size:11px;color:var(--text-muted)">· data-export-agent</span>
+          <span style="font-size:11px;color:var(--text-muted)">· alice@demo.org → DeepSeek</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center">
           <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px">
             <div style="font-size:9px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px">✓ Approved at t₀</div>
-            <div style="font-family:var(--mono);font-size:12px;color:var(--text)">export_customer_data</div>
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text)">bulk_customer_upload</div>
             <div style="font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-top:2px">1,000 records · segment: outreach</div>
           </div>
           <div style="color:var(--red);font-size:18px;font-weight:900">→</div>
           <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:10px 12px">
             <div style="font-size:9px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px">✗ Attempted at t-exec</div>
-            <div style="font-family:var(--mono);font-size:12px;color:var(--text)">export_customer_data</div>
+            <div style="font-family:var(--mono);font-size:12px;color:var(--text)">bulk_customer_upload</div>
             <div style="font-family:var(--mono);font-size:11px;color:var(--red);margin-top:2px">48,000 records · all segments · PII</div>
           </div>
         </div>
@@ -828,7 +828,7 @@
           <span class="badge badge-purple">CVD-BLOCK</span>
           <span style="font-size:11px;color:var(--text-muted);font-family:var(--mono)">14:38:22</span>
         </div>
-        <div style="font-size:12px;font-weight:600">compliance-agent → bulk_archive_records</div>
+        <div style="font-size:12px;font-weight:600">carol@demo.org → Gemini · bulk_data_query</div>
         <div style="font-size:11px;color:var(--text-muted);margin-top:3px">Risk state changed since approval · context validated at request time, invalidated at execution · Blocked</div>
       </div>
     </div>
@@ -914,7 +914,7 @@
   <!-- ══ DISCOVER: SOURCES ══ -->
   <div id="page-disc-sources" class="page">
     <div class="page-header">
-      <div><div class="page-title">Discovery Sources</div><div class="page-desc">Connected integrations scanning for NHIs, AI tools, and credential surface across your environment</div></div>
+      <div><div class="page-title">Discovery Sources</div><div class="page-desc">Browser extensions deployed across managed devices — observing AI tool usage, intercepting API calls, and classifying data exposure in real time</div></div>
       <button class="btn btn-primary" onclick="openAddSourceModal()">+ Add Source</button>
     </div>
     <div id="disc-sources-grid" class="source-grid"></div>
@@ -930,17 +930,16 @@
   <!-- ══ DISCOVER: INVENTORY ══ -->
   <div id="page-disc-inventory" class="page">
     <div class="page-header">
-      <div><div class="page-title">Inventory</div><div class="page-desc">Canonical NHIs, AI tools, services, and principals discovered across all sources — deduplicated and risk-classified</div></div>
+      <div><div class="page-title">Inventory</div><div class="page-desc">AI tools, API endpoints, and users detected via browser extension — deduplicated, ownership-mapped, and risk-classified</div></div>
     </div>
     <div class="inv-filters">
-      <button class="inv-type-tab active" onclick="invFilter('all',this)">All <span style="margin-left:4px;opacity:0.6">24</span></button>
-      <button class="inv-type-tab" onclick="invFilter('nhi',this)">NHI <span style="margin-left:4px;opacity:0.6">9</span></button>
-      <button class="inv-type-tab" onclick="invFilter('ai_tool',this)">AI Tool <span style="margin-left:4px;opacity:0.6">7</span></button>
-      <button class="inv-type-tab" onclick="invFilter('service',this)">Service <span style="margin-left:4px;opacity:0.6">5</span></button>
-      <button class="inv-type-tab" onclick="invFilter('principal',this)">Principal <span style="margin-left:4px;opacity:0.6">3</span></button>
+      <button class="inv-type-tab active" onclick="invFilter('all',this)">All <span style="margin-left:4px;opacity:0.6">19</span></button>
+      <button class="inv-type-tab" onclick="invFilter('ai_tool',this)">AI Tool <span style="margin-left:4px;opacity:0.6">9</span></button>
+      <button class="inv-type-tab" onclick="invFilter('service',this)">API Endpoint <span style="margin-left:4px;opacity:0.6">5</span></button>
+      <button class="inv-type-tab" onclick="invFilter('principal',this)">User <span style="margin-left:4px;opacity:0.6">5</span></button>
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
         <input class="search-input" placeholder="Search inventory…" oninput="invSearch(this.value)" style="width:180px">
-        <span class="audit-count" id="inv-count">24 items</span>
+        <span class="audit-count" id="inv-count">19 items</span>
       </div>
     </div>
     <div class="table-wrap"><table>
@@ -952,7 +951,7 @@
   <!-- ══ DISCOVER: FINDINGS ══ -->
   <div id="page-disc-findings" class="page">
     <div class="page-header">
-      <div><div class="page-title">Findings</div><div class="page-desc">Prioritized issues surfaced from discovery — unknown NHIs, unapproved AI usage, ownership gaps, stale coverage</div></div>
+      <div><div class="page-title">Findings</div><div class="page-desc">Prioritized issues from browser observation — unsanctioned AI tools, sensitive data in prompts, unapproved usage patterns</div></div>
     </div>
     <!-- DISCOVER → ALLOW motion banner -->
     <div style="display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(6,182,212,0.07),rgba(99,102,241,0.07));border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:12px 16px;margin-bottom:16px">
@@ -971,7 +970,7 @@
       <button class="filter-tab" onclick="findFilter('high',this)">High</button>
       <button class="filter-tab" onclick="findFilter('medium',this)">Medium</button>
       <button class="filter-tab" onclick="findFilter('low',this)">Low</button>
-      <span class="audit-count" id="find-count" style="margin-left:auto">6 open findings</span>
+      <span class="audit-count" id="find-count" style="margin-left:auto">5 open findings</span>
     </div>
     <div id="disc-findings-list"></div>
   </div>
@@ -979,7 +978,7 @@
   <!-- ══ DISCOVER: MERGE REVIEW ══ -->
   <div id="page-disc-merge" class="page">
     <div class="page-header">
-      <div><div class="page-title">Merge Review</div><div class="page-desc">Soft-match candidates flagged for human review before canonical deduplication — prevents identity fragmentation</div></div>
+      <div><div class="page-title">Merge Review</div><div class="page-desc">AI tools detected under multiple identities — soft-match candidates flagged for review before deduplication</div></div>
     </div>
     <div id="disc-merge-list"></div>
   </div>
@@ -1009,13 +1008,13 @@
         <div class="modal-field">
           <label class="modal-label">Agent</label>
           <select id="nr-agent" class="modal-select" onchange="updateConditionsPreview()">
-            <option value="">All agents</option>
-            <option value="sales-assistant-v2">sales-assistant-v2</option>
-            <option value="finance-bot">finance-bot</option>
-            <option value="hr-bot">hr-bot</option>
-            <option value="support-agent">support-agent</option>
-            <option value="report-generator">report-generator</option>
-            <option value="invoice-processor">invoice-processor</option>
+            <option value="">All users / services</option>
+            <option value="alice@demo.org">alice@demo.org</option>
+            <option value="bob@demo.org">bob@demo.org</option>
+            <option value="carol@demo.org">carol@demo.org</option>
+            <option value="dave@demo.org">dave@demo.org</option>
+            <option value="api.openai.com">api.openai.com (ChatGPT)</option>
+            <option value="api.anthropic.com">api.anthropic.com (Claude)</option>
           </select>
         </div>
         <div class="modal-field">
@@ -1128,10 +1127,10 @@
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>ID</th><th>Agent</th><th>Decision</th><th>Captured</th><th>Sig Hash</th></tr></thead>
       <tbody>
-        <tr><td class="mono">#REC-0441</td><td>sales-assistant-v2</td><td><span class="badge badge-green">Permit</span></td><td>2m ago</td><td class="mono" style="color:var(--text-muted)">a3f9c1b2...</td></tr>
-        <tr><td class="mono">#REC-0440</td><td>finance-bot</td><td><span class="badge badge-red">Deny</span></td><td>8m ago</td><td class="mono" style="color:var(--text-muted)">b72e4a1c...</td></tr>
-        <tr><td class="mono">#REC-0439</td><td>support-agent</td><td><span class="badge badge-yellow">Escalated</span></td><td>14m ago</td><td class="mono" style="color:var(--text-muted)">c18d3fa2...</td></tr>
-        <tr><td class="mono">#REC-0438</td><td>sales-assistant-v2</td><td><span class="badge badge-green">Permit</span></td><td>21m ago</td><td class="mono" style="color:var(--text-muted)">d445b211...</td></tr>
+        <tr><td class="mono">#REC-0441</td><td>alice@demo.org → ChatGPT</td><td><span class="badge badge-green">Permit</span></td><td>2m ago</td><td class="mono" style="color:var(--text-muted)">a3f9c1b2...</td></tr>
+        <tr><td class="mono">#REC-0440</td><td>bob@demo.org → ChatGPT</td><td><span class="badge badge-red">Deny</span></td><td>8m ago</td><td class="mono" style="color:var(--text-muted)">b72e4a1c...</td></tr>
+        <tr><td class="mono">#REC-0439</td><td>dave@demo.org → Claude</td><td><span class="badge badge-yellow">Escalated</span></td><td>14m ago</td><td class="mono" style="color:var(--text-muted)">c18d3fa2...</td></tr>
+        <tr><td class="mono">#REC-0438</td><td>alice@demo.org → ChatGPT</td><td><span class="badge badge-green">Permit</span></td><td>21m ago</td><td class="mono" style="color:var(--text-muted)">d445b211...</td></tr>
       </tbody>
     </table></div></div>
   </div>
@@ -1155,11 +1154,11 @@
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Record ID</th><th>Agent</th><th>Action</th><th>Outcome</th><th>Timestamp</th><th>Integrity</th></tr></thead>
       <tbody>
-        <tr><td class="mono">#REC-0442</td><td>support-agent</td><td>access_pii</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:38:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0441</td><td>sales-assistant-v2</td><td>send_email</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:23:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0440</td><td>finance-bot</td><td>wire_transfer</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:17:44</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0439</td><td>support-agent</td><td>access_pii</td><td><span class="badge badge-yellow">Escalated</span></td><td class="mono">2026-05-05 14:11:22</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0438</td><td>hr-bot</td><td>read_salary_data</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:02:33</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0442</td><td>dave@demo.org → Claude</td><td>customer PII query</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:38:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0441</td><td>alice@demo.org → ChatGPT</td><td>support query</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:23:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0440</td><td>bob@demo.org → ChatGPT</td><td>financial data in prompt</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:17:44</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0439</td><td>dave@demo.org → Claude</td><td>PII query · escalated</td><td><span class="badge badge-yellow">Escalated</span></td><td class="mono">2026-05-05 14:11:22</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0438</td><td>carol@demo.org → Gemini</td><td>HR data in prompt</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:02:33</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
       </tbody>
     </table></div></div>
   </div>
@@ -1184,18 +1183,18 @@
       <tbody>
         <tr style="background:rgba(239,68,68,0.04)">
           <td class="mono">14:31:08</td>
-          <td>salesforce-agent</td>
-          <td class="mono" style="color:var(--text-muted)">read_contacts → crm/contacts/outreach-list<br><span style="font-size:10px;color:var(--text-muted);font-style:italic">described as: "pull outreach list for campaign"</span></td>
-          <td class="mono" style="color:#f97316">bulk_export_contacts → crm/contacts/all-customers<br><span style="font-size:10px;color:#f97316">(47,000 records · includes PII · all segments)</span></td>
+          <td>alice@demo.org → DeepSeek</td>
+          <td class="mono" style="color:var(--text-muted)">standard query → "summarize Q1 highlights"<br><span style="font-size:10px;color:var(--text-muted);font-style:italic">described as: "pull outreach list for campaign"</span></td>
+          <td class="mono" style="color:#f97316">bulk prompt upload → 47,000 customer records attached<br><span style="font-size:10px;color:#f97316">(full CRM export · includes PII · all segments)</span></td>
           <td><span class="badge badge-orange" title="Cl. 10 — Authorization obtained through misleading description of intended action">Deceptive framing · Cl. 10</span></td>
           <td class="mono" style="color:var(--red)">0.08</td>
           <td><span class="badge badge-red">Blocked</span></td>
         </tr>
-        <tr><td class="mono">14:23:01</td><td>sales-assistant-v2</td><td class="mono">send_email → crm/contacts/291</td><td class="mono">send_email → crm/contacts/291</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">0.99</td><td><span class="badge badge-green">Released</span></td></tr>
-        <tr><td class="mono">14:21:44</td><td>support-agent</td><td class="mono">access_pii → profile/8841</td><td class="mono">access_pii → profile/8841</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">0.97</td><td><span class="badge badge-yellow">Escalating</span></td></tr>
-        <tr><td class="mono">14:18:12</td><td>finance-bot</td><td class="mono">wire_transfer → bank/$8,200</td><td class="mono">wire_transfer → bank/$12,500</td><td><span class="badge badge-red">Scope drift</span></td><td class="mono">0.41</td><td><span class="badge badge-red">Blocked</span></td></tr>
-        <tr><td class="mono">14:14:01</td><td>support-agent</td><td class="mono">update_ticket → tickets/2271</td><td class="mono">update_ticket → tickets/2271</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">1.00</td><td><span class="badge badge-green">Released</span></td></tr>
-        <tr><td class="mono">14:09:33</td><td>report-generator</td><td class="mono">export_pdf → reports/q1-2026</td><td class="mono">export_pdf → reports/q1-2026</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">0.98</td><td><span class="badge badge-green">Released</span></td></tr>
+        <tr><td class="mono">14:23:01</td><td>alice@demo.org → ChatGPT</td><td class="mono">query → support/tickets/291</td><td class="mono">query → support/tickets/291</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">0.99</td><td><span class="badge badge-green">Released</span></td></tr>
+        <tr><td class="mono">14:21:44</td><td>dave@demo.org → Claude</td><td class="mono">customer PII query → profile/8841</td><td class="mono">customer PII query → profile/8841</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">0.97</td><td><span class="badge badge-yellow">Escalating</span></td></tr>
+        <tr><td class="mono">14:18:12</td><td>bob@demo.org → ChatGPT</td><td class="mono">Q1 financial summary → 500 rows</td><td class="mono">full ledger export → 48,000 rows</td><td><span class="badge badge-red">Scope drift</span></td><td class="mono">0.41</td><td><span class="badge badge-red">Blocked</span></td></tr>
+        <tr><td class="mono">14:14:01</td><td>dave@demo.org → Claude</td><td class="mono">ticket summary → tickets/2271</td><td class="mono">ticket summary → tickets/2271</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">1.00</td><td><span class="badge badge-green">Released</span></td></tr>
+        <tr><td class="mono">14:09:33</td><td>carol@demo.org → Gemini</td><td class="mono">generate report → q1-2026 summary</td><td class="mono">generate report → q1-2026 summary</td><td><span class="badge badge-green">Exact match</span></td><td class="mono">0.98</td><td><span class="badge badge-green">Released</span></td></tr>
       </tbody>
     </table></div></div>
     <div class="card" style="margin-top:16px">
@@ -1203,7 +1202,7 @@
       <div style="font-size:13px;color:var(--text-dim);line-height:1.7">
         When a user approves an action, VisIQ generates an authorization artifact <span style="font-family:var(--mono);color:var(--primary-hover)">(R1)</span> — a cryptographically signed record of exactly what was approved. At execution, VisIQ intercepts the agent's outbound action <span style="font-family:var(--mono);color:var(--primary-hover)">(R2)</span> and validates it against R1. If R2 does not match R1 in scope, parameters, resource, or identity — execution is blocked before it reaches any external system. <strong style="color:var(--text)">Not monitored. Not logged. Blocked.</strong>
         <br><br>
-        P19 also detects <strong style="color:#f97316">Cl. 10 — Deceptive Framing</strong>: when an agent describes its intended action misleadingly to obtain approval, then executes a materially different action at runtime. Confidence scores below 0.25 on the alignment vector trigger automatic blocking regardless of whether the action falls within nominal scope boundaries.
+        P19 also detects <strong style="color:#f97316">Cl. 10 — Deceptive Framing</strong>: when a user describes their intended query misleadingly to obtain approval, then submits a materially different prompt at runtime. Confidence scores below 0.25 on the alignment vector trigger automatic blocking regardless of whether the action falls within nominal scope boundaries.
       </div>
     </div>
   </div>
@@ -1215,28 +1214,28 @@
       <thead><tr><th>Time</th><th>Agent</th><th>Approval t₀</th><th>Exec t-exec</th><th>Δ System</th><th>Δ Data</th><th>Δ Risk</th><th>CVD Result</th></tr></thead>
       <tbody>
         <tr>
-          <td class="mono">14:38:22</td><td>compliance-agent</td><td class="mono">14:34:18</td><td class="mono">14:38:22</td>
+          <td class="mono">14:38:22</td><td>bob@demo.org → ChatGPT</td><td class="mono">14:34:18</td><td class="mono">14:38:22</td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-red">Changed</span></td>
           <td><span class="badge badge-red">↑ 0.94</span></td>
           <td><span class="badge badge-red">BLOCKED</span></td>
         </tr>
         <tr>
-          <td class="mono">14:23:01</td><td>sales-assistant-v2</td><td class="mono">14:22:58</td><td class="mono">14:23:01</td>
+          <td class="mono">14:23:01</td><td>alice@demo.org → ChatGPT</td><td class="mono">14:22:58</td><td class="mono">14:23:01</td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-green">Stable</span></td>
           <td><span class="badge badge-green">VALID</span></td>
         </tr>
         <tr>
-          <td class="mono">14:21:44</td><td>support-agent</td><td class="mono">14:21:41</td><td class="mono">14:21:44</td>
+          <td class="mono">14:21:44</td><td>dave@demo.org → Claude</td><td class="mono">14:21:41</td><td class="mono">14:21:44</td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-green">Stable</span></td>
           <td><span class="badge badge-green">VALID</span></td>
         </tr>
         <tr>
-          <td class="mono">14:09:33</td><td>report-generator</td><td class="mono">14:09:30</td><td class="mono">14:09:33</td>
+          <td class="mono">14:09:33</td><td>carol@demo.org → Gemini</td><td class="mono">14:09:30</td><td class="mono">14:09:33</td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-green">Clean</span></td>
           <td><span class="badge badge-green">Stable</span></td>
@@ -1513,7 +1512,7 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
 
 <span class="code-comment">// Auto-called by other modules — or call directly:</span>
 <span class="code-kw">const</span> receipt = <span class="code-kw">await</span> chain.<span class="code-fn">record</span>({
-  decision: <span class="code-str">'deny'</span>, agent: <span class="code-str">'finance-bot'</span>,
+  decision: <span class="code-str">'deny'</span>, agent: <span class="code-str">'bob@demo.org'</span>,
   action: <span class="code-str">'wire_transfer'</span>, rule: <span class="code-str">'Block >$10K'</span>
 });
 <span class="code-comment">// receipt.sig → Ed25519:a3f9c12b…</span>
@@ -1703,112 +1702,110 @@ const RULES = [
 ];
 
 const AGENTS = [
-  { name: "sales-assistant-v2", desc: "Customer outreach and CRM management",       scopes: ["read_crm","send_email","read_contacts","apply_discount"],      requests: 218, status: "active" },
-  { name: "finance-bot",        desc: "Ledger reads and transaction routing",        scopes: ["read_ledger","wire_transfer","approve_payment"],                requests:  61, status: "active" },
-  { name: "support-agent",      desc: "Customer support and ticket handling",        scopes: ["read_tickets","update_tickets","access_pii"],                   requests: 107, status: "active" },
-  { name: "hr-bot",             desc: "HR data access, reporting, and lifecycle",    scopes: ["read_employee","read_salary","read_org","terminate_employee"],   requests:  44, status: "active" },
-  { name: "report-generator",   desc: "Automated report compilation and export",     scopes: ["read_all","export_pdf"],                                        requests: 224, status: "active" },
-  { name: "invoice-processor",  desc: "AP invoice parsing and approval routing",     scopes: ["read_invoices","approve_payment_small"],                        requests:  68, status: "active" },
-  { name: "onboarding-bot",     desc: "New employee onboarding workflows",           scopes: ["create_accounts","send_email","read_hr"],                       requests:  31, status: "paused" },
-  { name: "devops-agent",       desc: "Infrastructure ops and deployment automation",scopes: ["restart_service","deploy_to_production","update_config"],       requests:  29, status: "active" },
-  { name: "compliance-agent",   desc: "Regulatory compliance and data retention",    scopes: ["bulk_archive_records","read_audit_log","generate_report"],      requests:  18, status: "active" },
-  { name: "legal-agent",        desc: "Contract drafting and matter management",     scopes: ["read_contract","draft_clause","send_settlement_offer"],         requests:  12, status: "active" },
-  { name: "data-export-agent",  desc: "Customer data segmentation and export",       scopes: ["export_customer_data","read_segments","generate_manifest"],     requests:  23, status: "active" }
+  { name: "alice@demo.org",      desc: "Customer support — ChatGPT, Claude (approved)",            scopes: ["query_ai","upload_docs","export_summary"],          requests: 218, status: "active" },
+  { name: "bob@demo.org",        desc: "Finance — ChatGPT (limited approval)",                     scopes: ["query_ai","read_summary"],                          requests:  61, status: "active" },
+  { name: "carol@demo.org",      desc: "HR — Gemini (read-only policy)",                           scopes: ["query_ai"],                                         requests: 107, status: "active" },
+  { name: "dave@demo.org",       desc: "Customer support — Claude (approved, PII escalation)",     scopes: ["query_ai","upload_docs"],                           requests:  44, status: "active" },
+  { name: "api.openai.com",      desc: "ChatGPT — primary approved AI service",                    scopes: ["receive_query","return_response"],                  requests: 312, status: "active" },
+  { name: "api.anthropic.com",   desc: "Claude — approved AI service (support tier)",              scopes: ["receive_query","return_response"],                  requests: 148, status: "active" },
+  { name: "generativelanguage.googleapis.com", desc: "Gemini — approved, HR read-only",           scopes: ["receive_query","return_response"],                  requests:  84, status: "active" },
+  { name: "api.deepseek.com",    desc: "DeepSeek — unsanctioned, blocked",                        scopes: [],                                                   requests:  12, status: "paused" },
+  { name: "api.perplexity.ai",   desc: "Perplexity — under review",                               scopes: ["query_ai"],                                         requests:  19, status: "active" }
 ];
 
 const AUDIT = [
   // ── Case Study: Finance / Payments ───────────────────────────────────────────
-  { time:"15:09:14", agent:"bulk_payment_processor", action:"release_vendor_batch",      resource:"ap/vendor-batch/VB-4481",         decision:"invalidated", lat:"12ms", rule:"P20 · Scope Expansion · recipients 12→148" },
-  { time:"15:07:52", agent:"billing-agent",           action:"refund_customer_credit",    resource:`billing/credits/${R.creditId}`,   decision:"hitl",        lat:"8ms",  rule:"Credit >$500 gate" },
-  { time:"15:06:33", agent:"finance-bot",             action:"wire_transfer",             resource:"bank/transfer/$18,400",           decision:"invalidated", lat:"9ms",  rule:"P20 · Risk Escalation · score 0.41→0.87" },
+  { time:"15:09:14", agent:"bob@demo.org → ChatGPT",     action:"financial_data_upload",      resource:"api.openai.com/v1/chat",         decision:"invalidated", lat:"12ms", rule:"P20 · Scope Expansion · data volume exceeded approved threshold" },
+  { time:"15:07:52", agent:"dave@demo.org → Claude",  action:"customer_pii_query",        resource:`api.anthropic.com/v1/messages`,   decision:"hitl",        lat:"8ms",  rule:"PII escalation gate" },
+  { time:"15:06:33", agent:"bob@demo.org → ChatGPT",  action:"bulk_data_prompt",          resource:"api.openai.com/v1/chat",          decision:"invalidated", lat:"9ms",  rule:"P20 · Risk Escalation · risk score 0.41→0.87" },
   { time:"15:05:11", agent:"finance-agent",           action:"approve_invoice_payment",   resource:"ap/invoices/INV-9914",            decision:"permit",      lat:"4ms",  rule:"Permit reads" },
-  // ── Case Study: Salesforce / CRM ─────────────────────────────────────────────
-  { time:"15:04:02", agent:"salesforce-agent",        action:"bulk_export_contacts",      resource:"crm/contacts/all-contacts",       decision:"invalidated", lat:"11ms", rule:"P20 · Scope Expansion · dataset expanded post-auth" },
-  { time:"15:02:44", agent:"crm-agent",               action:"export_customer_pipeline",  resource:"crm/pipeline/enterprise-q2",      decision:"deny",        lat:"6ms",  rule:"PII scope exceeded" },
-  { time:"15:01:33", agent:"sales-assistant",         action:"update_opportunity_stage",  resource:"crm/opportunities/OPP-4420",      decision:"permit",      lat:"5ms",  rule:"CRM write gate" },
+  // ── Case Study: DeepSeek / Shadow AI ──────────────────────────────────────────
+  { time:"15:04:02", agent:"alice@demo.org → DeepSeek", action:"upload_customer_data",   resource:"api.deepseek.com/v1/chat",        decision:"invalidated", lat:"11ms", rule:"P20 · Scope Expansion · dataset expanded post-auth" },
+  { time:"15:02:44", agent:"carol@demo.org → Gemini", action:"hr_data_upload",            resource:"generativelanguage.googleapis.com",decision:"deny",        lat:"6ms",  rule:"HR data scope exceeded" },
+  { time:"15:01:33", agent:"alice@demo.org → ChatGPT", action:"support_query",            resource:"api.openai.com/v1/chat",          decision:"permit",      lat:"5ms",  rule:"Standard query gate" },
   // ── Case Study: HR / Payroll ──────────────────────────────────────────────────
-  { time:"14:59:18", agent:"payroll-agent",           action:"update_compensation_band",  resource:"hr/compensation/band-4",          decision:"invalidated", lat:"10ms", rule:"P20 · Policy Drift · policy version changed post-auth" },
+  { time:"14:59:18", agent:"carol@demo.org → Gemini",  action:"hr_data_prompt",           resource:"generativelanguage.googleapis.com",decision:"invalidated", lat:"10ms", rule:"P20 · Policy Drift · policy version changed post-auth" },
   // ── Case Study: Security Operations ──────────────────────────────────────────
-  { time:"14:57:44", agent:"incident-agent",          action:"purge_s3_bucket",           resource:"s3://prod-logs-archive",          decision:"invalidated", lat:"14ms", rule:"P20 · Env Contamination · escalated to production-critical" },
-  { time:"14:56:08", agent:"security-bot",            action:"rotate_prod_credentials",   resource:`secrets/prod/${R.secKeyId}`,      decision:"hitl",        lat:"7ms",  rule:"Production credential gate" },
+  { time:"14:57:44", agent:"dave@demo.org → Claude",   action:"source_code_prompt",       resource:"api.anthropic.com/v1/messages",   decision:"invalidated", lat:"14ms", rule:"P20 · Env Contamination · IP-classified code detected in prompt" },
+  { time:"14:56:08", agent:"dave@demo.org → Claude",  action:"credential_query",          resource:`api.anthropic.com/v1/messages`,   decision:"hitl",        lat:"7ms",  rule:"Credential query escalation gate" },
   { time:"14:54:21", agent:"threat-agent",            action:"disable_identity_provider", resource:"idp/okta/workforce",              decision:"deny",        lat:"9ms",  rule:"Identity Provider lock gate" },
-  { time:"14:52:55", agent:"soc-agent",               action:"isolate_endpoint",          resource:"endpoint/host-WIN-4421",          decision:"permit",      lat:"5ms",  rule:"SOC response gate" },
+  { time:"14:52:55", agent:"carol@demo.org → Gemini", action:"standard_query",            resource:"generativelanguage.googleapis.com",decision:"permit",      lat:"5ms",  rule:"Standard query gate" },
   // ── Case Study: Support / Customer Success ────────────────────────────────────
-  { time:"14:50:12", agent:"customer-agent",          action:"issue_service_credit",      resource:`billing/credits/${R.custCreditId}`,decision:"hitl",       lat:"6ms",  rule:"Credit >$500 gate" },
-  { time:"14:49:01", agent:"support-agent",           action:"reset_customer_password",   resource:"customer/accounts/ACC-4482",      decision:"permit",      lat:"4ms",  rule:"Support write gate" },
+  { time:"14:50:12", agent:"alice@demo.org → ChatGPT", action:"pii_data_in_prompt",       resource:`api.openai.com/v1/chat`,           decision:"hitl",       lat:"6ms",  rule:"PII escalation gate" },
+  { time:"14:49:01", agent:"alice@demo.org → ChatGPT", action:"ticket_resolution_query", resource:"api.openai.com/v1/chat",           decision:"permit",      lat:"4ms",  rule:"Support query gate" },
   // ── Case Study: DevOps / Cloud ────────────────────────────────────────────────
-  { time:"14:48:44", agent:"deployment-agent",        action:"promote_release_candidate", resource:"releases/backend-v4.2.0",         decision:"invalidated", lat:"13ms", rule:"P20 · Dependency Mutation · dep graph changed post-auth" },
+  { time:"14:48:44", agent:"bob@demo.org → ChatGPT",  action:"source_code_upload",        resource:"api.openai.com/v1/chat",           decision:"invalidated", lat:"13ms", rule:"P20 · Dependency Mutation · code repo context changed post-auth" },
   { time:"14:47:02", agent:"infra-agent",             action:"delete_production_cluster", resource:"k8s/prod/cluster-main",           decision:"deny",        lat:"8ms",  rule:"Production cluster lock" },
   { time:"14:45:33", agent:"deploy-agent",            action:"restart_kubernetes_pod",    resource:"k8s/prod/payment-api-6b4d",       decision:"permit",      lat:"4ms",  rule:"Infra ops gate" },
   // ── Existing entries ──────────────────────────────────────────────────────────
-  { time:"14:38:22", agent:"compliance-agent",   action:"bulk_archive_records",  resource:`crm/accounts/${R.accountTier}`,               decision:"cvd-block", lat:"8ms",  rule:"Runtime Trust (P20)" },
-  { time:"14:36:55", agent:"data-export-agent",  action:"export_customer_data",  resource:`data/customers/all-customers`,                decision:"p19-block", lat:"6ms",  rule:"Runtime Trust (P19)" },
-  { time:"14:35:11", agent:"hr-bot",             action:"terminate_employee",    resource:`hr/employees/${R.empId}`,                     decision:"hitl",      lat:"5ms",  rule:"Irreversible action gate" },
-  { time:"14:33:44", agent:"devops-agent",       action:"deploy_to_production",  resource:`services/payment-api/${R.deployVer}`,         decision:"hitl",      lat:"7ms",  rule:"Production deploy gate" },
+  { time:"14:38:22", agent:"carol@demo.org → Gemini", action:"bulk_data_query",  resource:`generativelanguage.googleapis.com`,           decision:"cvd-block", lat:"8ms",  rule:"Runtime Trust (P20)" },
+  { time:"14:36:55", agent:"alice@demo.org → DeepSeek", action:"upload_customer_data", resource:`api.deepseek.com/v1/chat`,             decision:"p19-block", lat:"6ms",  rule:"Runtime Trust (P19)" },
+  { time:"14:35:11", agent:"carol@demo.org → Gemini", action:"hr_data_upload",  resource:`generativelanguage.googleapis.com`,            decision:"hitl",      lat:"5ms",  rule:"HR data escalation gate" },
+  { time:"14:33:44", agent:"dave@demo.org → Claude", action:"code_review_upload", resource:`api.anthropic.com/v1/messages`,              decision:"hitl",      lat:"7ms",  rule:"Source code upload gate" },
   { time:"14:31:20", agent:"legal-agent",        action:"send_settlement_offer", resource:`legal/matters/${R.caseId}`,                   decision:"hitl",      lat:"9ms",  rule:"Legal action escalation" },
-  { time:"14:29:08", agent:"sales-assistant-v2", action:"apply_discount",        resource:`crm/deals/${R.dealId}`,                       decision:"hitl",      lat:"5ms",  rule:"Discount >25% gate" },
-  { time:"14:27:33", agent:"sales-assistant-v2", action:"read_crm",              resource:"crm/accounts/88",                             decision:"permit",    lat:"4ms",  rule:"Allow CRM reads" },
+  { time:"14:29:08", agent:"alice@demo.org → ChatGPT", action:"discount_analysis_query", resource:`api.openai.com/v1/chat`,              decision:"hitl",      lat:"5ms",  rule:"Sensitive deal data gate" },
+  { time:"14:27:33", agent:"alice@demo.org → ChatGPT", action:"standard_query",  resource:"api.openai.com/v1/chat",                     decision:"permit",    lat:"4ms",  rule:"Standard query gate" },
   { time:"14:25:14", agent:"report-generator",   action:"export_pdf",            resource:"reports/board-may-2026",                      decision:"permit",    lat:"5ms",  rule:"Permit reads" },
-  { time:"14:23:01", agent:"sales-assistant-v2", action:"send_email",            resource:"crm/contacts/291",                            decision:"permit",    lat:R.lats[0], rule:"Allow CRM reads" },
-  { time:"14:22:18", agent:"finance-bot",        action:"wire_transfer",         resource:"bank/transfer/$12,500",                       decision:"deny",      lat:R.lats[1], rule:"Block >$10K" },
-  { time:"14:21:44", agent:"support-agent",      action:"access_pii",            resource:`customer/profile/${R.profileA}`,              decision:"hitl",      lat:R.lats[2], rule:"Escalate PII" },
+  { time:"14:23:01", agent:"alice@demo.org → ChatGPT", action:"ticket_query",    resource:"api.openai.com/v1/chat",                     decision:"permit",    lat:R.lats[0], rule:"Standard query gate" },
+  { time:"14:22:18", agent:"bob@demo.org → ChatGPT", action:"financial_data_prompt", resource:"api.openai.com/v1/chat",                 decision:"deny",      lat:R.lats[1], rule:"Block financial PII upload" },
+  { time:"14:21:44", agent:"dave@demo.org → Claude", action:"pii_query",         resource:`api.anthropic.com/v1/messages`,               decision:"hitl",      lat:R.lats[2], rule:"Escalate PII" },
   { time:"14:20:31", agent:"report-generator",   action:"export_pdf",            resource:"reports/q1-2026",                             decision:"permit",    lat:R.lats[3], rule:"Permit reads" },
-  { time:"14:19:07", agent:"hr-bot",             action:"read_salary_data",      resource:"hr/employees/all",                            decision:"deny",      lat:R.lats[4], rule:"Salary data locked" },
-  { time:"14:18:44", agent:"sales-assistant-v2", action:"read_crm",              resource:"crm/accounts/55",                             decision:"permit",    lat:R.lats[5], rule:"Allow CRM reads" },
-  { time:"14:17:22", agent:"finance-bot",        action:"read_ledger",           resource:"finance/ledger/2026",                         decision:"permit",    lat:R.lats[6], rule:"Permit reads" },
+  { time:"14:19:07", agent:"carol@demo.org → Gemini", action:"salary_data_prompt", resource:"generativelanguage.googleapis.com",         decision:"deny",      lat:R.lats[4], rule:"Salary data in prompt blocked" },
+  { time:"14:18:44", agent:"alice@demo.org → ChatGPT", action:"standard_query",  resource:"api.openai.com/v1/chat",                     decision:"permit",    lat:R.lats[5], rule:"Standard query gate" },
+  { time:"14:17:22", agent:"bob@demo.org → ChatGPT", action:"ledger_summary_query", resource:"api.openai.com/v1/chat",                  decision:"permit",    lat:R.lats[6], rule:"Permit summary queries" },
   { time:"14:16:09", agent:"invoice-processor",  action:"approve_payment",       resource:`ap/invoices/${R.invoiceA}`,                   decision:"permit",    lat:R.lats[7], rule:"Permit reads" },
   { time:"14:15:33", agent:"onboarding-bot",     action:"send_email",            resource:"hr/new_hire/welcome",                         decision:"deny",      lat:R.lats[8], rule:"After-hours block" },
-  { time:"14:14:01", agent:"support-agent",      action:"update_ticket",         resource:"support/tickets/2288",                        decision:"permit",    lat:R.lats[9], rule:"Permit reads" },
-  { time:"14:12:44", agent:"data-export-agent",  action:"export_customer_data",  resource:"data/customers/premium-tier",                 decision:"permit",    lat:"7ms",  rule:"Authorized export" },
-  { time:"14:11:20", agent:"devops-agent",       action:"restart_service",       resource:"services/cache-layer",                        decision:"permit",    lat:"3ms",  rule:"Infra ops gate" },
+  { time:"14:14:01", agent:"dave@demo.org → Claude", action:"ticket_query",      resource:"api.anthropic.com/v1/messages",               decision:"permit",    lat:R.lats[9], rule:"Permit support queries" },
+  { time:"14:12:44", agent:"alice@demo.org → DeepSeek", action:"premium_tier_upload", resource:"api.deepseek.com/v1/chat",              decision:"permit",    lat:"7ms",  rule:"Authorized query" },
+  { time:"14:11:20", agent:"dave@demo.org → Claude", action:"standard_query",    resource:"api.anthropic.com/v1/messages",               decision:"permit",    lat:"3ms",  rule:"Standard query gate" },
   { time:"14:10:05", agent:"legal-agent",        action:"read_contract",         resource:"legal/contracts/MSA-2811",                    decision:"permit",    lat:"5ms",  rule:"Permit reads" },
-  { time:"14:08:33", agent:"finance-bot",        action:"approve_payment",       resource:"ap/invoices/4470",                            decision:"permit",    lat:"6ms",  rule:"Permit reads" },
-  { time:"14:07:18", agent:"hr-bot",             action:"read_org_chart",        resource:"hr/org/company",                              decision:"permit",    lat:"4ms",  rule:"Permit reads" },
-  { time:"14:06:01", agent:"sales-assistant-v2", action:"send_email",            resource:"crm/contacts/188",                            decision:"permit",    lat:"5ms",  rule:"Allow CRM reads" },
+  { time:"14:08:33", agent:"bob@demo.org → ChatGPT", action:"invoice_summary_query", resource:"api.openai.com/v1/chat",                 decision:"permit",    lat:"6ms",  rule:"Permit summary queries" },
+  { time:"14:07:18", agent:"carol@demo.org → Gemini", action:"org_summary_query", resource:"generativelanguage.googleapis.com",          decision:"permit",    lat:"4ms",  rule:"Permit standard queries" },
+  { time:"14:06:01", agent:"alice@demo.org → ChatGPT", action:"standard_query",  resource:"api.openai.com/v1/chat",                     decision:"permit",    lat:"5ms",  rule:"Standard query gate" },
   { time:"14:04:44", agent:"onboarding-bot",     action:"create_account",        resource:"systems/gsuite/new",                          decision:"deny",      lat:"8ms",  rule:"Account creation gate" },
-  { time:"14:03:22", agent:"support-agent",      action:"access_pii",            resource:"customer/profile/9211",                       decision:"deny",      lat:"6ms",  rule:"Escalate PII" },
+  { time:"14:03:22", agent:"dave@demo.org → Claude", action:"pii_query",         resource:"api.anthropic.com/v1/messages",               decision:"deny",      lat:"6ms",  rule:"Block PII without escalation" },
   { time:"14:02:10", agent:"report-generator",   action:"export_pdf",            resource:"reports/finance-weekly",                      decision:"permit",    lat:"5ms",  rule:"Permit reads" },
-  { time:"14:01:07", agent:"compliance-agent",   action:"read_audit_log",        resource:"logs/2026-05-05",                             decision:"permit",    lat:"4ms",  rule:"Permit reads" },
+  { time:"14:01:07", agent:"bob@demo.org → ChatGPT", action:"audit_summary_query", resource:"api.openai.com/v1/chat",                   decision:"permit",    lat:"4ms",  rule:"Permit standard queries" },
   { time:"14:00:33", agent:"invoice-processor",  action:"approve_payment",       resource:"ap/invoices/4469",                            decision:"permit",    lat:"6ms",  rule:"Permit reads" },
-  { time:"13:58:44", agent:"finance-bot",        action:"wire_transfer",         resource:"bank/transfer/$9,800",                        decision:"permit",    lat:"5ms",  rule:"Within limit" },
-  { time:"13:57:20", agent:"devops-agent",       action:"update_config",         resource:"services/api-gateway/env",                    decision:"deny",      lat:"7ms",  rule:"Config change gate" },
+  { time:"13:58:44", agent:"bob@demo.org → ChatGPT", action:"financial_query",   resource:"api.openai.com/v1/chat",                     decision:"permit",    lat:"5ms",  rule:"Within approved scope" },
+  { time:"13:57:20", agent:"dave@demo.org → Claude", action:"source_code_upload", resource:"api.anthropic.com/v1/messages",              decision:"deny",      lat:"7ms",  rule:"Source code upload blocked" },
   { time:"13:55:11", agent:"legal-agent",        action:"draft_clause",          resource:"legal/templates/nda",                         decision:"permit",    lat:"4ms",  rule:"Permit reads" },
-  { time:"13:53:44", agent:"hr-bot",             action:"update_employee",       resource:`hr/employees/${R.empId}`,                     decision:"permit",    lat:"5ms",  rule:"Permit reads" },
-  { time:"13:52:01", agent:"sales-assistant-v2", action:"read_crm",              resource:"crm/deals/DEAL-68230",                        decision:"permit",    lat:"6ms",  rule:"Allow CRM reads" },
-  { time:"13:50:33", agent:"data-export-agent",  action:"export_customer_data",  resource:"data/customers/premium-tier",                 decision:"permit",    lat:"7ms",  rule:"Authorized export" },
-  { time:"13:49:20", agent:"support-agent",      action:"update_ticket",         resource:"support/tickets/2284",                        decision:"permit",    lat:"5ms",  rule:"Permit reads" },
+  { time:"13:53:44", agent:"carol@demo.org → Gemini", action:"hr_query",         resource:`generativelanguage.googleapis.com`,            decision:"permit",    lat:"5ms",  rule:"Permit standard queries" },
+  { time:"13:52:01", agent:"alice@demo.org → ChatGPT", action:"deal_summary_query", resource:"api.openai.com/v1/chat",                  decision:"permit",    lat:"6ms",  rule:"Standard query gate" },
+  { time:"13:50:33", agent:"alice@demo.org → DeepSeek", action:"data_query",      resource:"api.deepseek.com/v1/chat",                  decision:"permit",    lat:"7ms",  rule:"Authorized query" },
+  { time:"13:49:20", agent:"dave@demo.org → Claude", action:"ticket_query",      resource:"api.anthropic.com/v1/messages",               decision:"permit",    lat:"5ms",  rule:"Permit support queries" },
   { time:"13:47:55", agent:"invoice-processor",  action:"read_invoices",         resource:"ap/invoices/pending",                         decision:"permit",    lat:"4ms",  rule:"Permit reads" },
-  { time:"13:46:33", agent:"finance-bot",        action:"read_ledger",           resource:"finance/ledger/2026",                         decision:"permit",    lat:"6ms",  rule:"Permit reads" },
+  { time:"13:46:33", agent:"bob@demo.org → ChatGPT", action:"ledger_summary_query", resource:"api.openai.com/v1/chat",                  decision:"permit",    lat:"6ms",  rule:"Permit summary queries" },
   { time:"13:45:11", agent:"report-generator",   action:"read_all",              resource:"analytics/dashboard",                         decision:"permit",    lat:"5ms",  rule:"Permit reads" },
   { time:"13:44:02", agent:"onboarding-bot",     action:"send_email",            resource:"hr/new_hire/offer",                           decision:"deny",      lat:"3ms",  rule:"After-hours block" },
 ];
 
 const HITL = [
-  // ── ★ AHA MOMENT — data-export-agent · approve triggers P19 scope drift auto-block ─
+  // ── ★ AHA MOMENT — alice@demo.org/DeepSeek · approve triggers P19 scope drift auto-block ─
   {
     id: `H-EXP-${R.exportId}`,
-    agent: "data-export-agent",
-    action: "export_customer_data",
-    resource: `data/customers/${R.exportSegment}`,
+    agent: "alice@demo.org → DeepSeek",
+    action: "bulk_customer_upload",
+    resource: `api.deepseek.com/v1/chat`,
     urgency: "critical",
     created: `${R.minG} minutes ago`,
     session: R.sidH,
-    callChain: ["Export Scheduler", "data-export-agent v2.1", "export_customer_data call"],
+    callChain: ["Chrome Extension", "DeepSeek session · alice@demo.org", "Bulk customer data upload intercepted"],
     payload: {
-      agent_id: "data-export-agent",
+      agent_id: "alice@demo.org",
       session_id: R.sidH,
-      action: "export_customer_data",
-      resource: `data/customers/${R.exportSegment}`,
-      context: { export_id: R.exportId, segment: R.exportSegment, record_count: R.exportApproved, format: "CSV", destination: "s3://analytics-external", contains_pii: true }
+      action: "bulk_customer_upload",
+      resource: `api.deepseek.com/v1/chat`,
+      context: { export_id: R.exportId, segment: R.exportSegment, record_count: R.exportApproved, format: "CSV", destination: "DeepSeek session", contains_pii: true }
     },
     approveStream: [
-      { icon:"⏸",  text:"Agent execution paused · awaiting decision",                                                              cls:"step-system",        delay:0 },
-      { icon:"✅",  text:`Decision: APPROVED by Chris Mancuso · export for '${R.exportSegment}' segment (${R.exportApproved.toLocaleString()} records)`, cls:"step-complete", delay:600 },
+      { icon:"⏸",  text:"Session intercepted · awaiting decision",                                                                 cls:"step-system",        delay:0 },
+      { icon:"✅",  text:`Decision: APPROVED by Chris Mancuso · upload for '${R.exportSegment}' segment (${R.exportApproved.toLocaleString()} records)`, cls:"step-complete", delay:600 },
       { icon:"🧠",  text:"P19 · IVAE · Verifying intent alignment at t-exec…",                                                      cls:"step-intent-pending",delay:900 },
-      { icon:"⚠️",  text:`P19 · IVAE · Scope drift detected · agent requesting ${R.exportActual.toLocaleString()} records vs approved ${R.exportApproved.toLocaleString()}`, cls:"step-intent-warn", delay:1400 },
-      { icon:"⚠️",  text:`P19 · IVAE · Resource parameter changed · segment '${R.exportSegment}' → 'all-customers'`,              cls:"step-intent-warn",   delay:2000 },
-      { icon:"🛑",  text:"P19 · IVAE · Execution BLOCKED · agent scope exceeded authorized parameters",                            cls:"step-deny",          delay:2600 },
-      { icon:"🚫",  text:"data-export-agent cannot proceed · must re-request with corrected scope",                                 cls:"step-deny",          delay:3200 },
+      { icon:"⚠️",  text:`P19 · IVAE · Scope drift detected · upload contains ${R.exportActual.toLocaleString()} records vs approved ${R.exportApproved.toLocaleString()}`, cls:"step-intent-warn", delay:1400 },
+      { icon:"⚠️",  text:`P19 · IVAE · Data scope changed · segment '${R.exportSegment}' → 'all-customers'`,                      cls:"step-intent-warn",   delay:2000 },
+      { icon:"🛑",  text:"P19 · IVAE · Upload BLOCKED · data scope exceeded authorized parameters",                               cls:"step-deny",          delay:2600 },
+      { icon:"🚫",  text:"alice@demo.org session blocked · must re-request with corrected scope",                                   cls:"step-deny",          delay:3200 },
       { icon:"🔍",  text:"Scope drift event logged · security team notified · agent session flagged",                               cls:"step-system",        delay:3800 },
       { icon:"→",   text:"P19 block event queued · /visiq/trust · audit pipeline updated",                                         cls:"step-system",        delay:4300 },
       { icon:"🔐",  text:"P19 block recorded · Ed25519 signature applied",                                                          cls:"step-receipt",       delay:4900 },
@@ -1816,28 +1813,28 @@ const HITL = [
     rejectStream: [
       { icon:"⏸",  text:"Agent execution paused · awaiting decision",                                                              cls:"step-system",  delay:0 },
       { icon:"🚫",  text:"Decision: REJECTED by Chris Mancuso",                                                                     cls:"step-deny",    delay:600 },
-      { icon:"🛑",  text:`Export of ${R.exportApproved.toLocaleString()} records blocked · no data transmitted`,                   cls:"step-deny",    delay:1100 },
-      { icon:"🤖",  text:"data-export-agent notified · export cancelled",                                                           cls:"step-system",  delay:1700 },
+      { icon:"🛑",  text:`Upload of ${R.exportApproved.toLocaleString()} records blocked · no data transmitted to DeepSeek`,        cls:"step-deny",    delay:1100 },
+      { icon:"🤖",  text:"alice@demo.org session blocked · upload cancelled",                                                        cls:"step-system",  delay:1700 },
       { icon:"📝",  text:"Rejection logged · data team notified",                                                                   cls:"step-system",  delay:2200 },
       { icon:"→",   text:"Event queued · /visiq/decisions · audit pipeline updated",                                                cls:"step-system",  delay:2700 },
       { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",                                                           cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+9}`, decision:"P19-BLOCK (SCOPE DRIFT)", agent:"data-export-agent", action:`export_customer_data (${R.exportActual.toLocaleString()} records — exceeded authorized ${R.exportApproved.toLocaleString()})`, approver:"VisIQ Runtime · P19", sig:`Ed25519:${R.sigH}` },
-    rejectReceipt:  { id:`REC-${R.recBase+9}`, decision:"BLOCKED (ESCALATED)",             agent:"data-export-agent", action:`export_customer_data (${R.exportApproved.toLocaleString()} records · ${R.exportSegment})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` }
+    approveReceipt: { id:`REC-${R.recBase+9}`, decision:"P19-BLOCK (SCOPE DRIFT)", agent:"alice@demo.org → DeepSeek", action:`bulk_customer_upload (${R.exportActual.toLocaleString()} records — exceeded authorized ${R.exportApproved.toLocaleString()})`, approver:"VisIQ Runtime · P19", sig:`Ed25519:${R.sigH}` },
+    rejectReceipt:  { id:`REC-${R.recBase+9}`, decision:"BLOCKED (ESCALATED)",             agent:"alice@demo.org → DeepSeek", action:`bulk_customer_upload (${R.exportApproved.toLocaleString()} records · ${R.exportSegment})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` }
   },
   {
     id: `H-${R.profileA}`,
-    agent: "support-agent",
-    action: "access_pii",
+    agent: "dave@demo.org → Claude",
+    action: "pii_query",
     resource: `customer/profile/${R.profileA}`,
     urgency: "high",
     created: `${R.minA} minutes ago`,
     session: R.sidA,
-    callChain: ["Zendesk Trigger", `support-agent ${R.agentVer}`, "access_pii call"],
+    callChain: ["Chrome Extension", `claude.ai session · dave@demo.org`, "PII query intercepted"],
     payload: {
-      agent_id: "support-agent",
+      agent_id: "dave@demo.org",
       session_id: R.sidA,
-      action: "access_pii",
+      action: "pii_query",
       resource: `customer/profile/${R.profileA}`,
       context: { ticket_id: R.ticketA, reason: "Customer requested data correction", fields_requested: ["email","phone","address"], risk_score: parseFloat(R.riskA) }
     },
@@ -1847,7 +1844,7 @@ const HITL = [
       { icon:"🧠", text:"Verifying intent alignment…",                                         cls:"step-intent-pending",delay:850 },
       { icon:"✔",  text:`Approval congruent with requested scope (confidence: ${R.confA})`,   cls:"step-intent",        delay:1150 },
       { icon:"🔓", text:`Releasing agent · ${R.sidA} resumed`,                                 cls:"step-complete",      delay:1650 },
-      { icon:"📡", text:`Executing access_pii on customer/profile/${R.profileA}…`,             cls:"step-complete",      delay:2200 },
+      { icon:"📡", text:`Executing pii_query on customer/profile/${R.profileA}…`,              cls:"step-complete",      delay:2200 },
       { icon:"⚠️", text:`${R.retry} timeout · retrying (attempt 2/3)…`,                       cls:"step-warn",          delay:3000 },
       { icon:"⏱", text:`Latency spike detected · ${R.latSpike} · threshold 800ms`,            cls:"step-warn",          delay:3800 },
       { icon:"📋", text:"PII fields retrieved: email, phone, address",                         cls:"step-complete",      delay:4600 },
@@ -1864,23 +1861,23 @@ const HITL = [
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",            cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                       cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+2}`, decision:"RELEASED (ESCALATED)", agent:"support-agent", action:"access_pii", approver:"Chris Mancuso", sig:`Ed25519:${R.sigA}` },
-    rejectReceipt:  { id:`REC-${R.recBase+2}`, decision:"BLOCKED (ESCALATED)",   agent:"support-agent", action:"access_pii", approver:"Chris Mancuso", sig:`Ed25519:${R.sigB}` }
+    approveReceipt: { id:`REC-${R.recBase+2}`, decision:"RELEASED (ESCALATED)", agent:"dave@demo.org → Claude", action:"pii_query", approver:"Chris Mancuso", sig:`Ed25519:${R.sigA}` },
+    rejectReceipt:  { id:`REC-${R.recBase+2}`, decision:"BLOCKED (ESCALATED)",   agent:"dave@demo.org → Claude", action:"pii_query", approver:"Chris Mancuso", sig:`Ed25519:${R.sigB}` }
   },
   {
     id: `H-${R.invoiceA}`,
-    agent: "finance-bot",
-    action: "approve_payment",
-    resource: `ap/invoices/${R.invoiceA}`,
+    agent: "bob@demo.org → ChatGPT",
+    action: "financial_data_prompt",
+    resource: `api.openai.com/v1/chat`,
     urgency: "medium",
     created: `${R.minB} minutes ago`,
     session: R.sidB,
-    callChain: ["SAP Connector", "finance-bot v2.1", "approve_payment call"],
+    callChain: ["Chrome Extension", "ChatGPT session · bob@demo.org", "Financial data in prompt intercepted"],
     payload: {
-      agent_id: "finance-bot",
+      agent_id: "bob@demo.org",
       session_id: R.sidB,
-      action: "approve_payment",
-      resource: `ap/invoices/${R.invoiceA}`,
+      action: "financial_data_prompt",
+      resource: `api.openai.com/v1/chat`,
       context: { vendor: R.vendor, amount: parseFloat(R.amountB.replace(/,/g,'')), currency: "USD", invoice_date: "2026-04-28", risk_score: parseFloat(R.riskB) }
     },
     approveStream: [
@@ -1889,10 +1886,10 @@ const HITL = [
       { icon:"🧠", text:"Verifying intent alignment…",                                         cls:"step-intent-pending",delay:850 },
       { icon:"✔",  text:`Approval congruent with requested scope (confidence: ${R.confB})`,   cls:"step-intent",        delay:1150 },
       { icon:"🔓", text:`Releasing agent · ${R.sidB} resumed`,                                 cls:"step-complete",      delay:1650 },
-      { icon:"💳", text:`Executing approve_payment · $${R.amountB} to ${R.vendor}…`,           cls:"step-complete",      delay:2200 },
+      { icon:"💳", text:`Forwarding financial prompt · $${R.amountB} context · ${R.vendor}…`,  cls:"step-complete",      delay:2200 },
       { icon:"⚠️", text:"ERP endpoint returned 503 · holding, will retry…",                   cls:"step-warn",          delay:3100 },
       { icon:"↩️", text:"Retry successful · ERP connection restored",                          cls:"step-recover",       delay:4100 },
-      { icon:"🏦", text:`Payment approved · SAP ERP updated · invoice ${R.invoiceA} marked paid`, cls:"step-complete",   delay:4800 },
+      { icon:"🏦", text:`Query forwarded · ChatGPT session resumed · financial context cleared`,  cls:"step-complete",   delay:4800 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",            cls:"step-system",        delay:5400 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                       cls:"step-receipt",       delay:6000 },
     ],
@@ -1900,28 +1897,28 @@ const HITL = [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                          cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                 cls:"step-deny",    delay:600 },
       { icon:"🛑", text:`Payment of $${R.amountB} blocked · invoice ${R.invoiceA} held`,       cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"finance-bot notified · invoice returned to review queue",             cls:"step-system",  delay:1700 },
+      { icon:"🤖", text:"Session blocked · bob@demo.org notified · query returned to review",  cls:"step-system",  delay:1700 },
       { icon:"📝", text:"Rejection logged · AP team notified for manual review",               cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",            cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                       cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+3}`, decision:"RELEASED (ESCALATED)", agent:"finance-bot", action:`approve_payment ($${R.amountB})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigC}` },
-    rejectReceipt:  { id:`REC-${R.recBase+3}`, decision:"BLOCKED (ESCALATED)",   agent:"finance-bot", action:`approve_payment ($${R.amountB})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigD}` }
+    approveReceipt: { id:`REC-${R.recBase+3}`, decision:"RELEASED (ESCALATED)", agent:"bob@demo.org → ChatGPT", action:`financial_data_prompt ($${R.amountB} context)`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigC}` },
+    rejectReceipt:  { id:`REC-${R.recBase+3}`, decision:"BLOCKED (ESCALATED)",   agent:"bob@demo.org → ChatGPT", action:`financial_data_prompt ($${R.amountB} context)`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigD}` }
   },
   {
     id: `H-CVD-${R.recBase+4}`,
-    agent: "compliance-agent",
-    action: "bulk_archive_records",
-    resource: `crm/accounts/${R.accountTier}`,
+    agent: "carol@demo.org → Gemini",
+    action: "bulk_data_query",
+    resource: `generativelanguage.googleapis.com`,
     urgency: "critical",
     created: `4 minutes ago`,
     session: R.sidC,
-    callChain: ["Compliance Scheduler", `compliance-agent v1.2`, "bulk_archive_records call"],
+    callChain: ["Chrome Extension", "Gemini session · carol@demo.org", "Bulk data upload intercepted"],
     payload: {
-      agent_id: "compliance-agent",
+      agent_id: "carol@demo.org",
       session_id: R.sidC,
-      action: "bulk_archive_records",
-      resource: `crm/accounts/${R.accountTier}`,
+      action: "bulk_data_query",
+      resource: `generativelanguage.googleapis.com`,
       context: { record_count: R.accountCount, data_classification: "confidential", retention_policy: "7yr-delete", risk_score: parseFloat(R.riskC) }
     },
     approveStream: [
@@ -1930,43 +1927,43 @@ const HITL = [
       { icon:"🧠",  text:"P19 · IVAE · Verifying intent alignment…",                                                            cls:"step-intent-pending",delay:900 },
       { icon:"✔",   text:`P19 · IVAE · Approval congruent with requested scope (confidence: ${R.confC})`,                      cls:"step-intent",        delay:1200 },
       { icon:"🔓",  text:`P19 · Authorization artifact validated · releasing agent · ${R.sidC}`,                               cls:"step-complete",      delay:1700 },
-      { icon:"⚙️",  text:`Initiating bulk_archive_records · ${R.accountCount} records · ${R.accountTier}…`,                   cls:"step-system",        delay:2200 },
+      { icon:"⚙️",  text:`Forwarding bulk data query · ${R.accountCount} records · ${R.accountTier}…`,                        cls:"step-system",        delay:2200 },
       { icon:"🔍",  text:"P20 · CVD · Re-scanning contextual fingerprint at t-exec…",                                          cls:"step-intent-pending",delay:2800 },
       { icon:"⚠️",  text:`P20 · CVD · Data state changed · concurrent write detected on ${R.accountTier} records`,            cls:"step-warn",          delay:3300 },
       { icon:"⚠️",  text:`P20 · CVD · Risk state elevated · fraud score: ${R.riskC} → ${R.riskCpost} (new flag by risk engine)`,cls:"step-warn",         delay:3800 },
       { icon:"🛑",  text:"P20 · CVD · Contextual validity expired · conditions changed since authorization at t₀",            cls:"step-deny",          delay:4300 },
       { icon:"🚫",  text:"Execution BLOCKED · authorization is no longer valid at t-exec · agent must re-request",            cls:"step-deny",          delay:4800 },
-      { icon:"🤖",  text:"compliance-agent notified · re-authorization required under current conditions",                     cls:"step-system",        delay:5400 },
+      { icon:"🤖",  text:"carol@demo.org session blocked · re-authorization required under current conditions",                cls:"step-system",        delay:5400 },
       { icon:"→",   text:"CVD block event queued · /visiq/trust · audit pipeline updated",                                     cls:"step-system",        delay:5900 },
       { icon:"🔐",  text:"CVD block recorded · Ed25519 signature applied",                                                     cls:"step-receipt",       delay:6400 },
     ],
     rejectStream: [
       { icon:"⏸",  text:"Agent execution paused · awaiting decision",                cls:"step-system",  delay:0 },
       { icon:"🚫",  text:"Decision: REJECTED by Chris Mancuso",                       cls:"step-deny",    delay:600 },
-      { icon:"🛑",  text:`Archive of ${R.accountTier} blocked · ${R.accountCount} records held`, cls:"step-deny", delay:1100 },
-      { icon:"🤖",  text:"compliance-agent notified · action cannot proceed",         cls:"step-system",  delay:1700 },
+      { icon:"🛑",  text:`Bulk data query blocked · ${R.accountCount} records · Gemini session paused`, cls:"step-deny", delay:1100 },
+      { icon:"🤖",  text:"carol@demo.org session blocked · query cannot proceed",     cls:"step-system",  delay:1700 },
       { icon:"📝",  text:"Rejection logged · compliance team notified for review",    cls:"step-system",  delay:2200 },
       { icon:"→",   text:"Event queued · /visiq/decisions · audit pipeline updated",  cls:"step-system",  delay:2700 },
       { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",             cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+4}`, decision:"CVD-BLOCK (AUTO)", agent:"compliance-agent", action:`bulk_archive_records (${R.accountCount} records)`, approver:"VisIQ Runtime · P20", sig:`Ed25519:${R.sigD}` },
-    rejectReceipt:  { id:`REC-${R.recBase+4}`, decision:"BLOCKED (ESCALATED)",      agent:"compliance-agent", action:`bulk_archive_records (${R.accountCount} records)`, approver:"Chris Mancuso",       sig:`Ed25519:${R.sigD}` }
+    approveReceipt: { id:`REC-${R.recBase+4}`, decision:"CVD-BLOCK (AUTO)", agent:"carol@demo.org → Gemini", action:`bulk_data_query (${R.accountCount} records)`, approver:"VisIQ Runtime · P20", sig:`Ed25519:${R.sigD}` },
+    rejectReceipt:  { id:`REC-${R.recBase+4}`, decision:"BLOCKED (ESCALATED)",      agent:"carol@demo.org → Gemini", action:`bulk_data_query (${R.accountCount} records)`, approver:"Chris Mancuso",       sig:`Ed25519:${R.sigD}` }
   },
   {
     id: `H-EMP-${R.empId}`,
-    agent: "hr-bot",
-    action: "terminate_employee",
-    resource: `hr/employees/${R.empId}`,
+    agent: "carol@demo.org → Gemini",
+    action: "hr_data_upload",
+    resource: `generativelanguage.googleapis.com`,
     urgency: "high",
     created: `${R.minC} minutes ago`,
     session: R.sidD,
-    callChain: ["Workday Integration", "hr-bot v2.3", "terminate_employee call"],
+    callChain: ["Chrome Extension", "Gemini session · carol@demo.org", "HR salary data in prompt intercepted"],
     payload: {
-      agent_id: "hr-bot",
+      agent_id: "carol@demo.org",
       session_id: R.sidD,
-      action: "terminate_employee",
-      resource: `hr/employees/${R.empId}`,
-      context: { employee_id: R.empId, name: R.empName, department: R.empDept, reason: "performance_improvement_failure", severance_eligible: true, last_day: "2026-05-06", manager: "K.Walsh@company.com", risk_score: parseFloat(R.riskD) }
+      action: "hr_data_upload",
+      resource: `generativelanguage.googleapis.com`,
+      context: { employee_id: R.empId, name: R.empName, department: R.empDept, reason: "compensation_band_analysis", severance_eligible: true, last_day: "2026-05-06", manager: "K.Walsh@company.com", risk_score: parseFloat(R.riskD) }
     },
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",        delay:0 },
@@ -1974,36 +1971,36 @@ const HITL = [
       { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
       { icon:"✔",  text:`P19 · IVAE · Approval congruent with requested scope (confidence: ${R.confD})`,    cls:"step-intent",        delay:1200 },
       { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidD}`,              cls:"step-complete",      delay:1700 },
-      { icon:"👤", text:`Executing terminate_employee · ${R.empName} · ${R.empId} · ${R.empDept}`,           cls:"step-complete",      delay:2300 },
-      { icon:"📧", text:`Offboarding notification sent · ${R.empName}'s manager notified`,                   cls:"step-complete",      delay:3100 },
-      { icon:"🔑", text:`System access revoked · SSO, GitHub, Slack, JIRA sessions terminated`,              cls:"step-complete",      delay:3900 },
-      { icon:"💼", text:"Severance package triggered · Benefits notified · 30-day COBRA window opened",      cls:"step-complete",      delay:4700 },
+      { icon:"👤", text:`Forwarding HR data query · ${R.empName} compensation data · ${R.empDept}`,          cls:"step-complete",      delay:2300 },
+      { icon:"📧", text:`HR data forwarded to Gemini · session resumed · sensitive fields masked`,            cls:"step-complete",      delay:3100 },
+      { icon:"🔑", text:`Compensation data cleared from prompt context · policy enforced`,                   cls:"step-complete",      delay:3900 },
+      { icon:"💼", text:"Audit record created · HR admin notified · policy review flagged",                  cls:"step-complete",      delay:4700 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                          cls:"step-system",        delay:5400 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                     cls:"step-receipt",       delay:6000 },
     ],
     rejectStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                               cls:"step-deny",    delay:600 },
-      { icon:"🛑", text:`Termination of ${R.empName} (${R.empId}) blocked`,                                  cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"hr-bot notified · action returned to HR admin queue for manual review",              cls:"step-system",  delay:1700 },
-      { icon:"📝", text:"Rejection logged · employee record unchanged · manager notified",                    cls:"step-system",  delay:2200 },
+      { icon:"🛑", text:`HR data upload blocked · ${R.empName}'s compensation data protected`,              cls:"step-deny",    delay:1100 },
+      { icon:"🤖", text:"carol@demo.org session blocked · query returned to HR admin for review",             cls:"step-system",  delay:1700 },
+      { icon:"📝", text:"Rejection logged · HR data unchanged · compliance team notified",                   cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                          cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                     cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+5}`, decision:"RELEASED (ESCALATED)", agent:"hr-bot", action:`terminate_employee (${R.empId} · ${R.empName})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigE}` },
-    rejectReceipt:  { id:`REC-${R.recBase+5}`, decision:"BLOCKED (ESCALATED)",   agent:"hr-bot", action:`terminate_employee (${R.empId} · ${R.empName})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigE}` }
+    approveReceipt: { id:`REC-${R.recBase+5}`, decision:"RELEASED (ESCALATED)", agent:"carol@demo.org → Gemini", action:`hr_data_upload (${R.empId} · ${R.empName} compensation)`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigE}` },
+    rejectReceipt:  { id:`REC-${R.recBase+5}`, decision:"BLOCKED (ESCALATED)",   agent:"carol@demo.org → Gemini", action:`hr_data_upload (${R.empId} · ${R.empName} compensation)`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigE}` }
   },
   {
     id: `H-DEPLOY-${R.deployVer}`,
-    agent: "devops-agent",
-    action: "deploy_to_production",
-    resource: `services/payment-api/${R.deployVer}`,
+    agent: "dave@demo.org → Claude",
+    action: "production_code_upload",
+    resource: `api.anthropic.com/v1/messages`,
     urgency: "critical",
     created: `${R.minD} minutes ago`,
     session: R.sidE,
-    callChain: ["CI/CD Pipeline · GitHub Actions", "devops-agent v1.8", "deploy_to_production call"],
+    callChain: ["Chrome Extension", "Claude session · dave@demo.org", "Production code upload intercepted"],
     payload: {
-      agent_id: "devops-agent",
+      agent_id: "dave@demo.org",
       session_id: R.sidE,
       action: "deploy_to_production",
       resource: `services/payment-api/${R.deployVer}`,
@@ -2027,13 +2024,13 @@ const HITL = [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                               cls:"step-deny",    delay:600 },
       { icon:"🛑", text:`Deployment of payment-api ${R.deployVer} blocked`,                                  cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"devops-agent notified · deploy rolled back to queue",                               cls:"step-system",  delay:1700 },
+      { icon:"🤖", text:"dave@demo.org session blocked · query returned to review queue",                     cls:"step-system",  delay:1700 },
       { icon:"📝", text:"Rejection logged · engineering team notified via Slack #deployments",               cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                          cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                     cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+6}`, decision:"RELEASED (ESCALATED)", agent:"devops-agent", action:`deploy_to_production (payment-api ${R.deployVer})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigF}` },
-    rejectReceipt:  { id:`REC-${R.recBase+6}`, decision:"BLOCKED (ESCALATED)",   agent:"devops-agent", action:`deploy_to_production (payment-api ${R.deployVer})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigF}` }
+    approveReceipt: { id:`REC-${R.recBase+6}`, decision:"RELEASED (ESCALATED)", agent:"dave@demo.org → Claude", action:`code_upload (payment-api ${R.deployVer})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigF}` },
+    rejectReceipt:  { id:`REC-${R.recBase+6}`, decision:"BLOCKED (ESCALATED)",   agent:"dave@demo.org → Claude", action:`code_upload (payment-api ${R.deployVer})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigF}` }
   },
   {
     id: `H-LEGAL-${R.caseId}`,
@@ -2077,15 +2074,15 @@ const HITL = [
   },
   {
     id: `H-DISC-${R.dealId}`,
-    agent: "sales-assistant-v2",
-    action: "apply_discount",
-    resource: `crm/deals/${R.dealId}`,
+    agent: "alice@demo.org → ChatGPT",
+    action: "deal_analysis_query",
+    resource: `api.openai.com/v1/chat`,
     urgency: "medium",
     created: `${R.minF} minutes ago`,
     session: R.sidG,
-    callChain: ["Salesforce Trigger", "sales-assistant-v2 v3.2", "apply_discount call"],
+    callChain: ["Chrome Extension", "ChatGPT session · alice@demo.org", "Deal data in prompt intercepted"],
     payload: {
-      agent_id: "sales-assistant-v2",
+      agent_id: "alice@demo.org",
       session_id: R.sidG,
       action: "apply_discount",
       resource: `crm/deals/${R.dealId}`,
@@ -2107,26 +2104,26 @@ const HITL = [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                               cls:"step-deny",    delay:600 },
       { icon:"🛑", text:`${R.discountPct}% discount for deal ${R.dealId} blocked`,                           cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"sales-assistant-v2 notified · deal returned to standard terms",                     cls:"step-system",  delay:1700 },
+      { icon:"🤖", text:"alice@demo.org session blocked · deal data cleared from prompt",                     cls:"step-system",  delay:1700 },
       { icon:"📝", text:"Rejection logged · deal desk notified",                                             cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                          cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                     cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+8}`, decision:"RELEASED (ESCALATED)", agent:"sales-assistant-v2", action:`apply_discount (${R.discountPct}% · ${R.dealId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` },
-    rejectReceipt:  { id:`REC-${R.recBase+8}`, decision:"BLOCKED (ESCALATED)",   agent:"sales-assistant-v2", action:`apply_discount (${R.discountPct}% · ${R.dealId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` }
+    approveReceipt: { id:`REC-${R.recBase+8}`, decision:"RELEASED (ESCALATED)", agent:"alice@demo.org → ChatGPT", action:`deal_analysis_query (${R.discountPct}% context · ${R.dealId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` },
+    rejectReceipt:  { id:`REC-${R.recBase+8}`, decision:"BLOCKED (ESCALATED)",   agent:"alice@demo.org → ChatGPT", action:`deal_analysis_query (${R.discountPct}% context · ${R.dealId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` }
   },
   // ── billing-agent · refund_customer_credit ────────────────────────────────────
   {
     id: `H-BILL-${R.creditId}`,
-    agent: "billing-agent",
-    action: "refund_customer_credit",
-    resource: `billing/credits/${R.creditId}`,
+    agent: "dave@demo.org → Claude",
+    action: "customer_refund_query",
+    resource: `api.anthropic.com/v1/messages`,
     urgency: "medium",
     created: `${R.minH} minutes ago`,
     session: R.sidI,
-    callChain: ["Stripe Billing Event", "billing-agent v1.4", "refund_customer_credit call"],
+    callChain: ["Chrome Extension", "Claude session · dave@demo.org", "Customer billing data in prompt intercepted"],
     payload: {
-      agent_id: "billing-agent",
+      agent_id: "dave@demo.org",
       session_id: R.sidI,
       action: "refund_customer_credit",
       resource: `billing/credits/${R.creditId}`,
@@ -2150,26 +2147,26 @@ const HITL = [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                          cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                                 cls:"step-deny",    delay:600 },
       { icon:"🛑", text:`Credit of $${R.creditAmt} to ${R.creditId} blocked`,                                 cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"billing-agent notified · credit request returned to support queue",                   cls:"step-system",  delay:1700 },
+      { icon:"🤖", text:"dave@demo.org session blocked · request returned to support queue",                    cls:"step-system",  delay:1700 },
       { icon:"📝", text:"Rejection logged · customer success team notified",                                   cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                            cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                       cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+10}`, decision:"RELEASED (ESCALATED)", agent:"billing-agent", action:`refund_customer_credit ($${R.creditAmt} · ${R.creditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigI}` },
-    rejectReceipt:  { id:`REC-${R.recBase+10}`, decision:"BLOCKED (ESCALATED)",   agent:"billing-agent", action:`refund_customer_credit ($${R.creditAmt} · ${R.creditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigI}` }
+    approveReceipt: { id:`REC-${R.recBase+10}`, decision:"RELEASED (ESCALATED)", agent:"dave@demo.org → Claude", action:`customer_refund_query ($${R.creditAmt} · ${R.creditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigI}` },
+    rejectReceipt:  { id:`REC-${R.recBase+10}`, decision:"BLOCKED (ESCALATED)",   agent:"dave@demo.org → Claude", action:`customer_refund_query ($${R.creditAmt} · ${R.creditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigI}` }
   },
   // ── security-bot · rotate_prod_credentials ────────────────────────────────────
   {
     id: `H-SEC-${R.secKeyId}`,
-    agent: "security-bot",
-    action: "rotate_prod_credentials",
-    resource: `secrets/prod/${R.secKeyId}`,
+    agent: "dave@demo.org → Claude",
+    action: "credential_query",
+    resource: `api.anthropic.com/v1/messages`,
     urgency: "critical",
     created: `${R.minI} minutes ago`,
     session: R.sidJ,
-    callChain: ["Security Scanner · Snyk", "security-bot v2.0", "rotate_prod_credentials call"],
+    callChain: ["Chrome Extension", "Claude session · dave@demo.org", "Credential data in prompt intercepted"],
     payload: {
-      agent_id: "security-bot",
+      agent_id: "dave@demo.org",
       session_id: R.sidJ,
       action: "rotate_prod_credentials",
       resource: `secrets/prod/${R.secKeyId}`,
@@ -2196,26 +2193,26 @@ const HITL = [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                          cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                                 cls:"step-deny",    delay:600 },
       { icon:"🛑", text:`Credential rotation for ${R.secKeyId} blocked · credentials unchanged`,               cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"security-bot notified · escalated to Security team for manual review",                cls:"step-system",  delay:1700 },
+      { icon:"🤖", text:"dave@demo.org session blocked · escalated to Security team for manual review",         cls:"step-system",  delay:1700 },
       { icon:"📝", text:"Rejection logged · security incident ticket opened · CISO notified",                  cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                            cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                       cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+11}`, decision:"RELEASED (ESCALATED)", agent:"security-bot", action:`rotate_prod_credentials (${R.secKeyId} · 3 services)`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigJ}` },
-    rejectReceipt:  { id:`REC-${R.recBase+11}`, decision:"BLOCKED (ESCALATED)",   agent:"security-bot", action:`rotate_prod_credentials (${R.secKeyId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigJ}` }
+    approveReceipt: { id:`REC-${R.recBase+11}`, decision:"RELEASED (ESCALATED)", agent:"dave@demo.org → Claude", action:`credential_query (${R.secKeyId} · 3 services)`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigJ}` },
+    rejectReceipt:  { id:`REC-${R.recBase+11}`, decision:"BLOCKED (ESCALATED)",   agent:"dave@demo.org → Claude", action:`credential_query (${R.secKeyId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigJ}` }
   },
   // ── customer-agent · issue_service_credit ─────────────────────────────────────
   {
     id: `H-CUST-${R.custCreditId}`,
-    agent: "customer-agent",
-    action: "issue_service_credit",
-    resource: `billing/credits/${R.custCreditId}`,
+    agent: "alice@demo.org → ChatGPT",
+    action: "customer_credit_query",
+    resource: `api.openai.com/v1/chat`,
     urgency: "medium",
     created: `${R.minJ} minutes ago`,
     session: R.sidK,
-    callChain: ["Zendesk Macro Trigger", "customer-agent v1.2", "issue_service_credit call"],
+    callChain: ["Chrome Extension", "ChatGPT session · alice@demo.org", "Customer PII in prompt intercepted"],
     payload: {
-      agent_id: "customer-agent",
+      agent_id: "alice@demo.org",
       session_id: R.sidK,
       action: "issue_service_credit",
       resource: `billing/credits/${R.custCreditId}`,
@@ -2239,13 +2236,13 @@ const HITL = [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                          cls:"step-system",  delay:0 },
       { icon:"🚫", text:"Decision: REJECTED by Chris Mancuso",                                                 cls:"step-deny",    delay:600 },
       { icon:"🛑", text:`Service credit of $${R.custCreditAmt} to ${R.custCreditId} blocked`,                 cls:"step-deny",    delay:1100 },
-      { icon:"🤖", text:"customer-agent notified · credit request escalated to Account Manager",               cls:"step-system",  delay:1700 },
+      { icon:"🤖", text:"alice@demo.org session blocked · request escalated to Account Manager",               cls:"step-system",  delay:1700 },
       { icon:"📝", text:"Rejection logged · CS team notified · churn-risk flag maintained",                    cls:"step-system",  delay:2200 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                            cls:"step-system",  delay:2700 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                       cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+12}`, decision:"RELEASED (ESCALATED)", agent:"customer-agent", action:`issue_service_credit ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` },
-    rejectReceipt:  { id:`REC-${R.recBase+12}`, decision:"BLOCKED (ESCALATED)",   agent:"customer-agent", action:`issue_service_credit ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` }
+    approveReceipt: { id:`REC-${R.recBase+12}`, decision:"RELEASED (ESCALATED)", agent:"alice@demo.org → ChatGPT", action:`customer_credit_query ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` },
+    rejectReceipt:  { id:`REC-${R.recBase+12}`, decision:"BLOCKED (ESCALATED)",   agent:"alice@demo.org → ChatGPT", action:`customer_credit_query ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` }
   }
 ];
 
@@ -2269,18 +2266,18 @@ function buildChart() {
 
 // ── Live stream on dashboard ──────────────────────────────────────────────────
 const streamEvents = [
-  {t:"15:09:14",a:"bulk_payment_processor", act:"release_vendor_batch",        d:"invalidated"},
-  {t:"15:07:52",a:"billing-agent",           act:"refund_customer_credit",      d:"hitl"},
-  {t:"15:06:33",a:"finance-bot",             act:"wire_transfer",               d:"invalidated"},
-  {t:"15:04:02",a:"salesforce-agent",        act:"bulk_export_contacts",        d:"invalidated"},
-  {t:"15:02:44",a:"crm-agent",               act:"export_customer_pipeline",    d:"deny"},
-  {t:"15:01:33",a:"sales-assistant",         act:"update_opportunity_stage",    d:"permit"},
-  {t:"14:58:10",a:"[DISCOVER]",              act:"Detected Salesforce→Slack→DocuSign MCP chain", d:"discover"},
-  {t:"14:56:08",a:"security-bot",            act:"rotate_prod_credentials",     d:"hitl"},
-  {t:"14:55:22",a:"[DISCOVER]",              act:"Unmanaged support-agent found in Zendesk",      d:"discover"},
-  {t:"14:52:55",a:"soc-agent",               act:"isolate_endpoint",            d:"permit"},
-  {t:"14:50:12",a:"customer-agent",          act:"issue_service_credit",        d:"hitl"},
-  {t:"14:48:44",a:"deployment-agent",        act:"promote_release_candidate",   d:"invalidated"},
+  {t:"15:09:14",a:"bob@demo.org → ChatGPT",    act:"Financial data uploaded to prompt · Q1 earnings",            d:"invalidated"},
+  {t:"15:07:52",a:"dave@demo.org → Claude",    act:"Customer PII in query · profile lookup",                     d:"hitl"},
+  {t:"15:06:33",a:"bob@demo.org → ChatGPT",    act:"Bulk contact export request · 47k records attached",         d:"invalidated"},
+  {t:"15:04:02",a:"alice@demo.org → DeepSeek", act:"Unsanctioned AI service · sensitive data submitted",         d:"invalidated"},
+  {t:"15:02:44",a:"carol@demo.org → Gemini",   act:"HR compensation data detected in prompt",                    d:"deny"},
+  {t:"15:01:33",a:"alice@demo.org → ChatGPT",  act:"Standard support query · customer tickets context",          d:"permit"},
+  {t:"14:58:10",a:"[DISCOVER]",                act:"New AI service detected: DeepSeek · 3 sessions · unapproved", d:"discover"},
+  {t:"14:56:08",a:"dave@demo.org → Claude",    act:"Sensitive credential query · escalated for review",          d:"hitl"},
+  {t:"14:55:22",a:"[DISCOVER]",                act:"ex-employee@demo.org session observed · stale credentials",  d:"discover"},
+  {t:"14:52:55",a:"carol@demo.org → Gemini",   act:"Policy query · standard HR use case · approved",             d:"permit"},
+  {t:"14:50:12",a:"alice@demo.org → ChatGPT",  act:"Customer refund eligibility check · PII detected · escalated",d:"hitl"},
+  {t:"14:48:44",a:"bob@demo.org → ChatGPT",    act:"Source code attached to prompt · IP risk detected",          d:"invalidated"},
 ];
 function buildStream() {
   const dc = {permit:'badge-green',deny:'badge-red',hitl:'badge-yellow',invalidated:'badge-orange',discover:'badge-cyan'};
@@ -2300,70 +2297,50 @@ function buildStream() {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const DISC_SOURCES = [
-  { id:'src_salesforce_prod', name:'Salesforce Production', type:'CRM', provider:'salesforce', icon:'☁️',
-    health:'healthy', connection:'connected', mode:'scan_based',
-    lastSync:'2026-04-28 18:45', coverage:{ 'Domains':14, 'Records':12842, 'Owners mapped':'93%', 'High-risk':2 },
+  { id:'src_chrome_all', name:'Chrome · All Employees', type:'Browser Extension', provider:'discover_extension', icon:'🌐',
+    health:'healthy', connection:'connected', mode:'browser_observed',
+    lastSync:'2026-04-28 19:12', coverage:{ 'Managed seats':847, 'Active today':312, 'AI sessions':1247, 'Blocked requests':23 },
     error: null },
-  { id:'src_okta_workforce', name:'Okta Workforce Identity', type:'Identity Directory', provider:'okta', icon:'🔐',
-    health:'healthy', connection:'connected', mode:'hybrid',
-    lastSync:'2026-04-28 17:30', coverage:{ 'Users':1204, 'Applications':38, 'Sign-on events':4821, 'Orphaned accounts':6 },
+  { id:'src_edge_eng', name:'Edge · Engineering', type:'Browser Extension', provider:'discover_extension', icon:'🔵',
+    health:'healthy', connection:'connected', mode:'browser_observed',
+    lastSync:'2026-04-28 19:12', coverage:{ 'Managed seats':124, 'Active today':98, 'AI sessions':342, 'Blocked requests':7 },
     error: null },
-  { id:'src_google_drive_mktg', name:'Google Drive Marketing', type:'SaaS Files', provider:'google_workspace', icon:'📁',
-    health:'warning', connection:'degraded', mode:'hybrid',
-    lastSync:'2026-04-28 15:20', coverage:{ 'Shared drives':6, 'Items':4811, 'Externally shared':117, 'Orphaned':11 },
-    error:'Drive change feed throttled during incremental scan window.' },
-  { id:'src_github_eng', name:'GitHub Engineering Org', type:'Code Repository', provider:'github', icon:'🐙',
-    health:'healthy', connection:'connected', mode:'scan_based',
-    lastSync:'2026-04-28 19:00', coverage:{ 'Repos':142, 'Secrets surface':24, 'Actions workflows':67, 'Bot accounts':8 },
-    error: null },
-  { id:'src_aws_prod', name:'AWS Production Account', type:'Cloud IaaS', provider:'aws', icon:'🟠',
-    health:'warning', connection:'configured', mode:'scan_based',
-    lastSync:'2026-04-27 22:00', coverage:{ 'IAM roles':312, 'Service accounts':88, 'Access keys':41, 'Stale keys':9 },
-    error:'Incremental scan missed 2 regions due to permission boundary.' },
-  { id:'src_browser_execs', name:'Exec Browser Observation', type:'Browser Runtime', provider:'discover_extension', icon:'🌐',
-    health:'unknown', connection:'configured', mode:'browser_observed',
-    lastSync:null, coverage:{ 'Active seats':8, 'Observed apps':23, 'Prompts queued':42 },
-    error: null },
+  { id:'src_safari_exec', name:'Safari · Exec Suite', type:'Browser Extension', provider:'discover_extension', icon:'🧭',
+    health:'warning', connection:'degraded', mode:'browser_observed',
+    lastSync:'2026-04-28 18:41', coverage:{ 'Managed seats':12, 'Active today':9, 'AI sessions':41, 'Blocked requests':0 },
+    error:'Safari WebExtension API limits request body inspection on iOS. Blocking capability unavailable on mobile.' },
 ];
 
 const DISC_RUNS = [
-  { sourceId:'src_salesforce_prod', sourceName:'Salesforce Production', runType:'full_sync', status:'completed', records:12842, created:221, updated:517, failed:0, startedAt:'18:12', duration:'33m' },
-  { sourceId:'src_okta_workforce', sourceName:'Okta Workforce Identity', runType:'incremental_sync', status:'completed', records:891, created:4, updated:67, failed:0, startedAt:'17:30', duration:'8m' },
-  { sourceId:'src_google_drive_mktg', sourceName:'Google Drive Marketing', runType:'incremental_sync', status:'partial_failure', records:392, created:18, updated:67, failed:5, startedAt:'17:55', duration:'15m' },
-  { sourceId:'src_github_eng', sourceName:'GitHub Engineering Org', runType:'full_sync', status:'completed', records:4110, created:12, updated:198, failed:0, startedAt:'18:52', duration:'8m' },
-  { sourceId:'src_aws_prod', sourceName:'AWS Production Account', runType:'scheduled_scan', status:'partial_failure', records:1820, created:9, updated:103, failed:18, startedAt:'22:00', duration:'44m' },
-  { sourceId:'src_browser_execs', sourceName:'Exec Browser Observation', runType:'runtime_observation', status:'running', records:42, created:42, updated:0, failed:0, startedAt:'18:58', duration:'live' },
+  { sourceId:'src_chrome_all', sourceName:'Chrome · All Employees', runType:'continuous_observation', status:'running', records:1247, created:89, updated:1158, failed:0, startedAt:'00:00', duration:'live' },
+  { sourceId:'src_edge_eng', sourceName:'Edge · Engineering', runType:'continuous_observation', status:'running', records:342, created:31, updated:311, failed:0, startedAt:'00:00', duration:'live' },
+  { sourceId:'src_safari_exec', sourceName:'Safari · Exec Suite', runType:'continuous_observation', status:'partial_failure', records:41, created:41, updated:0, failed:12, startedAt:'00:00', duration:'live' },
 ];
 
 const DISC_INVENTORY = [
-  { id:'nhi_sf_svc_1', type:'nhi', label:'salesforce-api-bot', identity:'svc_acct:sf_api_bot@demo.org', source:'Salesforce', owner:null, risk:'high', lastSeen:'2m ago', status:'unowned' },
-  { id:'nhi_okta_sa_1', type:'nhi', label:'okta-provisioner', identity:'svc_acct:okta_prov@demo.org', source:'Okta', owner:'IT Ops', risk:'medium', lastSeen:'8m ago', status:'governed' },
-  { id:'nhi_gh_bot_1', type:'nhi', label:'github-actions-deploy', identity:'bot:gh_actions_deploy', source:'GitHub', owner:'DevOps', risk:'medium', lastSeen:'1h ago', status:'governed' },
-  { id:'nhi_aws_key_1', type:'nhi', label:'AKIA...X8R2 (stale)', identity:'aws_access_key:AKIAJ...X8R2', source:'AWS', owner:null, risk:'high', lastSeen:'9d ago', status:'stale' },
-  { id:'nhi_aws_key_2', type:'nhi', label:'AKIA...P4K9', identity:'aws_access_key:AKIAZ...P4K9', source:'AWS', owner:'Finance Bot', risk:'medium', lastSeen:'2h ago', status:'active' },
-  { id:'nhi_okta_sa_2', type:'nhi', label:'hr-sync-service', identity:'svc_acct:hr_sync@demo.org', source:'Okta', owner:null, risk:'high', lastSeen:'14m ago', status:'unowned' },
-  { id:'nhi_sf_svc_2', type:'nhi', label:'sf-reporting-bot', identity:'svc_acct:sf_report@demo.org', source:'Salesforce', owner:'Analytics', risk:'low', lastSeen:'45m ago', status:'governed' },
-  { id:'nhi_gh_bot_2', type:'nhi', label:'renovate-bot', identity:'bot:renovate[bot]', source:'GitHub', owner:'DevOps', risk:'low', lastSeen:'3h ago', status:'governed' },
-  { id:'nhi_aws_role_1', type:'nhi', label:'lambda-execution-role', identity:'iam_role:lambda-exec-prod', source:'AWS', owner:'Platform', risk:'medium', lastSeen:'20m ago', status:'active' },
-  { id:'ai_chatgpt', type:'ai_tool', label:'ChatGPT (OpenAI)', identity:'tool:openai.com/chatgpt', source:'Browser Runtime', owner:null, risk:'high', lastSeen:'4m ago', status:'unsanctioned' },
-  { id:'ai_gemini', type:'ai_tool', label:'Gemini', identity:'tool:gemini.google.com', source:'Browser Runtime', owner:null, risk:'medium', lastSeen:'12m ago', status:'review_pending' },
-  { id:'ai_copilot', type:'ai_tool', label:'GitHub Copilot', identity:'tool:github.com/copilot', source:'GitHub', owner:'Engineering', risk:'low', lastSeen:'1h ago', status:'sanctioned' },
-  { id:'ai_claude', type:'ai_tool', label:'Claude (Anthropic)', identity:'tool:claude.ai', source:'Browser Runtime', owner:'Product', risk:'low', lastSeen:'6m ago', status:'sanctioned' },
-  { id:'ai_perplexity', type:'ai_tool', label:'Perplexity', identity:'tool:perplexity.ai', source:'Browser Runtime', owner:null, risk:'medium', lastSeen:'2h ago', status:'review_pending' },
-  { id:'ai_notion_ai', type:'ai_tool', label:'Notion AI', identity:'tool:notion.so/ai', source:'Browser Runtime', owner:'Operations', risk:'low', lastSeen:'30m ago', status:'sanctioned' },
-  { id:'ai_grammarly', type:'ai_tool', label:'Grammarly', identity:'tool:grammarly.com', source:'Browser Runtime', owner:null, risk:'low', lastSeen:'1d ago', status:'review_pending' },
-  { id:'svc_salesforce', type:'service', label:'salesforce.com', identity:'service:salesforce.com:443', source:'Salesforce', owner:'Sales', risk:'low', lastSeen:'2m ago', status:'known' },
-  { id:'svc_openai', type:'service', label:'api.openai.com', identity:'service:api.openai.com:443', source:'Browser Runtime', owner:null, risk:'high', lastSeen:'4m ago', status:'unknown' },
-  { id:'svc_github', type:'service', label:'github.com', identity:'service:github.com:443', source:'GitHub', owner:'DevOps', risk:'low', lastSeen:'1h ago', status:'known' },
-  { id:'svc_slack', type:'service', label:'slack.com', identity:'service:slack.com:443', source:'Salesforce', owner:'IT Ops', risk:'low', lastSeen:'5m ago', status:'known' },
-  { id:'svc_aws', type:'service', label:'*.amazonaws.com', identity:'service:*.amazonaws.com:443', source:'AWS', owner:'Platform', risk:'medium', lastSeen:'20m ago', status:'known' },
-  { id:'pri_alice', type:'principal', label:'alice@demo.org', identity:'principal:alice@demo.org', source:'Okta', owner:'alice@demo.org', risk:'low', lastSeen:'3m ago', status:'active' },
-  { id:'pri_bob', type:'principal', label:'bob@demo.org', identity:'principal:bob@demo.org', source:'Okta', owner:'bob@demo.org', risk:'medium', lastSeen:'1h ago', status:'active' },
-  { id:'pri_ghost', type:'principal', label:'ex-employee@demo.org', identity:'principal:ex-emp@demo.org', source:'Okta', owner:null, risk:'high', lastSeen:'12d ago', status:'stale' },
+  { id:'ai_chatgpt', type:'ai_tool', label:'ChatGPT (OpenAI)', identity:'tool:chat.openai.com', source:'Chrome Extension', owner:null, risk:'high', lastSeen:'4m ago', status:'unsanctioned' },
+  { id:'ai_claude', type:'ai_tool', label:'Claude (Anthropic)', identity:'tool:claude.ai', source:'Chrome Extension', owner:'Product', risk:'low', lastSeen:'6m ago', status:'sanctioned' },
+  { id:'ai_gemini', type:'ai_tool', label:'Gemini', identity:'tool:gemini.google.com', source:'Chrome Extension', owner:null, risk:'medium', lastSeen:'12m ago', status:'review_pending' },
+  { id:'ai_copilot', type:'ai_tool', label:'Microsoft Copilot', identity:'tool:copilot.microsoft.com', source:'Edge Extension', owner:'IT Ops', risk:'low', lastSeen:'22m ago', status:'sanctioned' },
+  { id:'ai_gh_copilot', type:'ai_tool', label:'GitHub Copilot', identity:'tool:github.com/copilot', source:'Edge Extension', owner:'Engineering', risk:'low', lastSeen:'1h ago', status:'sanctioned' },
+  { id:'ai_perplexity', type:'ai_tool', label:'Perplexity', identity:'tool:perplexity.ai', source:'Chrome Extension', owner:null, risk:'medium', lastSeen:'2h ago', status:'review_pending' },
+  { id:'ai_notion_ai', type:'ai_tool', label:'Notion AI', identity:'tool:notion.so/ai', source:'Chrome Extension', owner:'Operations', risk:'low', lastSeen:'30m ago', status:'sanctioned' },
+  { id:'ai_grammarly', type:'ai_tool', label:'Grammarly', identity:'tool:grammarly.com', source:'Chrome Extension', owner:null, risk:'low', lastSeen:'1d ago', status:'review_pending' },
+  { id:'ai_deepseek', type:'ai_tool', label:'DeepSeek', identity:'tool:chat.deepseek.com', source:'Chrome Extension', owner:null, risk:'high', lastSeen:'47m ago', status:'unsanctioned' },
+  { id:'svc_openai', type:'service', label:'api.openai.com', identity:'service:api.openai.com:443', source:'Chrome Extension', owner:null, risk:'high', lastSeen:'4m ago', status:'unknown' },
+  { id:'svc_anthropic', type:'service', label:'api.anthropic.com', identity:'service:api.anthropic.com:443', source:'Chrome Extension', owner:'Product', risk:'low', lastSeen:'6m ago', status:'known' },
+  { id:'svc_google_ai', type:'service', label:'generativelanguage.googleapis.com', identity:'service:generativelanguage.googleapis.com:443', source:'Chrome Extension', owner:null, risk:'medium', lastSeen:'12m ago', status:'unknown' },
+  { id:'svc_deepseek', type:'service', label:'api.deepseek.com', identity:'service:api.deepseek.com:443', source:'Chrome Extension', owner:null, risk:'high', lastSeen:'47m ago', status:'blocked' },
+  { id:'svc_perplexity', type:'service', label:'api.perplexity.ai', identity:'service:api.perplexity.ai:443', source:'Chrome Extension', owner:null, risk:'medium', lastSeen:'2h ago', status:'unknown' },
+  { id:'pri_alice', type:'principal', label:'alice@demo.org', identity:'principal:alice@demo.org', source:'Chrome Extension', owner:'alice@demo.org', risk:'medium', lastSeen:'4m ago', status:'active' },
+  { id:'pri_bob', type:'principal', label:'bob@demo.org', identity:'principal:bob@demo.org', source:'Chrome Extension', owner:'bob@demo.org', risk:'high', lastSeen:'8m ago', status:'active' },
+  { id:'pri_carol', type:'principal', label:'carol@demo.org', identity:'principal:carol@demo.org', source:'Chrome Extension', owner:'carol@demo.org', risk:'low', lastSeen:'22m ago', status:'active' },
+  { id:'pri_dave', type:'principal', label:'dave@demo.org', identity:'principal:dave@demo.org', source:'Edge Extension', owner:'dave@demo.org', risk:'low', lastSeen:'1h ago', status:'active' },
+  { id:'pri_ghost', type:'principal', label:'ex-employee@demo.org', identity:'principal:ex-emp@demo.org', source:'Chrome Extension', owner:null, risk:'high', lastSeen:'2h ago', status:'stale' },
 ];
 
 let DISC_FINDINGS = [
-  { id:'find_1', type:'UNKNOWN_NHI', severity:'high', title:'Unowned service account: salesforce-api-bot', desc:'A service account was discovered in Salesforce with no mapped owner and broad CRM read/write permissions. No governance rule exists in ALLOW.', target:'nhi_sf_svc_1', targetLabel:'svc_acct:sf_api_bot@demo.org', source:'Salesforce Production', evidence:['12,842 records in scope','No owner mapping found','0 ALLOW rules match'], status:'open' },
+  { id:'find_1', type:'UNSANCTIONED_AI', severity:'high', title:'Unsanctioned AI service: DeepSeek', desc:'DeepSeek sessions detected from alice@demo.org. No governance rule exists in ALLOW. Customer data submitted in 3 of 4 sessions.', target:'api.deepseek.com', targetLabel:'alice@demo.org → DeepSeek', source:'Chrome Extension · All Employees', evidence:['3 sessions with customer data','No ALLOW rule match','0 DLP controls applied'], status:'open' },
   { id:'find_2', type:'UNAPPROVED_AI_TOOL', severity:'high', title:'Unsanctioned AI tool in use: ChatGPT', desc:'Browser runtime observed active ChatGPT sessions from 3 principals in the last 24h. No sanction record exists for openai.com. Data submitted includes CRM exports and financial summaries.', target:'ai_chatgpt', targetLabel:'tool:openai.com/chatgpt', source:'Exec Browser Observation', evidence:['3 principals observed','CRM data in prompts','No sanction record'], status:'open' },
   { id:'find_3', type:'SANCTION_REVIEW_REQUIRED', severity:'medium', title:'Sanction truth missing: Gemini', desc:'Gemini was observed in browser sessions but has no sanction decision recorded. Tool cannot be classified as approved or unapproved until sanction truth is set on the linked service.', target:'ai_gemini', targetLabel:'tool:gemini.google.com', source:'Exec Browser Observation', evidence:['2 principals observed','No sanction record','Linked service: google.com'], status:'open' },
   { id:'find_4', type:'UNKNOWN_NHI', severity:'high', title:'Stale access key with no owner: AKIA...X8R2', desc:'AWS access key has not been rotated in 9 days and has no mapped owner. Key has IAM write permissions. Classified as high-risk by the stale-key heuristic.', target:'nhi_aws_key_1', targetLabel:'aws_access_key:AKIAJ...X8R2', source:'AWS Production Account', evidence:['Last used: 9 days ago','IAM write scope','No owner mapped'], status:'open' },
@@ -2372,10 +2349,10 @@ let DISC_FINDINGS = [
 ];
 
 const DISC_MERGE = [
-  { id:'mrg_1', confidence:91,
-    a:{ label:'salesforce-api-bot', type:'NHI', source:'Salesforce', attrs:['sf_api_bot@demo.org','service_account','crm.read crm.write'] },
-    b:{ label:'sf-api-integration', type:'NHI', source:'GitHub', attrs:['sf_api_integration','bot','Actions secret ref'] },
-    reasons:['Shared credential fingerprint','Same OAuth client_id pattern','Co-observed in 3 sessions'] },
+  { id:'mrg_1', confidence:88,
+    a:{ label:'ChatGPT (browser)', type:'AI Tool', source:'Chrome Extension', attrs:['chat.openai.com','observed: 47 sessions','principals: 5'] },
+    b:{ label:'OpenAI API (direct)', type:'AI Tool', source:'Edge Extension', attrs:['api.openai.com','observed: 12 API calls','principals: 2'] },
+    reasons:['Same parent domain: openai.com','Overlapping principal set','Temporal co-occurrence in 8 sessions'] },
   { id:'mrg_2', confidence:74,
     a:{ label:'Gemini', type:'AI Tool', source:'Browser Runtime', attrs:['gemini.google.com','observed:12 sessions','principal:alice@demo.org'] },
     b:{ label:'Google Workspace AI', type:'AI Tool', source:'Google Drive', attrs:['workspace.google.com/ai','scan-derived','no session evidence'] },
@@ -3058,31 +3035,31 @@ function resolveHITL(id, action) {
 
 // ── Ticker ────────────────────────────────────────────────────────────────────
 const ticks = [
-  `Runtime Enforcement → sales-assistant-v2 → read_crm · RELEASED · ${R.lats[5]}`,
+  `Runtime Enforcement → alice@demo.org → ChatGPT · support query · RELEASED · ${R.lats[5]}`,
   `Runtime Enforcement → report-generator → export_pdf · RELEASED · ${R.lats[3]}`,
-  `Runtime Enforcement → finance-bot → wire_transfer · BLOCKED (amount > $10K) · ${R.lats[1]}`,
-  `Runtime Enforcement → support-agent → access_pii on profile/${R.profileA} · ESCALATED · ${R.lats[2]}`,
-  `Runtime Enforcement → hr-bot → read_salary_data · BLOCKED · ${R.lats[4]}`,
+  `Runtime Enforcement → bob@demo.org → ChatGPT · financial data in prompt · BLOCKED · ${R.lats[1]}`,
+  `Runtime Enforcement → dave@demo.org → Claude · pii_query on profile/${R.profileA} · ESCALATED · ${R.lats[2]}`,
+  `Runtime Enforcement → carol@demo.org → Gemini · salary_data_prompt · BLOCKED · ${R.lats[4]}`,
   `Runtime Enforcement → invoice-processor → approve_payment · RELEASED · ${R.lats[7]}`,
-  `Runtime Enforcement → devops-agent → deploy_to_production · ESCALATED · 7ms`,
+  `Runtime Enforcement → dave@demo.org → Claude · code_upload · ESCALATED · 7ms`,
   `Runtime Enforcement → legal-agent → send_settlement_offer · ESCALATED · 9ms`,
-  `CVD-BLOCK · compliance-agent → bulk_archive_records · P20 context expired · risk state changed at t-exec · BLOCKED · 8ms`,
-  `P19-BLOCK · data-export-agent → export_customer_data · scope drift at t-exec · ${R.exportApproved.toLocaleString()} approved → ${R.exportActual.toLocaleString()} attempted · BLOCKED · 6ms`,
-  `Runtime Enforcement → sales-assistant-v2 → apply_discount (${R.discountPct}%) · ESCALATED (>25% threshold) · 5ms`,
-  `P20 · SCOPE EXPANSION · bulk_payment_processor → release_vendor_batch · recipients 12→148 · AUTHORIZATION INVALIDATED · 12ms`,
-  `P20 · RISK ESCALATION · finance-bot → wire_transfer · risk score 0.41→0.87 · AUTHORIZATION INVALIDATED · 9ms`,
-  `P20 · SCOPE EXPANSION · salesforce-agent → bulk_export_contacts · dataset expanded post-auth · AUTHORIZATION INVALIDATED · 11ms`,
-  `P20 · POLICY DRIFT · payroll-agent → update_compensation_band · policy version changed · AUTHORIZATION INVALIDATED · 10ms`,
-  `P20 · DEPENDENCY MUTATION · deployment-agent → promote_release_candidate · dep graph changed · AUTHORIZATION INVALIDATED · 13ms`,
-  `P20 · ENV CONTAMINATION · incident-agent → purge_s3_bucket · escalated to production-critical · AUTHORIZATION INVALIDATED · 14ms`,
-  `DISCOVER → Detected new MCP tool chain: Salesforce → Slack → DocuSign · 3 unmanaged principals`,
+  `CVD-BLOCK · carol@demo.org → Gemini · bulk_data_query · P20 context expired · risk state changed at t-exec · BLOCKED · 8ms`,
+  `P19-BLOCK · alice@demo.org → DeepSeek · bulk_customer_upload · scope drift at t-exec · ${R.exportApproved.toLocaleString()} approved → ${R.exportActual.toLocaleString()} attempted · BLOCKED · 6ms`,
+  `Runtime Enforcement → alice@demo.org → ChatGPT · deal_analysis_query (${R.discountPct}% context) · ESCALATED · 5ms`,
+  `P20 · SCOPE EXPANSION · bob@demo.org → ChatGPT · financial_data_upload · records 500→48000 · AUTHORIZATION INVALIDATED · 12ms`,
+  `P20 · RISK ESCALATION · bob@demo.org → ChatGPT · bulk_data_prompt · risk score 0.41→0.87 · AUTHORIZATION INVALIDATED · 9ms`,
+  `P20 · SCOPE EXPANSION · alice@demo.org → DeepSeek · upload_customer_data · dataset expanded post-auth · AUTHORIZATION INVALIDATED · 11ms`,
+  `P20 · POLICY DRIFT · carol@demo.org → Gemini · hr_data_upload · policy version changed · AUTHORIZATION INVALIDATED · 10ms`,
+  `P20 · DEPENDENCY MUTATION · dave@demo.org → Claude · code_upload · source context changed · AUTHORIZATION INVALIDATED · 13ms`,
+  `P20 · ENV CONTAMINATION · dave@demo.org → Claude · source_code_prompt · production secrets detected · AUTHORIZATION INVALIDATED · 14ms`,
+  `DISCOVER → New AI service detected: DeepSeek · 3 unapproved sessions · alice@demo.org · governance recommended`,
   `DISCOVER → Observed browser-based AI workflow accessing customer export tools · Classification: HIGH-RISK`,
-  `DISCOVER → Unmanaged support-agent in Zendesk session · UNKNOWN_NHI · Governance recommended`,
+  `DISCOVER → ex-employee@demo.org session observed · stale credentials · unmanaged device · revocation recommended`,
   `DISCOVER → Correlated agent identity across Okta / Slack / Jira · 1 merge candidate flagged`,
   `DISCOVER → Classified runtime action as high-risk financial operation · Routing to ALLOW`,
-  `Runtime Enforcement → security-bot → rotate_prod_credentials · ESCALATED · 7ms`,
-  `Runtime Enforcement → billing-agent → refund_customer_credit ($${R.creditAmt}) · ESCALATED · 8ms`,
-  `Runtime Enforcement → customer-agent → issue_service_credit · ESCALATED (>$200 threshold) · 6ms`,
+  `Runtime Enforcement → dave@demo.org → Claude · credential_query · ESCALATED · 7ms`,
+  `Runtime Enforcement → dave@demo.org → Claude · customer_refund_query ($${R.creditAmt}) · ESCALATED · 8ms`,
+  `Runtime Enforcement → alice@demo.org → ChatGPT · customer_credit_query · ESCALATED (PII detected) · 6ms`,
   `14 agents under enforcement · ${R.evalTotal} actions intercepted today · 94% enforcement coverage · 6 execution invalidations`,
 ];
 let tickIdx = 0;
