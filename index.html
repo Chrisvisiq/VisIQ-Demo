@@ -530,7 +530,7 @@
     </div>
     <div>
       <div class="brand-name">VisIQ</div>
-      <div class="brand-org">AI Runtime · Trust & Enforcement</div>
+      <div class="brand-org">Runtime Control and Proof for AI Agents</div>
     </div>
   </div>
 
@@ -540,6 +540,82 @@
     <button class="nav-item active" onclick="nav('dashboard',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
       Dashboard
+    </button>
+  </div>
+
+   </button>
+  </div>
+
+  <div class="nav-divider"></div>
+
+  <div class="nav-section">
+    <div class="nav-label">ALLOW</div>
+    <button class="nav-item" onclick="nav('rules',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Rules
+    </button>
+    <button class="nav-item" onclick="nav('agents',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      Agents
+    </button>
+    <button class="nav-item" onclick="nav('audit',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Enforcement Ledger
+    </button>
+    <button class="nav-item" onclick="nav('hitl',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Escalations
+      <span class="pending-badge" id="hitl-badge">11</span>
+    </button>
+    <div class="nav-divider" style="margin:4px 0"></div>
+    <button class="nav-item" onclick="nav('trust-p19',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Intent Validation
+    </button>
+    <button class="nav-item" onclick="nav('trust-p20',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M5 12h1M18 12h1M12 5v1M12 18v1"/></svg>
+      Validity Monitor
+    </button>
+    <div class="nav-divider" style="margin:4px 0"></div>
+    <button class="nav-item" onclick="nav('recall-rules',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Step-Up Rules
+    </button>
+    <button class="nav-item" onclick="nav('recall-decisions',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Step-Up Decisions
+    </button>
+    <button class="nav-item" onclick="nav('recall-receipts',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+      Step-Up Receipts
+    </button>
+  </div>
+
+  <div class="nav-divider"></div>
+
+  <div class="nav-section">
+    <div class="nav-label">ISOLATE</div>
+    <button class="nav-item" onclick="nav('isolate-log',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      Intercept Log
+    </button>
+    <button class="nav-item" onclick="nav('isolate-posture',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Browser Posture
+    </button>
+  </div>
+
+  <div class="nav-divider"></div>
+
+  <div class="nav-section">
+    <div class="nav-label">RECORD</div>
+    <button class="nav-item" onclick="nav('record',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+      Records
+    </button>
+    <button class="nav-item" onclick="nav('exports',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Exports
     </button>
   </div>
 
@@ -565,79 +641,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       Merge Review
       <span class="pending-badge" id="disc-merge-badge" style="background:var(--purple);color:white">3</span>
-    </button>
-  </div>
-
-  <div class="nav-divider"></div>
-
-  <div class="nav-section">
-    <div class="nav-label">ALLOW</div>
-    <button class="nav-item" onclick="nav('rules',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Rules
-    </button>
-    <button class="nav-item" onclick="nav('agents',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      Agents
-    </button>
-    <button class="nav-item" onclick="nav('audit',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      Enforcement Ledger
-    </button>
-    <button class="nav-item" onclick="nav('hitl',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Escalations
-      <span class="pending-badge" id="hitl-badge">11</span>
-    </button>
-  </div>
-
-  <div class="nav-divider"></div>
-
-  <div class="nav-section">
-    <div class="nav-label">TRUST</div>
-    <button class="nav-item" onclick="nav('trust-p19',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Intent Validation
-    </button>
-    <button class="nav-item" onclick="nav('trust-p20',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M5 12h1M18 12h1M12 5v1M12 18v1"/></svg>
-      CVD Monitor
-    </button>
-  </div>
-
-  <div class="nav-divider"></div>
-
-  <div class="nav-section">
-    <div class="nav-label">GATE</div>
-    <button class="nav-item" onclick="nav('recall-rules',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Rules
-    </button>
-    <button class="nav-item" onclick="nav('recall-decisions',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Decisions
-    </button>
-    <button class="nav-item" onclick="nav('recall-receipts',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
-      Receipts
-    </button>
-  </div>
-
-  <div class="nav-divider"></div>
-
-  <div class="nav-section">
-    <div class="nav-label">RECORD</div>
-    <button class="nav-item" onclick="nav('record',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      Records
-    </button>
-    <button class="nav-item" onclick="nav('exports',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Exports
-    </button>
-  </div>
-
-  <div class="nav-divider"></div>
+   <div class="nav-divider"></div>
 
   <div class="nav-section">
     <div class="nav-label">SDK</div>
@@ -677,7 +681,7 @@
     <div class="page-header">
       <div>
         <div class="page-title">Dashboard</div>
-        <div class="page-desc">Runtime Trust & Enforcement for AI Agents — the control plane that makes agentic deployment possible</div>
+        <div class="page-desc">Employee AI Governance — shadow AI detection, policy enforcement, and human review</div>
       </div>
     </div>
     <div class="stats-grid">
@@ -709,34 +713,28 @@
         <div>
           <div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Runtime Control Plane</div>
           <div style="font-size:16px;font-weight:800;color:var(--text);line-height:1.2">The layer that makes agentic deployment possible</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:4px">DISCOVER exposure → INTERCEPT at request time → VALIDATE at execution → GATE escalations → AUDIT everything</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px">DISCOVER observes → ISOLATE intercepts → ALLOW enforces → RECORD proves</div>
         </div>
         <span class="badge badge-green" style="font-size:10px;padding:3px 10px">● LIVE</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden">
         <div style="padding:14px 12px;background:rgba(6,182,212,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('disc-sources')" onmouseover="this.style.background='rgba(6,182,212,0.1)'" onmouseout="this.style.background='rgba(6,182,212,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">DISCOVER</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">6</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Open findings</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">24 assets · 6 sources</div>
         </div>
+        <div style="padding:14px 12px;background:rgba(139,92,246,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('isolate-log')" onmouseover="this.style.background='rgba(139,92,246,0.1)'" onmouseout="this.style.background='rgba(139,92,246,0.04)'">
+          <div style="font-size:9px;font-weight:800;color:var(--purple);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">ISOLATE</div>
+          <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">847</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Requests intercepted</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">MV3 · declarativeNetRequest</div>
+        </div>
         <div style="padding:14px 12px;background:rgba(99,102,241,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('rules')" onmouseover="this.style.background='rgba(99,102,241,0.1)'" onmouseout="this.style.background='rgba(99,102,241,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--primary-hover);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">ALLOW</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1" id="s-pipe-allow">—</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Decisions today</div>
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">11 rules · 14 agents</div>
-        </div>
-        <div style="padding:14px 12px;background:rgba(16,185,129,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('trust-p19')" onmouseover="this.style.background='rgba(16,185,129,0.1)'" onmouseout="this.style.background='rgba(16,185,129,0.04)'">
-          <div style="font-size:9px;font-weight:800;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">TRUST</div>
-          <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">6</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Invalidations today</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">Execution re-validation</div>
-        </div>
-        <div style="padding:14px 12px;background:rgba(245,158,11,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('hitl')" onmouseover="this.style.background='rgba(245,158,11,0.1)'" onmouseout="this.style.background='rgba(245,158,11,0.04)'">
-          <div style="font-size:9px;font-weight:800;color:var(--yellow);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">GATE</div>
-          <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1" id="s-pipe-hitl">—</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Escalations pending</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">GATE · receipt chain</div>
         </div>
         <div style="padding:14px 12px;background:rgba(6,182,212,0.03);cursor:pointer;transition:background 0.15s" onclick="goTo('record')" onmouseover="this.style.background='rgba(6,182,212,0.08)'" onmouseout="this.style.background='rgba(6,182,212,0.03)'">
           <div style="font-size:9px;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">RECORD</div>
@@ -816,7 +814,7 @@
         </div>
         <div style="margin-top:12px;padding:10px 12px;background:rgba(239,68,68,0.07);border-radius:6px;display:flex;align-items:flex-start;gap:10px">
           <div style="flex:1">
-            <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:2px">TRUST · Scope Drift Detected</div>
+            <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:2px">ALLOW · Scope Drift Detected</div>
             <div style="font-size:11px;color:var(--text-muted)">Authorization Invalidated · Execution Blocked · Receipt signed</div>
           </div>
           <span class="badge badge-red" style="font-size:10px;white-space:nowrap">Execution Blocked</span>
@@ -1075,7 +1073,7 @@
       <button class="filter-tab" onclick="auditFilter('deny',this)">DENY</button>
       <button class="filter-tab" onclick="auditFilter('hitl',this)">Escalated</button>
       <button class="filter-tab" onclick="auditFilter('cvd-block',this)">CVD-BLOCK</button>
-      <button class="filter-tab" onclick="auditFilter('p19-block',this)">P19-BLOCK</button>
+      <button class="filter-tab" onclick="auditFilter('p19-block',this)">INTENT-BLOCK</button>
       <button class="filter-tab" onclick="auditFilter('invalidated',this)">INVALIDATED</button>
       <input class="search-input" id="audit-search" placeholder="Search agent, action…" oninput="auditSearch(this.value)">
       <span class="audit-count" id="audit-count"></span>
@@ -1109,7 +1107,7 @@
 
   <!-- ══ RECALL RULES ══ -->
   <div id="page-recall-rules" class="page">
-    <div class="page-header"><div><div class="page-title">GATE — Rules</div><div class="page-desc">Define which agent outputs are captured and retained</div></div></div>
+    <div class="page-header"><div><div class="page-title">Step-Up Review — Rules</div><div class="page-desc">Define which agent actions trigger human review before execution</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Rule</th><th>Capture Pattern</th><th>Retention</th><th>Status</th></tr></thead>
       <tbody>
@@ -1123,7 +1121,7 @@
 
   <!-- ══ RECALL DECISIONS ══ -->
   <div id="page-recall-decisions" class="page">
-    <div class="page-header"><div><div class="page-title">GATE — Decisions</div><div class="page-desc">Immutable record of captured agent decisions</div></div></div>
+    <div class="page-header"><div><div class="page-title">Step-Up Review — Decisions</div><div class="page-desc">Immutable record of human review decisions</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>ID</th><th>Agent</th><th>Decision</th><th>Captured</th><th>Sig Hash</th></tr></thead>
       <tbody>
@@ -1137,7 +1135,7 @@
 
   <!-- ══ RECALL RECEIPTS ══ -->
   <div id="page-recall-receipts" class="page">
-    <div class="page-header"><div><div class="page-title">GATE — Receipts</div><div class="page-desc">Cryptographically signed proof packages for compliance</div></div></div>
+    <div class="page-header"><div><div class="page-title">Step-Up Review — Receipts</div><div class="page-desc">Cryptographically signed proof packages for compliance</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Receipt</th><th>Period</th><th>Records</th><th>Signature</th><th>Status</th></tr></thead>
       <tbody>
@@ -1175,9 +1173,9 @@
     </table></div></div>
   </div>
 
-  <!-- ══ TRUST · P19 INTENT VALIDATION ══ -->
+  <!-- ══ ALLOW · INTENT VALIDATION ══ -->
   <div id="page-trust-p19" class="page">
-    <div class="page-header"><div><div class="page-title">P19 · Intent Validation Log</div><div class="page-desc">Every approval verified against the exact action requested — not approximately, exactly</div></div></div>
+    <div class="page-header"><div><div class="page-title">Intent Validation</div><div class="page-desc">Every approval verified against the exact action requested — not approximately, exactly</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Time</th><th>Agent</th><th>Approved Action</th><th>Executed Action</th><th>Alignment</th><th>Confidence</th><th>Outcome</th></tr></thead>
       <tbody>
@@ -1198,18 +1196,18 @@
       </tbody>
     </table></div></div>
     <div class="card" style="margin-top:16px">
-      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px">How P19 Works</div>
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px">How Intent Validation Works</div>
       <div style="font-size:13px;color:var(--text-dim);line-height:1.7">
         When a user approves an action, VisIQ generates an authorization artifact <span style="font-family:var(--mono);color:var(--primary-hover)">(R1)</span> — a cryptographically signed record of exactly what was approved. At execution, VisIQ intercepts the agent's outbound action <span style="font-family:var(--mono);color:var(--primary-hover)">(R2)</span> and validates it against R1. If R2 does not match R1 in scope, parameters, resource, or identity — execution is blocked before it reaches any external system. <strong style="color:var(--text)">Not monitored. Not logged. Blocked.</strong>
         <br><br>
-        P19 also detects <strong style="color:#f97316">Cl. 10 — Deceptive Framing</strong>: when a user describes their intended query misleadingly to obtain approval, then submits a materially different prompt at runtime. Confidence scores below 0.25 on the alignment vector trigger automatic blocking regardless of whether the action falls within nominal scope boundaries.
+        Intent validation also detects <strong style="color:#f97316">Cl. 10 — Deceptive Framing</strong>: when a user describes their intended query misleadingly to obtain approval, then submits a materially different prompt at runtime. Confidence scores below 0.25 on the alignment vector trigger automatic blocking regardless of whether the action falls within nominal scope boundaries.
       </div>
     </div>
   </div>
 
-  <!-- ══ TRUST · P20 CVD MONITOR ══ -->
+  <!-- ══ ALLOW · VALIDITY MONITOR ══ -->
   <div id="page-trust-p20" class="page">
-    <div class="page-header"><div><div class="page-title">P20 · Contextual Validity Decay Monitor</div><div class="page-desc">Authorization re-validated at execution — the world may have changed since you approved</div></div></div>
+    <div class="page-header"><div><div class="page-title">Validity Monitor</div><div class="page-desc">Authorization re-validated at execution — the world may have changed since you approved</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Time</th><th>Agent</th><th>Approval t₀</th><th>Exec t-exec</th><th>Δ System</th><th>Δ Data</th><th>Δ Risk</th><th>CVD Result</th></tr></thead>
       <tbody>
@@ -1271,6 +1269,84 @@
     </div>
   </div>
 
+  <!-- ══ ISOLATE · INTERCEPT LOG ══ -->
+  <div id="page-isolate-log" class="page">
+    <div class="page-header"><div><div class="page-title">Intercept Log</div><div class="page-desc">Every browser-originating AI request intercepted at the network boundary before execution</div></div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px">
+      <div class="card" style="padding:16px;text-align:center">
+        <div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Intercepted Today</div>
+        <div style="font-size:32px;font-weight:800;color:var(--purple);line-height:1">847</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">MV3 · declarativeNetRequest</div>
+      </div>
+      <div class="card" style="padding:16px;text-align:center">
+        <div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Held for ALLOW</div>
+        <div style="font-size:32px;font-weight:800;color:var(--yellow);line-height:1">23</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Pending policy evaluation</div>
+      </div>
+      <div class="card" style="padding:16px;text-align:center">
+        <div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Avg Hold Time</div>
+        <div style="font-size:32px;font-weight:800;color:var(--green);line-height:1">&lt;4ms</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">Request to ALLOW decision</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0"><div class="table-wrap"><table>
+      <thead><tr><th>Time</th><th>Agent</th><th>Destination</th><th>Method</th><th>Intercepted By</th><th>Held (ms)</th><th>ALLOW Decision</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">15:14:02</td><td>alice@demo.org</td><td class="mono">api.openai.com/v1/chat</td><td class="mono">POST</td><td><span class="badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)">declarativeNetRequest</span></td><td class="mono">3ms</td><td><span class="badge badge-green">Permit</span></td></tr>
+        <tr><td class="mono">15:13:58</td><td>bob@demo.org</td><td class="mono">api.openai.com/v1/chat</td><td class="mono">POST</td><td><span class="badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)">declarativeNetRequest</span></td><td class="mono">2ms</td><td><span class="badge badge-red">Block</span></td></tr>
+        <tr><td class="mono">15:13:44</td><td>dave@demo.org</td><td class="mono">api.anthropic.com/v1/messages</td><td class="mono">POST</td><td><span class="badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)">declarativeNetRequest</span></td><td class="mono">4ms</td><td><span class="badge badge-yellow">Step-Up</span></td></tr>
+        <tr><td class="mono">15:13:31</td><td>carol@demo.org</td><td class="mono">generativelanguage.googleapis.com</td><td class="mono">POST</td><td><span class="badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)">declarativeNetRequest</span></td><td class="mono">3ms</td><td><span class="badge badge-green">Permit</span></td></tr>
+        <tr><td class="mono">15:13:19</td><td>alice@demo.org</td><td class="mono">api.deepseek.com/v1/chat</td><td class="mono">POST</td><td><span class="badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)">declarativeNetRequest</span></td><td class="mono">2ms</td><td><span class="badge badge-red">Block · Unsanctioned</span></td></tr>
+        <tr><td class="mono">15:12:55</td><td>bob@demo.org</td><td class="mono">api.anthropic.com/v1/messages</td><td class="mono">POST</td><td><span class="badge" style="background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)">declarativeNetRequest</span></td><td class="mono">3ms</td><td><span class="badge badge-green">Permit</span></td></tr>
+      </tbody>
+    </table></div></div>
+    <div class="card" style="margin-top:16px">
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px">How Isolate Works</div>
+      <div style="font-size:13px;color:var(--text-dim);line-height:1.7">The browser extension installs a Manifest V3 service worker that registers declarativeNetRequest rules for all governed AI destinations. Every outbound request to a matched endpoint is intercepted at the network layer — before it leaves the browser — and held until ALLOW evaluates policy. This is not DOM observation or content-script annotation. The request physically cannot proceed until a decision is returned. <strong style="color:var(--text)">The request doesn't move until Allow decides.</strong></div>
+    </div>
+  </div>
+
+  <!-- ══ ISOLATE · BROWSER POSTURE ══ -->
+  <div id="page-isolate-posture" class="page">
+    <div class="page-header"><div><div class="page-title">Browser Posture</div><div class="page-desc">Managed browser status, extension deployment, and enforcement credibility</div></div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px">
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px">Deployment Status</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Extension Deployment</span><span class="badge badge-green">Force-Installed · Locked</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Policy Version</span><span class="badge badge-green">v4.2.1 · Current</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">declarativeNetRequest Rules</span><span class="badge badge-green">47 Active</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Posture Tier</span><span class="badge" style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.3)">Tier 2 · Enforced</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:14px">Managed Device Coverage</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Managed browsers</span><span style="font-size:13px;font-weight:700;color:var(--green)">94 / 98</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Enforcement basis</span><span style="font-size:12px;font-family:var(--mono);color:var(--primary-hover)">intercepted_in_browser</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Unmanaged devices</span><span class="badge badge-yellow">4 · observed_only</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--surface2);border-radius:6px">
+            <span style="font-size:13px;color:var(--text)">Last posture sync</span><span style="font-size:12px;color:var(--text-muted)">2 minutes ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ══ SDK · OVERVIEW ══ -->
   <div id="page-sdk-overview" class="page">
     <div class="page-header">
@@ -1304,8 +1380,8 @@
         <div class="arch-arrow">↓</div>
         <div class="arch-layer" style="border-color:rgba(16,185,129,0.3);background:rgba(16,185,129,0.06)">
           <div class="arch-layer-label">VisIQ Layer 3</div>
-          <div class="arch-layer-name" style="color:var(--green)">Runtime Trust</div>
-          <div class="arch-layer-desc">P19 intent + P20 CVD at execution moment</div>
+          <div class="arch-layer-name" style="color:var(--green)">Execution Validity</div>
+          <div class="arch-layer-desc">Intent validation · contextual validity at execution</div>
         </div>
         <div class="arch-arrow">↓</div>
         <div class="arch-layer" style="border-color:rgba(6,182,212,0.3);background:rgba(6,182,212,0.06)">
@@ -1315,7 +1391,7 @@
         </div>
       </div>
       <div style="font-size:12px;color:var(--text-muted);line-height:1.7;margin-top:4px">
-        Most agentic deployments stall because legal, security, or compliance won't approve them — not because the technology isn't ready. VisIQ is the enforcement layer that makes the "yes" possible. Each layer is independently embeddable: adopt just the Audit Chain to unlock compliance sign-off, add the Policy Engine for runtime enforcement, or deploy the full stack including Runtime Trust (P19 + P20) to give security teams the continuous re-validation guarantees they need to let agents run at scale. All layers share the same SDK entry point.
+        Most agentic deployments stall because legal, security, or compliance won't approve them — not because the technology isn't ready. VisIQ is the enforcement layer that makes the "yes" possible. Each layer is independently embeddable: adopt just the Audit Chain to unlock compliance sign-off, add the Policy Engine for runtime enforcement, or deploy the full stack with runtime intent validation and contextual validity decay to give security teams the continuous re-validation guarantees they need to let agents run at scale. All layers share the same SDK entry point.
       </div>
     </div>
 
@@ -1342,7 +1418,7 @@
 });
 
 <span class="code-kw">if</span> (result.decision === <span class="code-str">'permit'</span>) {
-  <span class="code-comment">// P19 + P20 already validated — safe to execute</span>
+  <span class="code-comment">// Intent validation + validity check passed — safe to execute</span>
   <span class="code-kw">await</span> agent.<span class="code-fn">execute</span>(result.authorizedPayload);
 }
           </div>
@@ -1377,7 +1453,7 @@
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface2);border-radius:6px;border-left:3px solid var(--green)">
             <span style="font-size:18px">4</span>
-            <div><div style="font-size:12px;font-weight:700">P19 + P20 re-validate at t-exec</div><div style="font-size:11px;color:var(--text-muted)">Intent check · context validity decay scan</div></div>
+            <div><div style="font-size:12px;font-weight:700">Intent validation · validity check at t-exec</div><div style="font-size:11px;color:var(--text-muted)">Scope alignment · contextual validity decay scan</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface2);border-radius:6px;border-left:3px solid var(--cyan)">
             <span style="font-size:18px">5</span>
@@ -1466,11 +1542,11 @@ decision = pe.<span class="code-fn">evaluate</span>(
           </div>
           <div>
             <div class="module-name">Runtime Trust</div>
-            <div class="module-tagline">P19 Intent Validation · P20 CVD · at t-exec</div>
+            <div class="module-tagline">Runtime intent validation · contextual validity · at t-exec</div>
           </div>
-          <span class="badge badge-green" style="margin-left:auto">TRUST</span>
+          <span class="badge badge-green" style="margin-left:auto">ALLOW</span>
         </div>
-        <div class="module-desc">The only module on the market that re-validates authorization at the moment of execution. P19 confirms the agent's outbound action matches what was approved (intent alignment). P20 re-scans the contextual fingerprint across four dimensions — if the world changed since approval, execution is blocked automatically. Fail-closed by design.</div>
+        <div class="module-desc">The only module on the market that re-validates authorization at the moment of execution. Intent validation confirms the agent's outbound action matches what was approved. Contextual validity decay re-scans conditions across four dimensions — if the world changed since approval, execution is blocked automatically. Fail-closed by design.</div>
         <div class="module-langs">
           <span class="rule-tag">Python</span><span class="rule-tag">TypeScript</span><span class="rule-tag">Java</span><span class="rule-tag">Go</span><span class="rule-tag">Rust SDK</span>
         </div>
@@ -1536,8 +1612,8 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
         </div>
         <div style="padding:16px;background:rgba(16,185,129,0.06);border-radius:6px;border:1px solid rgba(16,185,129,0.3)">
           <div style="font-size:13px;font-weight:800;margin-bottom:6px;color:var(--green)">Full Stack</div>
-          <div style="font-size:11px;color:var(--text-muted);line-height:1.6;margin-bottom:10px">All four modules including P19 + P20 Runtime Trust. Maximum coverage. The only solution that validates authorization at the moment of execution.</div>
-          <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="badge badge-purple">ALLOW</span><span class="badge badge-yellow">Escalated</span><span class="badge badge-green">TRUST</span><span class="badge badge-cyan">RECORD</span></div>
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.6;margin-bottom:10px">Full enforcement stack with runtime intent validation and contextual validity decay. Maximum coverage. The only solution that validates authorization at the moment of execution.</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap"><span class="badge badge-purple">ALLOW</span><span class="badge badge-yellow">Escalated</span><span class="badge badge-green">ALLOW</span><span class="badge badge-cyan">RECORD</span></div>
         </div>
       </div>
     </div>
@@ -1715,18 +1791,18 @@ const AGENTS = [
 
 const AUDIT = [
   // ── Case Study: Finance / Payments ───────────────────────────────────────────
-  { time:"15:09:14", agent:"bob@demo.org → ChatGPT",     action:"financial_data_upload",      resource:"api.openai.com/v1/chat",         decision:"invalidated", lat:"12ms", rule:"P20 · Scope Expansion · data volume exceeded approved threshold" },
+  { time:"15:09:14", agent:"bob@demo.org → ChatGPT",     action:"financial_data_upload",      resource:"api.openai.com/v1/chat",         decision:"invalidated", lat:"12ms", rule:"Validity Decay · Scope Expansion · data volume exceeded approved threshold" },
   { time:"15:07:52", agent:"dave@demo.org → Claude",  action:"customer_pii_query",        resource:`api.anthropic.com/v1/messages`,   decision:"hitl",        lat:"8ms",  rule:"PII escalation gate" },
-  { time:"15:06:33", agent:"bob@demo.org → ChatGPT",  action:"bulk_data_prompt",          resource:"api.openai.com/v1/chat",          decision:"invalidated", lat:"9ms",  rule:"P20 · Risk Escalation · risk score 0.41→0.87" },
+  { time:"15:06:33", agent:"bob@demo.org → ChatGPT",  action:"bulk_data_prompt",          resource:"api.openai.com/v1/chat",          decision:"invalidated", lat:"9ms",  rule:"Validity Decay · Risk Escalation · risk score 0.41→0.87" },
   { time:"15:05:11", agent:"finance-agent",           action:"approve_invoice_payment",   resource:"ap/invoices/INV-9914",            decision:"permit",      lat:"4ms",  rule:"Permit reads" },
   // ── Case Study: DeepSeek / Shadow AI ──────────────────────────────────────────
-  { time:"15:04:02", agent:"alice@demo.org → DeepSeek", action:"upload_customer_data",   resource:"api.deepseek.com/v1/chat",        decision:"invalidated", lat:"11ms", rule:"P20 · Scope Expansion · dataset expanded post-auth" },
+  { time:"15:04:02", agent:"alice@demo.org → DeepSeek", action:"upload_customer_data",   resource:"api.deepseek.com/v1/chat",        decision:"invalidated", lat:"11ms", rule:"Validity Decay · Scope Expansion · dataset expanded post-auth" },
   { time:"15:02:44", agent:"carol@demo.org → Gemini", action:"hr_data_upload",            resource:"generativelanguage.googleapis.com",decision:"deny",        lat:"6ms",  rule:"HR data scope exceeded" },
   { time:"15:01:33", agent:"alice@demo.org → ChatGPT", action:"support_query",            resource:"api.openai.com/v1/chat",          decision:"permit",      lat:"5ms",  rule:"Standard query gate" },
   // ── Case Study: HR / Payroll ──────────────────────────────────────────────────
-  { time:"14:59:18", agent:"carol@demo.org → Gemini",  action:"hr_data_prompt",           resource:"generativelanguage.googleapis.com",decision:"invalidated", lat:"10ms", rule:"P20 · Policy Drift · policy version changed post-auth" },
+  { time:"14:59:18", agent:"carol@demo.org → Gemini",  action:"hr_data_prompt",           resource:"generativelanguage.googleapis.com",decision:"invalidated", lat:"10ms", rule:"Validity Decay · Policy Drift · policy version changed post-auth" },
   // ── Case Study: Security Operations ──────────────────────────────────────────
-  { time:"14:57:44", agent:"dave@demo.org → Claude",   action:"source_code_prompt",       resource:"api.anthropic.com/v1/messages",   decision:"invalidated", lat:"14ms", rule:"P20 · Env Contamination · IP-classified code detected in prompt" },
+  { time:"14:57:44", agent:"dave@demo.org → Claude",   action:"source_code_prompt",       resource:"api.anthropic.com/v1/messages",   decision:"invalidated", lat:"14ms", rule:"Validity Decay · Env Contamination · IP-classified code detected in prompt" },
   { time:"14:56:08", agent:"dave@demo.org → Claude",  action:"credential_query",          resource:`api.anthropic.com/v1/messages`,   decision:"hitl",        lat:"7ms",  rule:"Credential query escalation gate" },
   { time:"14:54:21", agent:"threat-agent",            action:"disable_identity_provider", resource:"idp/okta/workforce",              decision:"deny",        lat:"9ms",  rule:"Identity Provider lock gate" },
   { time:"14:52:55", agent:"carol@demo.org → Gemini", action:"standard_query",            resource:"generativelanguage.googleapis.com",decision:"permit",      lat:"5ms",  rule:"Standard query gate" },
@@ -1734,12 +1810,12 @@ const AUDIT = [
   { time:"14:50:12", agent:"alice@demo.org → ChatGPT", action:"pii_data_in_prompt",       resource:`api.openai.com/v1/chat`,           decision:"hitl",       lat:"6ms",  rule:"PII escalation gate" },
   { time:"14:49:01", agent:"alice@demo.org → ChatGPT", action:"ticket_resolution_query", resource:"api.openai.com/v1/chat",           decision:"permit",      lat:"4ms",  rule:"Support query gate" },
   // ── Case Study: DevOps / Cloud ────────────────────────────────────────────────
-  { time:"14:48:44", agent:"bob@demo.org → ChatGPT",  action:"source_code_upload",        resource:"api.openai.com/v1/chat",           decision:"invalidated", lat:"13ms", rule:"P20 · Dependency Mutation · code repo context changed post-auth" },
+  { time:"14:48:44", agent:"bob@demo.org → ChatGPT",  action:"source_code_upload",        resource:"api.openai.com/v1/chat",           decision:"invalidated", lat:"13ms", rule:"Validity Decay · Dependency Mutation · code repo context changed post-auth" },
   { time:"14:47:02", agent:"infra-agent",             action:"delete_production_cluster", resource:"k8s/prod/cluster-main",           decision:"deny",        lat:"8ms",  rule:"Production cluster lock" },
   { time:"14:45:33", agent:"deploy-agent",            action:"restart_kubernetes_pod",    resource:"k8s/prod/payment-api-6b4d",       decision:"permit",      lat:"4ms",  rule:"Infra ops gate" },
   // ── Existing entries ──────────────────────────────────────────────────────────
-  { time:"14:38:22", agent:"carol@demo.org → Gemini", action:"bulk_data_query",  resource:`generativelanguage.googleapis.com`,           decision:"cvd-block", lat:"8ms",  rule:"Runtime Trust (P20)" },
-  { time:"14:36:55", agent:"alice@demo.org → DeepSeek", action:"upload_customer_data", resource:`api.deepseek.com/v1/chat`,             decision:"p19-block", lat:"6ms",  rule:"Runtime Trust (P19)" },
+  { time:"14:38:22", agent:"carol@demo.org → Gemini", action:"bulk_data_query",  resource:`generativelanguage.googleapis.com`,           decision:"cvd-block", lat:"8ms",  rule:"Contextual Validity Decay" },
+  { time:"14:36:55", agent:"alice@demo.org → DeepSeek", action:"upload_customer_data", resource:`api.deepseek.com/v1/chat`,             decision:"p19-block", lat:"6ms",  rule:"Intent Validation Block" },
   { time:"14:35:11", agent:"carol@demo.org → Gemini", action:"hr_data_upload",  resource:`generativelanguage.googleapis.com`,            decision:"hitl",      lat:"5ms",  rule:"HR data escalation gate" },
   { time:"14:33:44", agent:"dave@demo.org → Claude", action:"code_review_upload", resource:`api.anthropic.com/v1/messages`,              decision:"hitl",      lat:"7ms",  rule:"Source code upload gate" },
   { time:"14:31:20", agent:"legal-agent",        action:"send_settlement_offer", resource:`legal/matters/${R.caseId}`,                   decision:"hitl",      lat:"9ms",  rule:"Legal action escalation" },
@@ -1781,7 +1857,7 @@ const AUDIT = [
 ];
 
 const HITL = [
-  // ── ★ AHA MOMENT — alice@demo.org/DeepSeek · approve triggers P19 scope drift auto-block ─
+  // ── ★ AHA MOMENT — alice@demo.org/DeepSeek · approve triggers intent validation scope drift block ─
   {
     id: `H-EXP-${R.exportId}`,
     agent: "alice@demo.org → DeepSeek",
@@ -1801,14 +1877,14 @@ const HITL = [
     approveStream: [
       { icon:"⏸",  text:"Session intercepted · awaiting decision",                                                                 cls:"step-system",        delay:0 },
       { icon:"✅",  text:`Decision: APPROVED by Chris Mancuso · upload for '${R.exportSegment}' segment (${R.exportApproved.toLocaleString()} records)`, cls:"step-complete", delay:600 },
-      { icon:"🧠",  text:"P19 · IVAE · Verifying intent alignment at t-exec…",                                                      cls:"step-intent-pending",delay:900 },
-      { icon:"⚠️",  text:`P19 · IVAE · Scope drift detected · upload contains ${R.exportActual.toLocaleString()} records vs approved ${R.exportApproved.toLocaleString()}`, cls:"step-intent-warn", delay:1400 },
-      { icon:"⚠️",  text:`P19 · IVAE · Data scope changed · segment '${R.exportSegment}' → 'all-customers'`,                      cls:"step-intent-warn",   delay:2000 },
-      { icon:"🛑",  text:"P19 · IVAE · Upload BLOCKED · data scope exceeded authorized parameters",                               cls:"step-deny",          delay:2600 },
+      { icon:"🧠",  text:"ALLOW · Intent ·Verifying intent alignment at t-exec…",                                                      cls:"step-intent-pending",delay:900 },
+      { icon:"⚠️",  text:`ALLOW · Intent ·Scope drift detected · upload contains ${R.exportActual.toLocaleString()} records vs approved ${R.exportApproved.toLocaleString()}`, cls:"step-intent-warn", delay:1400 },
+      { icon:"⚠️",  text:`ALLOW · Intent ·Data scope changed · segment '${R.exportSegment}' → 'all-customers'`,                      cls:"step-intent-warn",   delay:2000 },
+      { icon:"🛑",  text:"ALLOW · Intent ·Upload BLOCKED · data scope exceeded authorized parameters",                               cls:"step-deny",          delay:2600 },
       { icon:"🚫",  text:"alice@demo.org session blocked · must re-request with corrected scope",                                   cls:"step-deny",          delay:3200 },
       { icon:"🔍",  text:"Scope drift event logged · security team notified · agent session flagged",                               cls:"step-system",        delay:3800 },
-      { icon:"→",   text:"P19 block event queued · /visiq/trust · audit pipeline updated",                                         cls:"step-system",        delay:4300 },
-      { icon:"🔐",  text:"P19 block recorded · Ed25519 signature applied",                                                          cls:"step-receipt",       delay:4900 },
+      { icon:"→",   text:"Intent validation block queued · audit pipeline updated",                                         cls:"step-system",        delay:4300 },
+      { icon:"🔐",  text:"Intent validation block recorded · Ed25519 signature applied",                                                          cls:"step-receipt",       delay:4900 },
     ],
     rejectStream: [
       { icon:"⏸",  text:"Agent execution paused · awaiting decision",                                                              cls:"step-system",  delay:0 },
@@ -1819,7 +1895,7 @@ const HITL = [
       { icon:"→",   text:"Event queued · /visiq/decisions · audit pipeline updated",                                                cls:"step-system",  delay:2700 },
       { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",                                                           cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+9}`, decision:"P19-BLOCK (SCOPE DRIFT)", agent:"alice@demo.org → DeepSeek", action:`bulk_customer_upload (${R.exportActual.toLocaleString()} records — exceeded authorized ${R.exportApproved.toLocaleString()})`, approver:"VisIQ Runtime · P19", sig:`Ed25519:${R.sigH}` },
+    approveReceipt: { id:`REC-${R.recBase+9}`, decision:"INTENT-BLOCK (SCOPE DRIFT)", agent:"alice@demo.org → DeepSeek", action:`bulk_customer_upload (${R.exportActual.toLocaleString()} records — exceeded authorized ${R.exportApproved.toLocaleString()})`, approver:"VisIQ Runtime · Intent Validation", sig:`Ed25519:${R.sigH}` },
     rejectReceipt:  { id:`REC-${R.recBase+9}`, decision:"BLOCKED (ESCALATED)",             agent:"alice@demo.org → DeepSeek", action:`bulk_customer_upload (${R.exportApproved.toLocaleString()} records · ${R.exportSegment})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigH}` }
   },
   {
@@ -1924,14 +2000,14 @@ const HITL = [
     approveStream: [
       { icon:"⏸",  text:"Agent execution paused · awaiting decision",                                                          cls:"step-system",        delay:0 },
       { icon:"✅",  text:"Decision: APPROVED by Chris Mancuso",                                                                 cls:"step-complete",      delay:600 },
-      { icon:"🧠",  text:"P19 · IVAE · Verifying intent alignment…",                                                            cls:"step-intent-pending",delay:900 },
-      { icon:"✔",   text:`P19 · IVAE · Approval congruent with requested scope (confidence: ${R.confC})`,                      cls:"step-intent",        delay:1200 },
-      { icon:"🔓",  text:`P19 · Authorization artifact validated · releasing agent · ${R.sidC}`,                               cls:"step-complete",      delay:1700 },
+      { icon:"🧠",  text:"ALLOW · Intent ·Verifying intent alignment…",                                                            cls:"step-intent-pending",delay:900 },
+      { icon:"✔",   text:`ALLOW · Intent ·Approval congruent with requested scope (confidence: ${R.confC})`,                      cls:"step-intent",        delay:1200 },
+      { icon:"🔓",  text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidC}`,                               cls:"step-complete",      delay:1700 },
       { icon:"⚙️",  text:`Forwarding bulk data query · ${R.accountCount} records · ${R.accountTier}…`,                        cls:"step-system",        delay:2200 },
-      { icon:"🔍",  text:"P20 · CVD · Re-scanning contextual fingerprint at t-exec…",                                          cls:"step-intent-pending",delay:2800 },
-      { icon:"⚠️",  text:`P20 · CVD · Data state changed · concurrent write detected on ${R.accountTier} records`,            cls:"step-warn",          delay:3300 },
-      { icon:"⚠️",  text:`P20 · CVD · Risk state elevated · fraud score: ${R.riskC} → ${R.riskCpost} (new flag by risk engine)`,cls:"step-warn",         delay:3800 },
-      { icon:"🛑",  text:"P20 · CVD · Contextual validity expired · conditions changed since authorization at t₀",            cls:"step-deny",          delay:4300 },
+      { icon:"🔍",  text:"ALLOW · Validity ·Re-scanning contextual fingerprint at t-exec…",                                          cls:"step-intent-pending",delay:2800 },
+      { icon:"⚠️",  text:`ALLOW · Validity ·Data state changed · concurrent write detected on ${R.accountTier} records`,            cls:"step-warn",          delay:3300 },
+      { icon:"⚠️",  text:`ALLOW · Validity ·Risk state elevated · fraud score: ${R.riskC} → ${R.riskCpost} (new flag by risk engine)`,cls:"step-warn",         delay:3800 },
+      { icon:"🛑",  text:"ALLOW · Validity ·Contextual validity expired · conditions changed since authorization at t₀",            cls:"step-deny",          delay:4300 },
       { icon:"🚫",  text:"Execution BLOCKED · authorization is no longer valid at t-exec · agent must re-request",            cls:"step-deny",          delay:4800 },
       { icon:"🤖",  text:"carol@demo.org session blocked · re-authorization required under current conditions",                cls:"step-system",        delay:5400 },
       { icon:"→",   text:"CVD block event queued · /visiq/trust · audit pipeline updated",                                     cls:"step-system",        delay:5900 },
@@ -1946,7 +2022,7 @@ const HITL = [
       { icon:"→",   text:"Event queued · /visiq/decisions · audit pipeline updated",  cls:"step-system",  delay:2700 },
       { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",             cls:"step-receipt", delay:3300 },
     ],
-    approveReceipt: { id:`REC-${R.recBase+4}`, decision:"CVD-BLOCK (AUTO)", agent:"carol@demo.org → Gemini", action:`bulk_data_query (${R.accountCount} records)`, approver:"VisIQ Runtime · P20", sig:`Ed25519:${R.sigD}` },
+    approveReceipt: { id:`REC-${R.recBase+4}`, decision:"CVD-BLOCK (AUTO)", agent:"carol@demo.org → Gemini", action:`bulk_data_query (${R.accountCount} records)`, approver:"VisIQ Runtime · Validity Monitor", sig:`Ed25519:${R.sigD}` },
     rejectReceipt:  { id:`REC-${R.recBase+4}`, decision:"BLOCKED (ESCALATED)",      agent:"carol@demo.org → Gemini", action:`bulk_data_query (${R.accountCount} records)`, approver:"Chris Mancuso",       sig:`Ed25519:${R.sigD}` }
   },
   {
@@ -1968,9 +2044,9 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",        delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                               cls:"step-complete",      delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with requested scope (confidence: ${R.confD})`,    cls:"step-intent",        delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidD}`,              cls:"step-complete",      delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with requested scope (confidence: ${R.confD})`,    cls:"step-intent",        delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidD}`,              cls:"step-complete",      delay:1700 },
       { icon:"👤", text:`Forwarding HR data query · ${R.empName} compensation data · ${R.empDept}`,          cls:"step-complete",      delay:2300 },
       { icon:"📧", text:`HR data forwarded to Gemini · session resumed · sensitive fields masked`,            cls:"step-complete",      delay:3100 },
       { icon:"🔑", text:`Compensation data cleared from prompt context · policy enforced`,                   cls:"step-complete",      delay:3900 },
@@ -2009,9 +2085,9 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",        delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                               cls:"step-complete",      delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with requested scope (confidence: ${R.confE})`,    cls:"step-intent",        delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidE}`,              cls:"step-complete",      delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with requested scope (confidence: ${R.confE})`,    cls:"step-intent",        delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidE}`,              cls:"step-complete",      delay:1700 },
       { icon:"🚀", text:`Deploying payment-api ${R.deployVer} to production…`,                               cls:"step-system",        delay:2200 },
       { icon:"🔍", text:"Running smoke tests on production replicas…",                                        cls:"step-system",        delay:3000 },
       { icon:"✔",  text:`Smoke tests passed · ${R.deployTests}% coverage validated`,                         cls:"step-recover",       delay:3800 },
@@ -2051,9 +2127,9 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",        delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                               cls:"step-complete",      delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with settlement scope (confidence: ${R.confD})`,   cls:"step-intent",        delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidF}`,              cls:"step-complete",      delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with settlement scope (confidence: ${R.confD})`,   cls:"step-intent",        delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidF}`,              cls:"step-complete",      delay:1700 },
       { icon:"⚖️", text:`Generating settlement offer · ${R.caseId} · $${R.settlementAmt} · full release`,   cls:"step-system",        delay:2200 },
       { icon:"📧", text:`Offer transmitted to ${R.counterparty} via certified legal channel`,                cls:"step-complete",      delay:3200 },
       { icon:"📋", text:"Delivery confirmation received · matter log updated",                               cls:"step-complete",      delay:4000 },
@@ -2091,9 +2167,9 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                        cls:"step-system",        delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                               cls:"step-complete",      delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with requested scope (confidence: ${R.confE})`,    cls:"step-intent",        delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidG}`,              cls:"step-complete",      delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                          cls:"step-intent-pending",delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with requested scope (confidence: ${R.confE})`,    cls:"step-intent",        delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidG}`,              cls:"step-complete",      delay:1700 },
       { icon:"💸", text:`Applying ${R.discountPct}% discount to deal ${R.dealId} · ${R.dealCustomer}`,       cls:"step-system",        delay:2200 },
       { icon:"✔",  text:`Discount applied · new ARR: $${R.arrImpact} reduction logged`,                      cls:"step-recover",       delay:3000 },
       { icon:"📊", text:"Deal desk notified · CRM record updated · revenue forecast adjusted",               cls:"step-system",        delay:3700 },
@@ -2132,13 +2208,13 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                          cls:"step-system",         delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                                 cls:"step-complete",       delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                            cls:"step-intent-pending", delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with credit scope (confidence: ${R.confF})`,         cls:"step-intent",         delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidI}`,                cls:"step-complete",       delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                            cls:"step-intent-pending", delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with credit scope (confidence: ${R.confF})`,         cls:"step-intent",         delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidI}`,                cls:"step-complete",       delay:1700 },
       { icon:"💳", text:`Issuing credit of $${R.creditAmt} to ${R.creditId}…`,                               cls:"step-system",         delay:2300 },
       { icon:"⚠️", text:"Stripe API returned 429 (rate limit) · backing off 2s…",                            cls:"step-warn",           delay:3100 },
       { icon:"↩️", text:"Retry successful · Stripe credit endpoint available",                                 cls:"step-recover",        delay:4300 },
-      { icon:"⏱", text:"Context snapshot re-validated · P20 fingerprint stable",                              cls:"step-intent",         delay:5000 },
+      { icon:"⏱", text:"Context snapshot re-validated · Validity fingerprint stable",                              cls:"step-intent",         delay:5000 },
       { icon:"✔",  text:`Credit issued · ${R.creditId} account updated · ${R.creditTicket} closed`,           cls:"step-complete",       delay:5700 },
       { icon:"→",  text:"Event queued · /visiq/decisions · audit pipeline updated",                            cls:"step-system",         delay:6300 },
       { icon:"🔐", text:"Decision recorded · Ed25519 signature applied",                                       cls:"step-receipt",        delay:6900 },
@@ -2175,9 +2251,9 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                          cls:"step-system",         delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                                 cls:"step-complete",       delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                            cls:"step-intent-pending", delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with rotation scope (confidence: ${R.confG})`,       cls:"step-intent",         delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidJ}`,                cls:"step-complete",       delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                            cls:"step-intent-pending", delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with rotation scope (confidence: ${R.confG})`,       cls:"step-intent",         delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidJ}`,                cls:"step-complete",       delay:1700 },
       { icon:"🔄", text:"Initiating credential rotation · payment-api key first…",                             cls:"step-system",         delay:2200 },
       { icon:"⚠️", text:"Policy sync stalled · waiting for policy sync (412ms)…",                             cls:"step-warn",           delay:3000 },
       { icon:"✔",  text:"Policy sync restored · continuing rotation sequence",                                 cls:"step-recover",        delay:3700 },
@@ -2221,9 +2297,9 @@ const HITL = [
     approveStream: [
       { icon:"⏸", text:"Agent execution paused · awaiting decision",                                          cls:"step-system",         delay:0 },
       { icon:"✅", text:"Decision: APPROVED by Chris Mancuso",                                                 cls:"step-complete",       delay:600 },
-      { icon:"🧠", text:"P19 · IVAE · Verifying intent alignment…",                                            cls:"step-intent-pending", delay:900 },
-      { icon:"✔",  text:`P19 · IVAE · Approval congruent with credit scope (confidence: ${R.confH})`,         cls:"step-intent",         delay:1200 },
-      { icon:"🔓", text:`P19 · Authorization artifact validated · releasing agent · ${R.sidK}`,                cls:"step-complete",       delay:1700 },
+      { icon:"🧠", text:"ALLOW · Intent ·Verifying intent alignment…",                                            cls:"step-intent-pending", delay:900 },
+      { icon:"✔",  text:`ALLOW · Intent ·Approval congruent with credit scope (confidence: ${R.confH})`,         cls:"step-intent",         delay:1200 },
+      { icon:"🔓", text:`ALLOW · Authorization artifact validated · releasing agent ·${R.sidK}`,                cls:"step-complete",       delay:1700 },
       { icon:"💳", text:`Issuing service credit of $${R.custCreditAmt} to account ${R.custCreditId}…`,        cls:"step-system",         delay:2300 },
       { icon:"⚠️", text:"Billing service returned partial response · retrying credit confirmation…",          cls:"step-warn",           delay:3100 },
       { icon:"⏱", text:"Latency spike detected · 1,340ms · threshold 800ms",                                  cls:"step-warn",           delay:3800 },
@@ -3043,8 +3119,8 @@ function resolveHITL(id, action) {
 
         // Show policy suggestion 800ms after receipt
         setTimeout(()=>{
-          // Skip suggestion for auto-blocks (CVD/P19) — system already handles those
-          const isAutoBlock = receipt.decision.includes('AUTO') || receipt.decision.includes('P19-BLOCK');
+          // Skip suggestion for auto-blocks (CVD/intent-block) — system already handles those
+          const isAutoBlock = receipt.decision.includes('AUTO') || receipt.decision.includes('INTENT-BLOCK');
           if (isAutoBlock) return;
           const rule = autoRule(item, action);
           const btnId = `policy-btn-${id}`;
@@ -3095,15 +3171,15 @@ const ticks = [
   `Runtime Enforcement → invoice-processor → approve_payment · RELEASED · ${R.lats[7]}`,
   `Runtime Enforcement → dave@demo.org → Claude · code_upload · ESCALATED · 7ms`,
   `Runtime Enforcement → legal-agent → send_settlement_offer · ESCALATED · 9ms`,
-  `CVD-BLOCK · carol@demo.org → Gemini · bulk_data_query · P20 context expired · risk state changed at t-exec · BLOCKED · 8ms`,
-  `P19-BLOCK · alice@demo.org → DeepSeek · bulk_customer_upload · scope drift at t-exec · ${R.exportApproved.toLocaleString()} approved → ${R.exportActual.toLocaleString()} attempted · BLOCKED · 6ms`,
+  `CVD-BLOCK · carol@demo.org → Gemini · bulk_data_query · validity decay · risk state changed at t-exec · BLOCKED · 8ms`,
+  `INTENT-BLOCK · alice@demo.org → DeepSeek · bulk_customer_upload · scope drift at t-exec ·${R.exportApproved.toLocaleString()} approved → ${R.exportActual.toLocaleString()} attempted · BLOCKED · 6ms`,
   `Runtime Enforcement → alice@demo.org → ChatGPT · deal_analysis_query (${R.discountPct}% context) · ESCALATED · 5ms`,
-  `P20 · SCOPE EXPANSION · bob@demo.org → ChatGPT · financial_data_upload · records 500→48000 · AUTHORIZATION INVALIDATED · 12ms`,
-  `P20 · RISK ESCALATION · bob@demo.org → ChatGPT · bulk_data_prompt · risk score 0.41→0.87 · AUTHORIZATION INVALIDATED · 9ms`,
-  `P20 · SCOPE EXPANSION · alice@demo.org → DeepSeek · upload_customer_data · dataset expanded post-auth · AUTHORIZATION INVALIDATED · 11ms`,
-  `P20 · POLICY DRIFT · carol@demo.org → Gemini · hr_data_upload · policy version changed · AUTHORIZATION INVALIDATED · 10ms`,
-  `P20 · DEPENDENCY MUTATION · dave@demo.org → Claude · code_upload · source context changed · AUTHORIZATION INVALIDATED · 13ms`,
-  `P20 · ENV CONTAMINATION · dave@demo.org → Claude · source_code_prompt · production secrets detected · AUTHORIZATION INVALIDATED · 14ms`,
+  `VALIDITY DECAY · SCOPE EXPANSION · bob@demo.org → ChatGPT · financial_data_upload · records 500→48000 · AUTHORIZATION INVALIDATED · 12ms`,
+  `VALIDITY DECAY · RISK ESCALATION · bob@demo.org → ChatGPT · bulk_data_prompt · risk score 0.41→0.87 · AUTHORIZATION INVALIDATED · 9ms`,
+  `VALIDITY DECAY · SCOPE EXPANSION · alice@demo.org → DeepSeek · upload_customer_data · dataset expanded post-auth · AUTHORIZATION INVALIDATED · 11ms`,
+  `VALIDITY DECAY · POLICY DRIFT · carol@demo.org → Gemini · hr_data_upload · policy version changed · AUTHORIZATION INVALIDATED · 10ms`,
+  `VALIDITY DECAY · DEPENDENCY MUTATION · dave@demo.org → Claude · code_upload · source context changed · AUTHORIZATION INVALIDATED · 13ms`,
+  `VALIDITY DECAY · ENV CONTAMINATION · dave@demo.org → Claude · source_code_prompt · production secrets detected · AUTHORIZATION INVALIDATED · 14ms`,
   `DISCOVER → New AI service detected: DeepSeek · 3 unapproved sessions · alice@demo.org · governance recommended`,
   `DISCOVER → Observed browser-based AI workflow accessing customer export tools · Classification: HIGH-RISK`,
   `DISCOVER → ex-employee@demo.org session observed · stale credentials · unmanaged device · revocation recommended`,
