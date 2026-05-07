@@ -608,7 +608,7 @@
   <div class="nav-divider"></div>
 
   <div class="nav-section">
-    <div class="nav-label">SEE</div>
+    <div class="nav-label">GATE</div>
     <button class="nav-item" onclick="nav('recall-rules',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Rules
@@ -709,7 +709,7 @@
         <div>
           <div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Runtime Control Plane</div>
           <div style="font-size:16px;font-weight:800;color:var(--text);line-height:1.2">The layer that makes agentic deployment possible</div>
-          <div style="font-size:12px;color:var(--text-muted);margin-top:4px">DISCOVER exposure → INTERCEPT at request time → VALIDATE at execution → AUDIT everything</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px">DISCOVER exposure → INTERCEPT at request time → VALIDATE at execution → GATE escalations → AUDIT everything</div>
         </div>
         <span class="badge badge-green" style="font-size:10px;padding:3px 10px">● LIVE</span>
       </div>
@@ -733,10 +733,10 @@
           <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">Execution re-validation</div>
         </div>
         <div style="padding:14px 12px;background:rgba(245,158,11,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('hitl')" onmouseover="this.style.background='rgba(245,158,11,0.1)'" onmouseout="this.style.background='rgba(245,158,11,0.04)'">
-          <div style="font-size:9px;font-weight:800;color:var(--yellow);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">SEE</div>
+          <div style="font-size:9px;font-weight:800;color:var(--yellow);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">GATE</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1" id="s-pipe-hitl">—</div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px">Escalations pending</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">Escalation · receipt chain</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">GATE · receipt chain</div>
         </div>
         <div style="padding:14px 12px;background:rgba(6,182,212,0.03);cursor:pointer;transition:background 0.15s" onclick="goTo('record')" onmouseover="this.style.background='rgba(6,182,212,0.08)'" onmouseout="this.style.background='rgba(6,182,212,0.03)'">
           <div style="font-size:9px;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">RECORD</div>
@@ -1094,18 +1094,23 @@
         <div class="page-title">Runtime Escalation Queue</div>
         <div class="page-desc">Agent actions intercepted at the execution boundary — paused for escalation review before any external system is reached</div>
       </div>
+      <button class="btn" onclick="resetEscalations()" style="background:var(--surface2);border:1px solid var(--border2);color:var(--text-muted);display:flex;align-items:center;gap:6px;font-size:12px" title="Reset all escalations to pending state for demo">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+        Reset Demo
+      </button>
     </div>
     <div id="hitl-list"></div>
     <div id="hitl-empty" style="display:none;text-align:center;padding:60px;color:var(--text-muted);">
       <div style="font-size:36px;margin-bottom:12px;">✓</div>
       <div style="font-size:15px;font-weight:700;margin-bottom:4px;">Queue is clear</div>
       <div style="font-size:12px;">All pending actions have been reviewed. Agents are operating within policy.</div>
+      <button class="btn btn-primary" onclick="resetEscalations()" style="margin-top:20px">↺ Reset Demo Scenario</button>
     </div>
   </div>
 
   <!-- ══ RECALL RULES ══ -->
   <div id="page-recall-rules" class="page">
-    <div class="page-header"><div><div class="page-title">SEE — Rules</div><div class="page-desc">Define which agent outputs are captured and retained</div></div></div>
+    <div class="page-header"><div><div class="page-title">GATE — Rules</div><div class="page-desc">Define which agent outputs are captured and retained</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Rule</th><th>Capture Pattern</th><th>Retention</th><th>Status</th></tr></thead>
       <tbody>
@@ -1119,7 +1124,7 @@
 
   <!-- ══ RECALL DECISIONS ══ -->
   <div id="page-recall-decisions" class="page">
-    <div class="page-header"><div><div class="page-title">SEE — Decisions</div><div class="page-desc">Immutable record of captured agent decisions</div></div></div>
+    <div class="page-header"><div><div class="page-title">GATE — Decisions</div><div class="page-desc">Immutable record of captured agent decisions</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>ID</th><th>Agent</th><th>Decision</th><th>Captured</th><th>Sig Hash</th></tr></thead>
       <tbody>
@@ -1133,7 +1138,7 @@
 
   <!-- ══ RECALL RECEIPTS ══ -->
   <div id="page-recall-receipts" class="page">
-    <div class="page-header"><div><div class="page-title">SEE — Receipts</div><div class="page-desc">Cryptographically signed proof packages for compliance</div></div></div>
+    <div class="page-header"><div><div class="page-title">GATE — Receipts</div><div class="page-desc">Cryptographically signed proof packages for compliance</div></div></div>
     <div class="card" style="padding:0"><div class="table-wrap"><table>
       <thead><tr><th>Receipt</th><th>Period</th><th>Records</th><th>Signature</th><th>Status</th></tr></thead>
       <tbody>
@@ -2850,6 +2855,22 @@ function auditSearch(val) {
 
 // ── HITL ──────────────────────────────────────────────────────────────────────
 let pendingCount = 11;
+
+function resetEscalations() {
+  document.getElementById('hitl-empty').style.display = 'none';
+  document.getElementById('hitl-list').style.display = '';
+  buildHITL();
+  // Reset badge count
+  const badge = document.getElementById('hitl-badge');
+  if(badge) badge.textContent = HITL.length;
+  const sHitl = document.getElementById('s-hitl');
+  if(sHitl) sHitl.textContent = HITL.length;
+  const sPipeHitl = document.getElementById('s-pipe-hitl');
+  if(sPipeHitl) sPipeHitl.textContent = HITL.length;
+  const qaPending = document.getElementById('qa-pending');
+  if(qaPending) qaPending.textContent = `· ${HITL.length} pending`;
+  toast('Demo Reset', 'All escalations restored to pending state.');
+}
 
 function buildHITL() {
   document.getElementById('hitl-list').innerHTML = HITL.map(item=>`
