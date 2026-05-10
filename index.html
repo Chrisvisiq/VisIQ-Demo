@@ -912,7 +912,7 @@
   <!-- ══ DISCOVER: SOURCES ══ -->
   <div id="page-disc-sources" class="page">
     <div class="page-header">
-      <div><div class="page-title">Discovery Sources</div><div class="page-desc">Browser extensions deployed across managed devices — observing AI tool usage, intercepting API calls, and classifying data exposure in real time</div></div>
+      <div><div class="page-title">Discovery Sources</div><div class="page-desc">Browser extensions deployed across managed devices — observing AI tool usage, classifying actors and surfaces, and emitting normalized truth packets. Observation is not enforcement.</div></div>
       <button class="btn btn-primary" onclick="openAddSourceModal()">+ Add Source</button>
     </div>
     <div id="disc-sources-grid" class="source-grid"></div>
@@ -3184,7 +3184,7 @@ const ticks = [
   `DISCOVER → Observed browser-based AI workflow accessing customer export tools · Classification: HIGH-RISK`,
   `DISCOVER → ex-employee@demo.org session observed · stale credentials · unmanaged device · revocation recommended`,
   `DISCOVER → Correlated agent identity across Okta / Slack / Jira · 1 merge candidate flagged`,
-  `DISCOVER → Classified runtime action as high-risk financial operation · Routing to ALLOW`,
+  `DISCOVER → Classified runtime action as high-risk financial operation · Enforcement basis: observed_only`,
   `Runtime Enforcement → dave@demo.org → Claude · credential_query · ESCALATED · 7ms`,
   `Runtime Enforcement → dave@demo.org → Claude · customer_refund_query ($${R.creditAmt}) · ESCALATED · 8ms`,
   `Runtime Enforcement → alice@demo.org → ChatGPT · customer_credit_query · ESCALATED (PII detected) · 6ms`,
