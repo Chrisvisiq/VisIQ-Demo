@@ -1480,17 +1480,29 @@
 
   <!-- ══ RECORD ══ -->
   <div id="page-record" class="page">
-    <div class="page-header"><div><div class="page-title">Records</div><div class="page-desc">Tamper-evident audit trail — every action, every outcome</div></div></div>
-    <div class="card" style="padding:0"><div class="table-wrap"><table>
-      <thead><tr><th>Record ID</th><th>Agent</th><th>Action</th><th>Outcome</th><th>Timestamp</th><th>Integrity</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">#REC-0442</td><td>dave@demo.org → Claude</td><td>customer PII query</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:38:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0441</td><td>alice@demo.org → ChatGPT</td><td>support query</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:23:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0440</td><td>bob@demo.org → ChatGPT</td><td>financial data in prompt</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:17:44</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0439</td><td>dave@demo.org → Claude</td><td>PII query · escalated</td><td><span class="badge badge-yellow">Escalated</span></td><td class="mono">2026-05-05 14:11:22</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-        <tr><td class="mono">#REC-0438</td><td>carol@demo.org → Gemini</td><td>HR data in prompt</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:02:33</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-      </tbody>
-    </table></div></div>
+    <div class="page-header">
+      <div>
+        <div class="page-title">Records</div>
+        <div class="page-desc">Tamper-evident audit trail — every action, every outcome</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;margin-left:auto">
+        <span id="record-live-badge" style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-glow);border:1px solid rgba(16,185,129,0.3);border-radius:99px;padding:4px 10px">
+          <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 1.5s infinite"></span>
+          LIVE DATABASE
+        </span>
+        <span id="record-count" style="font-size:11px;color:var(--text-muted)">0 events</span>
+      </div>
+    </div>
+    <div class="card" style="padding:0">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Record ID</th><th>Actor</th><th>Action / Resource</th><th>Decision</th><th>Enforcement Basis</th><th>Timestamp</th><th>Integrity</th></tr></thead>
+          <tbody id="record-live-tbody">
+            <tr id="record-loading-row"><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Connecting to live database…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- ══ EXPORTS ══ -->
@@ -3660,6 +3672,8 @@ function nav(pageId, el) {
   }
   // Re-apply panel layout so newly active page also gets right padding
   if (panelOpen) applyPanelLayout(true);
+  // Start/stop live RECORD polling
+  if (pageId === 'record') { startRecordLive(); } else { stopRecordLive(); }
 }
 
 function goTo(pageId) {
@@ -4120,6 +4134,84 @@ function feedHITLDecision(decision, action, agent) {
     const recId = 'REC-' + Math.floor(Math.random()*90000+10000);
     pushFeedItem('record', `RECORD receipt ${recId}`, 'Cryptographic proof · Ed25519 signed · immutable audit trail', null);
   }, 600);
+}
+
+// ── RECORD live database view ──────────────────────────────────────────────
+let recordPollInterval = null;
+
+function decisionBadge(decision) {
+  if (!decision) return '<span class="badge badge-cyan">RECORD</span>';
+  const d = decision.toUpperCase();
+  if (d === 'ALLOW' || d === 'PERMITTED') return '<span class="badge badge-green">ALLOW</span>';
+  if (d === 'BLOCK' || d === 'BLOCKED')   return '<span class="badge badge-red">BLOCK</span>';
+  if (d === 'HITL'  || d === 'ESCALATED') return '<span class="badge badge-yellow">HITL</span>';
+  return `<span class="badge badge-cyan">${d}</span>`;
+}
+
+function basisLabel(basis) {
+  if (!basis) return '—';
+  const map = {
+    'blocked_by_enforced_policy': 'blocked · enforced',
+    'intercepted_in_browser':     'intercepted · browser',
+    'observed_only':              'observed only',
+    'not_enforceable_from_current_posture': 'not enforceable'
+  };
+  return map[basis] || basis;
+}
+
+function formatTs(ts) {
+  if (!ts) return '—';
+  try {
+    const d = new Date(ts);
+    return d.toLocaleString('en-US', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
+  } catch { return ts; }
+}
+
+async function fetchRecordEvents() {
+  try {
+    const res = await fetch(
+      SB_URL + '/rest/v1/enforcement_events?order=created_at.desc&limit=50',
+      { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
+    );
+    if (!res.ok) return;
+    const rows = await res.json();
+    const tbody = document.getElementById('record-live-tbody');
+    const countEl = document.getElementById('record-count');
+    if (!tbody) return;
+
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">No events yet — run the demo to generate records</td></tr>';
+      return;
+    }
+
+    if (countEl) countEl.textContent = rows.length + ' event' + (rows.length !== 1 ? 's' : '');
+
+    tbody.innerHTML = rows.map((r, i) => {
+      const recId = '#REC-' + String(r.id || i).slice(0,8).toUpperCase();
+      const actor = r.actor || '—';
+      const resource = r.resource || r.tool || '—';
+      const isNew = i === 0;
+      return `<tr style="${isNew ? 'background:rgba(99,102,241,0.06);' : ''}">
+        <td class="mono" style="font-size:11px;color:var(--text-muted)">${recId}</td>
+        <td style="font-size:12px">${actor}</td>
+        <td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${resource}">${resource}</td>
+        <td>${decisionBadge(r.decision)}</td>
+        <td style="font-size:11px;color:var(--text-muted)">${basisLabel(r.enforcement_basis)}</td>
+        <td class="mono" style="font-size:11px">${formatTs(r.created_at)}</td>
+        <td><span class="badge badge-cyan">✓ Stored</span></td>
+      </tr>`;
+    }).join('');
+  } catch(e) {}
+}
+
+function startRecordLive() {
+  fetchRecordEvents();
+  if (recordPollInterval) clearInterval(recordPollInterval);
+  recordPollInterval = setInterval(fetchRecordEvents, 5000);
+}
+
+function stopRecordLive() {
+  if (recordPollInterval) { clearInterval(recordPollInterval); recordPollInterval = null; }
 }
 
 // Auto-generate ambient feed events to show platform activity
