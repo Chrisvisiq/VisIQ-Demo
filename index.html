@@ -4181,12 +4181,8 @@ function togglePanel() {
 }
 
 function applyPanelLayout(open) {
-  const pw = getComputedStyle(document.documentElement).getPropertyValue('--panel-w').trim() || '280px';
-  // Give the active page extra right padding so content clears the fixed panel
-  document.querySelectorAll('.page.active').forEach(p => {
-    p.style.paddingRight = open ? 'calc(' + pw + ' + 24px)' : '';
-  });
-  // CSS classes handle grid reflow for stats-grid, pipeline-mini-grid, two-col
+  // CSS handles margin-right on #main via body.panel-open class.
+  // Grid reflows (stats-grid, pipeline-mini-grid, two-col) also handled by CSS classes.
 }
 
 function setPanelMode(mode) {
