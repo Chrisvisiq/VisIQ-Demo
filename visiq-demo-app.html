@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acme Corp — CRM Portal</title>
+<style>
+  :root {
+    --bg: #f9fafb; --surface: #fff; --border: #e5e7eb;
+    --text: #111827; --muted: #6b7280; --primary: #4f46e5;
+    --green: #059669; --red: #dc2626; --yellow: #d97706;
+    --header-h: 52px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+
+  /* ── Top Bar ── */
+  #topbar {
+    height: var(--header-h); background: var(--primary); color: #fff;
+    display: flex; align-items: center; padding: 0 20px; gap: 16px;
+    position: sticky; top: 0; z-index: 50;
+  }
+  #topbar .logo { font-weight: 700; font-size: 16px; letter-spacing: -0.02em; }
+  #topbar .logo span { opacity: 0.6; font-weight: 400; }
+  #topbar nav { display: flex; gap: 4px; flex: 1; margin-left: 12px; }
+  #topbar nav a {
+    color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px;
+    padding: 6px 12px; border-radius: 6px; transition: all 0.12s; cursor: pointer;
+  }
+  #topbar nav a:hover, #topbar nav a.active { background: rgba(255,255,255,0.15); color: #fff; }
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .avatar-sm { width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
+
+  /* ── Sidebar ── */
+  #shell { display: flex; height: calc(100vh - var(--header-h)); }
+  #sidebar { width: 200px; background: var(--surface); border-right: 1px solid var(--border); padding: 12px 0; flex-shrink: 0; overflow-y: auto; }
+  .nav-section { padding: 8px 16px 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px; padding: 7px 16px;
+    font-size: 13px; color: var(--muted); cursor: pointer; transition: all 0.12s;
+    border-left: 3px solid transparent;
+  }
+  .nav-item:hover { background: #f3f4f6; color: var(--text); }
+  .nav-item.active { background: #eef2ff; color: var(--primary); border-left-color: var(--primary); font-weight: 500; }
+  .nav-badge { margin-left: auto; background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; border-radius: 10px; padding: 1px 6px; }
+
+  /* ── Main Content ── */
+  #content { flex: 1; overflow-y: auto; padding: 24px; }
+
+  /* Summary Cards */
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 8px; }
+  .card-val { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
+  .card-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .card-delta { font-size: 11px; font-weight: 600; }
+  .card-delta.up { color: var(--green); }
+  .card-delta.down { color: var(--red); }
+
+  /* Table */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .section-title { font-size: 15px; font-weight: 600; }
+  .btn-sm { padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); cursor: pointer; color: var(--text); }
+  .btn-sm.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .btn-sm:hover { opacity: 0.85; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; margin-bottom: 24px; }
+  th { background: #f9fafb; border-bottom: 1px solid var(--border); text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f9fafb; }
+
+  .status-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+  .status-pill.open { background: #d1fae5; color: #065f46; }
+  .status-pill.closed { background: #f3f4f6; color: var(--muted); }
+  .status-pill.hot { background: #fee2e2; color: #991b1b; }
+  .status-pill.warm { background: #fef3c7; color: #92400e; }
+
+  /* Activity feed */
+  .activity-list { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .activity-dot.ai { background: var(--primary); }
+  .activity-dot.system { background: var(--green); }
+  .activity-dot.alert { background: var(--yellow); }
+  .activity-body { flex: 1; }
+  .activity-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .activity-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ai-tag { display: inline-block; background: #eef2ff; color: var(--primary); font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; letter-spacing: 0.04em; }
+
+  /* Typing indicator */
+  .typing { display: inline-flex; gap: 3px; align-items: center; }
+  .typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); animation: blink 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+
+  /* ISOLATE badge */
+  .isolate-banner {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    border: 1px solid #4338ca; border-radius: 8px;
+    padding: 10px 14px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px; color: #c7d2fe; font-size: 12px;
+  }
+  .isolate-dot { width: 8px; height: 8px; border-radius: 50%; background: #818cf8; animation: pulse-dot 2s infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(0.8)} }
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div id="topbar">
+  <div class="logo">Acme<span>CRM</span></div>
+  <nav>
+    <a class="active">Dashboard</a>
+    <a>Contacts</a>
+    <a>Deals</a>
+    <a>Reports</a>
+    <a>Settings</a>
+  </nav>
+  <div class="topbar-right">
+    <div class="avatar-sm">C</div>
+  </div>
+</div>
+
+<div id="shell">
+
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="nav-section">Workspace</div>
+    <div class="nav-item active">📊 Overview</div>
+    <div class="nav-item">👥 Contacts <span class="nav-badge">2.4k</span></div>
+    <div class="nav-item">💼 Deals <span class="nav-badge">47</span></div>
+    <div class="nav-item">📋 Tasks</div>
+    <div class="nav-section" style="margin-top:12px">AI Agents</div>
+    <div class="nav-item" style="color:#4f46e5;border-left-color:#4f46e5;background:#eef2ff">🤖 Agent Activity</div>
+    <div class="nav-item">📬 Outreach</div>
+    <div class="nav-section" style="margin-top:12px">Reports</div>
+    <div class="nav-item">📈 Pipeline</div>
+    <div class="nav-item">📉 Forecasts</div>
+    <div class="nav-item">🗂 Exports</div>
+  </div>
+
+  <!-- Content -->
+  <div id="content">
+
+    <!-- ISOLATE banner -->
+    <div class="isolate-banner">
+      <div class="isolate-dot"></div>
+      <span><strong style="color:#a5b4fc">VisIQ ISOLATE</strong> · Governed session active · All agent requests are intercepted and evaluated before execution</span>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Open Deals</div>
+        <div class="card-val">47</div>
+        <div class="card-sub"><span class="card-delta up">↑ 8%</span> vs last month</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Pipeline Value</div>
+        <div class="card-val">$2.1M</div>
+        <div class="card-sub"><span class="card-delta up">↑ 12%</span> vs last month</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Contacts</div>
+        <div class="card-val">2,441</div>
+        <div class="card-sub"><span class="card-delta up">↑ 34</span> this week</div>
+      </div>
+      <div class="card">
+        <div class="card-label">AI Actions Today</div>
+        <div class="card-val" id="ai-action-count">0</div>
+        <div class="card-sub">governed by VisIQ ALLOW</div>
+      </div>
+    </div>
+
+    <!-- Deals Table -->
+    <div class="section-header">
+      <div class="section-title">Active Deals</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-sm">Filter</button>
+        <button class="btn-sm">Export</button>
+        <button class="btn-sm primary">New Deal</button>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Contact</th>
+          <th>Value</th>
+          <th>Stage</th>
+          <th>Close Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Meridian Health</strong></td><td>Sarah Okonkwo</td><td>$340,000</td><td>Negotiation</td><td>Jun 15</td><td><span class="status-pill hot">🔥 Hot</span></td></tr>
+        <tr><td><strong>Vertex Systems</strong></td><td>James Liu</td><td>$180,000</td><td>Proposal Sent</td><td>Jun 28</td><td><span class="status-pill warm">🌡 Warm</span></td></tr>
+        <tr><td><strong>Orion Logistics</strong></td><td>Priya Nair</td><td>$95,000</td><td>Discovery</td><td>Jul 10</td><td><span class="status-pill open">✓ Open</span></td></tr>
+        <tr><td><strong>Blue Ridge Capital</strong></td><td>Tom Egan</td><td>$520,000</td><td>Contract Review</td><td>Jun 20</td><td><span class="status-pill hot">🔥 Hot</span></td></tr>
+        <tr><td><strong>Solaris Media</strong></td><td>Anna Becker</td><td>$72,000</td><td>Qualified</td><td>Jul 22</td><td><span class="status-pill open">✓ Open</span></td></tr>
+        <tr><td><strong>Cascade Biotech</strong></td><td>Dev Patel</td><td>$410,000</td><td>Closed Won</td><td>May 31</td><td><span class="status-pill closed">✓ Closed</span></td></tr>
+      </tbody>
+    </table>
+
+    <!-- AI Agent Activity -->
+    <div class="section-header">
+      <div class="section-title">AI Agent Activity <span id="live-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#059669;margin-left:8px;animation:pulse-dot 2s infinite"></span></div>
+      <button class="btn-sm" onclick="clearActivity()">Clear</button>
+    </div>
+    <div class="activity-list" id="activity-list">
+      <div class="activity-item">
+        <div class="activity-dot ai"></div>
+        <div class="activity-body">
+          <div class="activity-text"><span class="ai-tag">AI AGENT</span> Querying contacts for Meridian Health stakeholders…</div>
+          <div class="activity-time">just now</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let actionCount = 0;
+
+  const AGENT_ACTIONS = [
+    { dot: 'ai',     text: '<span class="ai-tag">AI AGENT</span> Reading deal history for Blue Ridge Capital — <em>customer.query</em>' },
+    { dot: 'system', text: '<span class="ai-tag">ALLOW</span> <span style="color:#059669">✓ Permitted</span> — read:crm_contacts · policy match confirmed' },
+    { dot: 'ai',     text: '<span class="ai-tag">AI AGENT</span> Drafting follow-up email to Sarah Okonkwo · Meridian Health' },
+    { dot: 'alert',  text: '<span class="ai-tag">HITL</span> <span style="color:#d97706">⏸ Escalated</span> — bulk PII export requested · awaiting human approval' },
+    { dot: 'ai',     text: '<span class="ai-tag">AI AGENT</span> Summarising pipeline for Q2 forecast report' },
+    { dot: 'system', text: '<span class="ai-tag">ALLOW</span> <span style="color:#059669">✓ Permitted</span> — read:pipeline_data · posture validated' },
+    { dot: 'ai',     text: '<span class="ai-tag">AI AGENT</span> Looking up contact email for Priya Nair · Orion Logistics' },
+    { dot: 'system', text: '<span class="ai-tag">RECORD</span> Cryptographic receipt issued · Ed25519 signed · audit trail updated' },
+    { dot: 'ai',     text: '<span class="ai-tag">AI AGENT</span> Updating deal stage for Vertex Systems → Contract Review' },
+    { dot: 'alert',  text: '<span class="ai-tag">BLOCK</span> <span style="color:#dc2626">✗ Denied</span> — delete:audit_records · policy: delete operations require step-up auth' },
+    { dot: 'ai',     text: '<span class="ai-tag">AI AGENT</span> Generating outreach sequence for Cascade Biotech expansion' },
+    { dot: 'system', text: '<span class="ai-tag">ISOLATE</span> Request held at network layer · MV3 service worker · context validated' },
+  ];
+
+  function timeSince(ms) {
+    if (ms < 5000) return 'just now';
+    if (ms < 60000) return Math.floor(ms/1000) + 's ago';
+    return Math.floor(ms/60000) + 'm ago';
+  }
+
+  function addActivity() {
+    const ev = AGENT_ACTIONS[actionCount % AGENT_ACTIONS.length];
+    actionCount++;
+    document.getElementById('ai-action-count').textContent = actionCount;
+
+    const list = document.getElementById('activity-list');
+    const item = document.createElement('div');
+    item.className = 'activity-item';
+    item.dataset.ts = Date.now();
+    item.innerHTML = `
+      <div class="activity-dot ${ev.dot}"></div>
+      <div class="activity-body">
+        <div class="activity-text">${ev.text}</div>
+        <div class="activity-time">just now</div>
+      </div>
+    `;
+    list.insertBefore(item, list.firstChild);
+    // Keep trimmed
+    while (list.children.length > 12) list.removeChild(list.lastChild);
+    // Update relative times on existing items
+    list.querySelectorAll('.activity-item').forEach(el => {
+      const age = Date.now() - parseInt(el.dataset.ts || Date.now());
+      el.querySelector('.activity-time').textContent = timeSince(age);
+    });
+  }
+
+  function clearActivity() {
+    document.getElementById('activity-list').innerHTML = '';
+    actionCount = 0;
+    document.getElementById('ai-action-count').textContent = '0';
+  }
+
+  // Fire activity events automatically
+  function scheduleNext() {
+    const delay = Math.random() * 5000 + 4000;
+    setTimeout(() => { addActivity(); scheduleNext(); }, delay);
+  }
+  setTimeout(() => { addActivity(); scheduleNext(); }, 2000);
+</script>
+</body>
+</html>

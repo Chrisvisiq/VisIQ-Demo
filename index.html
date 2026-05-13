@@ -104,7 +104,8 @@
   @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.7} }
 
   /* ── Main ── */
-  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; transition: margin-right 0.22s cubic-bezier(0.4,0,0.2,1); }
+  body.panel-open #main { margin-right: var(--panel-w); }
   .page { padding: 28px 32px; display: none; }
   .page.active { display: block; }
 
@@ -616,7 +617,6 @@
     z-index: 200;
   }
   #right-panel.open { transform: translateX(0); box-shadow: -8px 0 32px rgba(0,0,0,0.5); }
-  /* Panel overlays — dashboard stays full width */
 
   #panel-toggle {
     position: fixed; right: 0; top: 50%; transform: translateY(-50%);
@@ -1978,7 +1978,8 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
     <div id="ext-mode" class="hidden">
       <div class="ext-url-bar">
         <input class="ext-url-input" id="ext-url-input" type="url"
-          placeholder="https://your-siem.company.com"
+          placeholder="https://your-internal-tool.company.com"
+          value="visiq-demo-app.html"
           onkeydown="if(event.key==='Enter') loadExtTool()" />
         <button class="ext-load-btn" onclick="loadExtTool()">Load</button>
         <button class="ext-newtab-icon-btn" onclick="openExtNewTab()" title="Open in new tab">↗</button>
@@ -1991,10 +1992,9 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
         <div id="ext-placeholder">
           <div class="ph-icon">🖥</div>
           <div class="ph-title">External Tool</div>
-          Paste a URL above to load your SIEM portal, dashboard, or internal web tool — running as a governed concurrent session inside VisIQ's enforcement perimeter.
+          A demo internal CRM is pre-loaded — click <strong>Load</strong> to launch it inside a governed session. Or paste any internal tool URL above.
           <div class="ph-note">
-            ⚙️ <strong>Mode 2</strong> leverages VisIQ's browser-native session isolation. The tool runs in a governed context — every request passes through ISOLATE before execution.<br><br>
-            <strong>Note:</strong> Public sites (Google, Twitter, etc.) block embedding by design. Use your own internal tools or dashboards.
+            ⚙️ <strong>Mode 2</strong> runs your internal tools inside VisIQ's enforcement perimeter. Every agent request is intercepted by ISOLATE before execution — no AI action reaches the tool without passing through VisIQ first.
           </div>
         </div>
         <div id="ext-error">
