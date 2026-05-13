@@ -133,9 +133,9 @@
   body.panel-open .stat-card { padding: 12px 14px; }
   .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background: var(--accent-color, var(--primary)); }
 
-  /* Pipeline mini-grid 4→2 col when panel open */
-  .pipeline-mini-grid { transition: none; }
-  body.panel-open .pipeline-mini-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  /* Pipeline mini-grid */
+  .pipeline-mini-grid { grid-template-columns: repeat(4, 1fr); }
+  body.panel-open .pipeline-mini-grid { grid-template-columns: repeat(2, 1fr); }
   body.panel-open .pipeline-mini-grid > div { border-right: none !important; border-bottom: 1px solid var(--border2); }
   body.panel-open .pipeline-mini-grid > div:nth-child(odd)  { border-right: 1px solid var(--border2) !important; }
   body.panel-open .pipeline-mini-grid > div:last-child { border-bottom: none; }
@@ -1049,7 +1049,7 @@
         </div>
         <span class="badge badge-green" style="font-size:10px;padding:3px 10px">● LIVE</span>
       </div>
-      <div class="pipeline-mini-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden">
+      <div class="pipeline-mini-grid" style="display:grid;gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden">
         <div style="padding:14px 12px;background:rgba(6,182,212,0.04);border-right:1px solid var(--border2);cursor:pointer;transition:background 0.15s" onclick="goTo('disc-sources')" onmouseover="this.style.background='rgba(6,182,212,0.1)'" onmouseout="this.style.background='rgba(6,182,212,0.04)'">
           <div style="font-size:9px;font-weight:800;color:var(--cyan);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px">DISCOVER</div>
           <div style="font-size:26px;font-weight:800;color:var(--text);line-height:1">6</div>
@@ -3994,24 +3994,11 @@ function togglePanel() {
 
 function applyPanelLayout(open) {
   const pw = getComputedStyle(document.documentElement).getPropertyValue('--panel-w').trim() || '280px';
-
-  // All active .page elements get right padding so content clears the panel
+  // Give the active page extra right padding so content clears the fixed panel
   document.querySelectorAll('.page.active').forEach(p => {
     p.style.paddingRight = open ? 'calc(' + pw + ' + 24px)' : '';
   });
-
-  // Pipeline mini-grid: inline style wins over CSS class, so set it directly
-  const pipeline = document.querySelector('.pipeline-mini-grid');
-  if (pipeline) pipeline.style.gridTemplateColumns = open ? 'repeat(2,1fr)' : 'repeat(4,1fr)';
-
-  // Stats grid: no inline style, CSS class handles it — but also set directly as fallback
-  const stats = document.querySelector('.stats-grid');
-  if (stats) stats.style.gridTemplateColumns = open ? 'repeat(2,1fr)' : 'repeat(4,1fr)';
-
-  // Two-col sections: enforcement vol + live feed
-  document.querySelectorAll('.two-col').forEach(el => {
-    el.style.gridTemplateColumns = open ? '1fr' : '';
-  });
+  // CSS classes handle grid reflow for stats-grid, pipeline-mini-grid, two-col
 }
 
 function setPanelMode(mode) {
