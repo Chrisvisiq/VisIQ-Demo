@@ -2838,6 +2838,7 @@ function buildStream() {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const DISC_SOURCES = [
+  // Browser extension deployment sources
   { id:'src_chrome_all', name:'Chrome · All Employees', type:'Browser Extension', provider:'discover_extension', icon:'🌐',
     health:'healthy', connection:'connected', mode:'browser_observed',
     lastSync:'2026-04-28 19:12', coverage:{ 'Managed seats':847, 'Active today':312, 'AI sessions':1247, 'Blocked requests':23 },
@@ -2850,6 +2851,32 @@ const DISC_SOURCES = [
     health:'warning', connection:'degraded', mode:'browser_observed',
     lastSync:'2026-04-28 18:41', coverage:{ 'Managed seats':12, 'Active today':9, 'AI sessions':41, 'Blocked requests':0 },
     error:'Safari WebExtension API limits request body inspection on iOS. Blocking capability unavailable on mobile.' },
+
+  // Platform connector adapters — from Dan's provider matrix
+  { id:'conn_chatgpt', name:'ChatGPT (OpenAI)', type:'Platform Connector', provider:'openai', icon:'💬',
+    health:'warning', connection:'active', mode:'platform_connector',
+    lastSync:'2026-05-13 14:02', coverage:{ 'Witness health':'heartbeat_missing', 'Conflict risk':'High', 'Drift risk':'Medium', 'Session TTL':'4h' },
+    error:'Personal-account sessions on managed devices detected. Corporate + personal ChatGPT cannot be distinguished at request layer without identity binding.' },
+  { id:'conn_claude', name:'Claude (Anthropic)', type:'Platform Connector', provider:'anthropic', icon:'🤖',
+    health:'healthy', connection:'active', mode:'platform_connector',
+    lastSync:'2026-05-13 14:08', coverage:{ 'Witness health':'active', 'Conflict risk':'Low', 'Drift risk':'Low–Medium', 'Session TTL':'session-scoped' },
+    error: null },
+  { id:'conn_gemini', name:'Gemini (Google)', type:'Platform Connector', provider:'google', icon:'✦',
+    health:'warning', connection:'active', mode:'platform_connector',
+    lastSync:'2026-05-13 13:55', coverage:{ 'Witness health':'active', 'Conflict risk':'High', 'Drift risk':'Medium', 'Session TTL':'varies' },
+    error:'Multi-account conflict detected: personal Gmail session active on managed device alongside corporate Workspace session. Shadow AI risk elevated.' },
+  { id:'conn_copilot', name:'Microsoft Copilot', type:'Platform Connector', provider:'microsoft', icon:'⧉',
+    health:'warning', connection:'active', mode:'platform_connector',
+    lastSync:'2026-05-13 13:48', coverage:{ 'Witness health':'degraded', 'Conflict risk':'Medium', 'Drift risk':'High', 'Session TTL':'2h' },
+    error:'Copilot for M365 vs. standalone Copilot.microsoft.com produce divergent session signals. TTL drift observed — sessions outliving expected 2h window.' },
+  { id:'conn_perplexity', name:'Perplexity', type:'Platform Connector', provider:'perplexity', icon:'🔍',
+    health:'healthy', connection:'active', mode:'platform_connector',
+    lastSync:'2026-05-13 14:01', coverage:{ 'Witness health':'active', 'Conflict risk':'Low', 'Drift risk':'Low', 'Session TTL':'session-scoped' },
+    error: null },
+  { id:'conn_grok', name:'Grok (xAI)', type:'Platform Connector', provider:'xai', icon:'𝕏',
+    health:'unknown', connection:'stale', mode:'platform_connector',
+    lastSync:'2026-05-13 11:12', coverage:{ 'Witness health':'stale', 'Conflict risk':'Medium', 'Drift risk':'Medium', 'Session TTL':'unknown' },
+    error:'Heartbeat missing for 3h. Connector may require re-authentication. Usage data may be incomplete.' },
 ];
 
 const DISC_RUNS = [
@@ -2881,6 +2908,13 @@ const DISC_INVENTORY = [
 ];
 
 let DISC_FINDINGS = [
+  { id:'find_shadow', type:'SHADOW_AI_CONFLICT', severity:'high',
+    title:'Shadow AI: Personal Gmail → Gemini on managed device',
+    desc:'A personal Google account (not corporate Workspace) was observed initiating Gemini sessions from a managed device. Corporate SSO was not used. VisIQ cannot enforce Gemini policy on personal-account sessions — this traffic is visible but not governable from current posture.',
+    target:'conn_gemini', targetLabel:'personal-account@gmail.com → Gemini · managed device',
+    source:'Chrome Extension · All Employees',
+    evidence:['Personal Gmail session active alongside corporate session','Gemini sessions not bound to corporate identity','enforcement_basis: observed_only — not intercepted_in_browser','0 ALLOW rules applied to this session'],
+    status:'open' },
   { id:'find_1', type:'UNSANCTIONED_AI', severity:'high', title:'Unsanctioned AI service: DeepSeek', desc:'DeepSeek sessions detected from alice@demo.org. No governance rule exists in ALLOW. Customer data submitted in 3 of 4 sessions.', target:'api.deepseek.com', targetLabel:'alice@demo.org → DeepSeek', source:'Chrome Extension · All Employees', evidence:['3 sessions with customer data','No ALLOW rule match','0 DLP controls applied'], status:'open' },
   { id:'find_2', type:'UNAPPROVED_AI_TOOL', severity:'high', title:'Unsanctioned AI tool in use: ChatGPT', desc:'Browser runtime observed active ChatGPT sessions from 3 principals in the last 24h. No sanction record exists for openai.com. Data submitted includes CRM exports and financial summaries.', target:'ai_chatgpt', targetLabel:'tool:openai.com/chatgpt', source:'Exec Browser Observation', evidence:['3 principals observed','CRM data in prompts','No sanction record'], status:'open' },
   { id:'find_3', type:'SANCTION_REVIEW_REQUIRED', severity:'medium', title:'Sanction truth missing: Gemini', desc:'Gemini was observed in browser sessions but has no sanction decision recorded. Tool cannot be classified as approved or unapproved until sanction truth is set on the linked service.', target:'ai_gemini', targetLabel:'tool:gemini.google.com', source:'Exec Browser Observation', evidence:['2 principals observed','No sanction record','Linked service: google.com'], status:'open' },
@@ -2913,7 +2947,7 @@ function riskBadge(r) {
   return `<span class="inv-risk ${r}">${r.toUpperCase()}</span>`;
 }
 function findTypeBadge(t) {
-  const map = { UNKNOWN_NHI:'badge-red', UNAPPROVED_AI_TOOL:'badge-red', SANCTION_REVIEW_REQUIRED:'badge-yellow', OWNERSHIP_GAP:'badge-yellow', STALE_COVERAGE:'badge-cyan' };
+  const map = { UNKNOWN_NHI:'badge-red', UNAPPROVED_AI_TOOL:'badge-red', SHADOW_AI_CONFLICT:'badge-red', SANCTION_REVIEW_REQUIRED:'badge-yellow', OWNERSHIP_GAP:'badge-yellow', STALE_COVERAGE:'badge-cyan', UNSANCTIONED_AI:'badge-red' };
   return `<span class="badge ${map[t]||'badge-gray'}" style="font-size:10px">${t.replace(/_/g,' ')}</span>`;
 }
 function statusBadge(s) {
@@ -2949,8 +2983,23 @@ function togglePrivacy(sourceId) {
 }
 
 // ── Sources ───────────────────────────────────────────────────────────────────
+function witnessHealthBadge(h) {
+  const map = { active:'badge-green', heartbeat_missing:'badge-yellow', degraded:'badge-yellow', stale:'badge-red', unknown:'badge-gray' };
+  const label = { active:'● active', heartbeat_missing:'⚠ heartbeat missing', degraded:'⚠ degraded', stale:'✕ stale', unknown:'? unknown' };
+  return `<span class="badge ${map[h]||'badge-gray'}" style="font-size:10px">${label[h]||h}</span>`;
+}
+
+function conflictRiskBadge(r) {
+  if (!r) return '';
+  const map = { High:'badge-red', Medium:'badge-yellow', Low:'badge-green', 'Low–Medium':'badge-yellow' };
+  return `<span class="badge ${map[r]||'badge-gray'}" style="font-size:10px">${r}</span>`;
+}
+
 function buildDiscSources() {
-  document.getElementById('disc-sources-grid').innerHTML = DISC_SOURCES.map(s => `
+  const extensions  = DISC_SOURCES.filter(s => s.mode === 'browser_observed');
+  const connectors  = DISC_SOURCES.filter(s => s.mode === 'platform_connector');
+
+  const extHtml = extensions.map(s => `
     <div class="source-card ${s.health}" id="sc-${s.id}">
       <div class="source-top">
         <div>
@@ -2981,6 +3030,41 @@ function buildDiscSources() {
         <button class="source-sync-btn" onclick="triggerSync('${s.id}','${s.name}',this)">Sync now</button>
       </div>
     </div>`).join('');
+
+  // Platform connector section
+  const connHtml = connectors.map(s => {
+    const wh = s.coverage['Witness health'] || 'unknown';
+    const cr = s.coverage['Conflict risk'];
+    const dr = s.coverage['Drift risk'];
+    const ttl = s.coverage['Session TTL'];
+    return `
+    <div class="source-card ${s.health}" id="sc-${s.id}">
+      <div class="source-top">
+        <div>
+          <div class="source-name">${s.icon} ${s.name}</div>
+          <div class="source-type">Platform Connector · browser-observed</div>
+        </div>
+        ${witnessHealthBadge(wh)}
+      </div>
+      ${s.error ? `<div style="font-size:11px;color:var(--yellow);background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:4px;padding:6px 10px;margin-bottom:10px">⚠ ${s.error}</div>` : ''}
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+        <div style="font-size:11px;color:var(--text-muted)">Conflict risk &nbsp;${conflictRiskBadge(cr)}</div>
+        <div style="font-size:11px;color:var(--text-muted)">Drift risk &nbsp;<span class="badge ${dr==='High'?'badge-red':dr&&dr.includes('Medium')?'badge-yellow':'badge-green'}" style="font-size:10px">${dr||'—'}</span></div>
+        <div style="font-size:11px;color:var(--text-muted)">Session TTL &nbsp;<span style="font-family:var(--mono);color:var(--text-dim)">${ttl||'—'}</span></div>
+      </div>
+      <div class="source-footer">
+        <span>${s.lastSync ? '⟳ '+s.lastSync : '⏳ Awaiting first sync'}</span>
+        <button class="source-sync-btn" onclick="triggerSync('${s.id}','${s.name}',this)">Sync now</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const grid = document.getElementById('disc-sources-grid');
+  grid.innerHTML =
+    `<div style="grid-column:1/-1;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Browser Extension Deployments</div>` +
+    extHtml +
+    `<div style="grid-column:1/-1;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:12px 0 4px">Platform Connector Adapters <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:10px">— from Dan's provider matrix</span></div>` +
+    connHtml;
 
   document.getElementById('disc-runs-body').innerHTML = DISC_RUNS.map(r => {
     const sc = { completed:'badge-green', partial_failure:'badge-yellow', running:'badge-cyan', failed:'badge-red' };
