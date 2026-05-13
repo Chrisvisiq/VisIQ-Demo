@@ -1247,6 +1247,16 @@
       <div><div class="page-title">Discovery Sources</div><div class="page-desc">Browser extensions deployed across managed devices — observing AI tool usage, classifying actors and surfaces, and emitting normalized truth packets. Observation is not enforcement.</div></div>
       <button class="btn btn-primary" onclick="openAddSourceModal()">+ Add Source</button>
     </div>
+
+    <!-- SIMULATION BANNER -->
+    <div style="display:flex;align-items:flex-start;gap:12px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:14px 16px;margin-bottom:20px">
+      <span style="font-size:18px;line-height:1">🔭</span>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:var(--yellow);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Architecture Preview — Not Yet Live</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6">DISCOVER requires the VisIQ browser extension deployed on managed devices. What you see here is a simulation of what enforcement intelligence will surface once the extension is live — real platform connectors, real actor sessions, real posture signals. <strong style="color:var(--text-dim)">The data shown is illustrative, not from your environment.</strong></div>
+      </div>
+    </div>
+
     <div id="disc-sources-grid" class="source-grid"></div>
     <div class="card">
       <div class="card-title">Recent Ingest Runs</div>
@@ -1261,6 +1271,10 @@
   <div id="page-disc-inventory" class="page">
     <div class="page-header">
       <div><div class="page-title">Inventory</div><div class="page-desc">AI tools, API endpoints, and users detected via browser extension — deduplicated, ownership-mapped, and risk-classified</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted)">
+      <span style="font-size:14px">🔭</span>
+      <span><strong style="color:var(--yellow);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Architecture Preview</strong> &nbsp;—&nbsp; Illustrative data. Live inventory requires the VisIQ browser extension on managed devices.</span>
     </div>
     <div class="inv-filters">
       <button class="inv-type-tab active" onclick="invFilter('all',this)">All <span style="margin-left:4px;opacity:0.6">19</span></button>
@@ -1282,6 +1296,10 @@
   <div id="page-disc-findings" class="page">
     <div class="page-header">
       <div><div class="page-title">Findings</div><div class="page-desc">Prioritized issues from browser observation — unsanctioned AI tools, sensitive data in prompts, unapproved usage patterns</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted)">
+      <span style="font-size:14px">🔭</span>
+      <span><strong style="color:var(--yellow);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Architecture Preview</strong> &nbsp;—&nbsp; Illustrative findings. Live detection requires the VisIQ browser extension on managed devices.</span>
     </div>
     <!-- DISCOVER → ALLOW motion banner -->
     <div style="display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(6,182,212,0.07),rgba(99,102,241,0.07));border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:12px 16px;margin-bottom:16px">
@@ -1309,6 +1327,10 @@
   <div id="page-disc-merge" class="page">
     <div class="page-header">
       <div><div class="page-title">Merge Review</div><div class="page-desc">AI tools detected under multiple identities — soft-match candidates flagged for review before deduplication</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted)">
+      <span style="font-size:14px">🔭</span>
+      <span><strong style="color:var(--yellow);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Architecture Preview</strong> &nbsp;—&nbsp; Illustrative data. Live deduplication requires the VisIQ browser extension on managed devices.</span>
     </div>
     <div id="disc-merge-list"></div>
   </div>
@@ -1486,9 +1508,13 @@
         <div class="page-desc">Tamper-evident audit trail — every action, every outcome</div>
       </div>
       <div style="display:flex;align-items:center;gap:12px;margin-left:auto">
+        <div style="display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
+          <button id="record-toggle-demo" onclick="setRecordView('demo')" style="padding:6px 14px;font-size:11px;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--text-muted);font-family:var(--font);letter-spacing:0.04em">DEMO</button>
+          <button id="record-toggle-live" onclick="setRecordView('live')" style="padding:6px 14px;font-size:11px;font-weight:700;border:none;cursor:pointer;background:var(--primary);color:#fff;font-family:var(--font);letter-spacing:0.04em;border-radius:6px">LIVE DB</button>
+        </div>
         <span id="record-live-badge" style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-glow);border:1px solid rgba(16,185,129,0.3);border-radius:99px;padding:4px 10px">
           <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 1.5s infinite"></span>
-          LIVE DATABASE
+          LIVE
         </span>
         <span id="record-count" style="font-size:11px;color:var(--text-muted)">0 events</span>
       </div>
@@ -1498,7 +1524,14 @@
         <table>
           <thead><tr><th>Record ID</th><th>Actor</th><th>Action / Resource</th><th>Decision</th><th>Enforcement Basis</th><th>Timestamp</th><th>Integrity</th></tr></thead>
           <tbody id="record-live-tbody">
-            <tr id="record-loading-row"><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Connecting to live database…</td></tr>
+            <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Connecting to live database…</td></tr>
+          </tbody>
+          <tbody id="record-demo-tbody" style="display:none">
+            <tr><td class="mono">#REC-0442</td><td>dave@demo.org → Claude</td><td>customer PII query</td><td><span class="badge badge-green">ALLOW</span></td><td style="font-size:11px;color:var(--text-muted)">intercepted · browser</td><td class="mono" style="font-size:11px">May 5, 14:38:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+            <tr><td class="mono">#REC-0441</td><td>alice@demo.org → ChatGPT</td><td>support query</td><td><span class="badge badge-green">ALLOW</span></td><td style="font-size:11px;color:var(--text-muted)">intercepted · browser</td><td class="mono" style="font-size:11px">May 5, 14:23:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+            <tr><td class="mono">#REC-0440</td><td>bob@demo.org → ChatGPT</td><td>financial data in prompt</td><td><span class="badge badge-red">BLOCK</span></td><td style="font-size:11px;color:var(--text-muted)">blocked · enforced</td><td class="mono" style="font-size:11px">May 5, 14:17:44</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+            <tr><td class="mono">#REC-0439</td><td>dave@demo.org → Claude</td><td>PII query · escalated</td><td><span class="badge badge-yellow">HITL</span></td><td style="font-size:11px;color:var(--text-muted)">intercepted · browser</td><td class="mono" style="font-size:11px">May 5, 14:11:22</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+            <tr><td class="mono">#REC-0438</td><td>carol@demo.org → Gemini</td><td>HR data in prompt</td><td><span class="badge badge-red">BLOCK</span></td><td style="font-size:11px;color:var(--text-muted)">blocked · enforced</td><td class="mono" style="font-size:11px">May 5, 14:02:33</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -3673,7 +3706,7 @@ function nav(pageId, el) {
   // Re-apply panel layout so newly active page also gets right padding
   if (panelOpen) applyPanelLayout(true);
   // Start/stop live RECORD polling
-  if (pageId === 'record') { startRecordLive(); } else { stopRecordLive(); }
+  if (pageId === 'record') { setRecordView(recordView); } else { stopRecordLive(); }
 }
 
 function goTo(pageId) {
@@ -4202,6 +4235,36 @@ async function fetchRecordEvents() {
       </tr>`;
     }).join('');
   } catch(e) {}
+}
+
+let recordView = 'live'; // 'live' | 'demo'
+
+function setRecordView(mode) {
+  recordView = mode;
+  const liveTbody  = document.getElementById('record-live-tbody');
+  const demoTbody  = document.getElementById('record-demo-tbody');
+  const liveBadge  = document.getElementById('record-live-badge');
+  const countEl    = document.getElementById('record-count');
+  const btnDemo    = document.getElementById('record-toggle-demo');
+  const btnLive    = document.getElementById('record-toggle-live');
+
+  if (mode === 'live') {
+    if (liveTbody)  liveTbody.style.display  = '';
+    if (demoTbody)  demoTbody.style.display  = 'none';
+    if (liveBadge)  liveBadge.style.display  = 'flex';
+    if (countEl)    countEl.style.display     = '';
+    if (btnLive)  { btnLive.style.background  = 'var(--primary)'; btnLive.style.color = '#fff'; }
+    if (btnDemo)  { btnDemo.style.background  = 'transparent';    btnDemo.style.color = 'var(--text-muted)'; }
+    startRecordLive();
+  } else {
+    if (liveTbody)  liveTbody.style.display  = 'none';
+    if (demoTbody)  demoTbody.style.display  = '';
+    if (liveBadge)  liveBadge.style.display  = 'none';
+    if (countEl)    countEl.style.display     = 'none';
+    if (btnDemo)  { btnDemo.style.background  = 'var(--primary)'; btnDemo.style.color = '#fff'; }
+    if (btnLive)  { btnLive.style.background  = 'transparent';    btnLive.style.color = 'var(--text-muted)'; }
+    stopRecordLive();
+  }
 }
 
 function startRecordLive() {
