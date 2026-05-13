@@ -3981,6 +3981,35 @@ let panelMode = 'feed'; // 'feed' | 'ext'
 let feedItems = [];
 let feedAutoInterval = null;
 
+// ── Supabase real recording ─────────────────────────────────────────────────
+const SB_URL  = 'https://pahszcrakgzwmqrpsmma.supabase.co';
+const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhaHN6Y3Jha2d6d21xcnBzbW1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODEzMTIsImV4cCI6MjA5NDI1NzMxMn0.uu-n3L0D09wus0Gpj7r3QeGONr7BujAlTLQLWZKryTk';
+const SB_SESSION = 'demo-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
+
+function recordToSupabase(type, action, detail, agent) {
+  const payload = {
+    session_id: SB_SESSION,
+    actor: agent || 'VisIQ-Demo',
+    action_type: type,
+    decision: type === 'allow' ? 'ALLOW' : type === 'block' ? 'BLOCK' : type.toUpperCase(),
+    tool: detail || null,
+    resource: action || null,
+    enforcement_basis: type === 'block' ? 'blocked_by_enforced_policy' : type === 'allow' ? 'intercepted_in_browser' : 'observed_only',
+    policy_version: 'v1.0-demo',
+    raw: { action, detail, agent, ts: new Date().toISOString() }
+  };
+  fetch(SB_URL + '/rest/v1/enforcement_events', {
+    method: 'POST',
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify(payload)
+  }).catch(() => {}); // fire-and-forget, never block the UI
+}
+
 function togglePanel() {
   panelOpen = !panelOpen;
   const panel = document.getElementById('right-panel');
@@ -4065,6 +4094,11 @@ function pushFeedItem(type, action, detail, agent) {
   `;
   list.insertBefore(item, list.firstChild);
   feedItems.unshift({ type, action, detail, agent });
+
+  // Record real enforcement events to Supabase
+  if (['allow','block','hitl','record'].includes(type)) {
+    recordToSupabase(type, action, detail, agent);
+  }
 
   // Keep list trimmed
   while (list.children.length > 40) list.removeChild(list.lastChild);
