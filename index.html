@@ -615,8 +615,8 @@
     transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
     z-index: 200;
   }
-  #right-panel.open { transform: translateX(0); }
-  body.panel-open #main { margin-right: var(--panel-w); }
+  #right-panel.open { transform: translateX(0); box-shadow: -8px 0 32px rgba(0,0,0,0.5); }
+  /* Panel overlays — dashboard stays full width */
 
   #panel-toggle {
     position: fixed; right: 0; top: 50%; transform: translateY(-50%);
@@ -685,6 +685,24 @@
   @keyframes pulse-dot {
     0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
   }
+  .feed-filters {
+    padding: 8px 12px; display: flex; gap: 5px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+  }
+  .feed-filter-pill {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 10px; cursor: pointer; border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted); transition: all 0.15s;
+  }
+  .feed-filter-pill:hover { border-color: var(--border2); color: var(--text-dim); }
+  .feed-filter-pill.active { color: #fff; border-color: transparent; }
+  .feed-filter-pill[data-f="all"].active    { background: var(--surface3); color: var(--text); border-color: var(--border2); }
+  .feed-filter-pill[data-f="allow"].active  { background: rgba(16,185,129,0.2); color: var(--green); border-color: rgba(16,185,129,0.4); }
+  .feed-filter-pill[data-f="block"].active  { background: rgba(239,68,68,0.2); color: var(--red); border-color: rgba(239,68,68,0.4); }
+  .feed-filter-pill[data-f="hitl"].active   { background: rgba(245,158,11,0.2); color: var(--yellow); border-color: rgba(245,158,11,0.4); }
+  .feed-filter-pill[data-f="record"].active { background: rgba(6,182,212,0.15); color: var(--cyan); border-color: rgba(6,182,212,0.35); }
+  .feed-filter-pill[data-f="isolate"].active{ background: rgba(139,92,246,0.2); color: var(--purple); border-color: rgba(139,92,246,0.4); }
+  .feed-item.hidden-by-filter { display: none; }
   .feed-clear-btn {
     font-size: 10px; color: var(--text-muted); cursor: pointer;
     background: none; border: none; padding: 3px 7px;
@@ -769,6 +787,29 @@
     border: 1px solid var(--border); border-radius: 6px;
     background: var(--surface2); text-align: left; line-height: 1.6;
   }
+  #ext-error {
+    position: absolute; inset: 0; display: none; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+    text-align: center; color: var(--text-muted); font-size: 12px;
+    background: var(--surface); line-height: 1.6;
+  }
+  #ext-error.show { display: flex; }
+  #ext-error .err-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.5; }
+  #ext-error .err-title { font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+  .ext-newtab-btn {
+    margin-top: 14px; padding: 8px 16px; border-radius: 6px;
+    background: var(--surface2); border: 1px solid var(--border2);
+    color: var(--text-dim); font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .ext-newtab-btn:hover { border-color: var(--primary); color: var(--text); }
+  .ext-url-bar { display: flex; gap: 6px; align-items: center; }
+  .ext-newtab-icon-btn {
+    padding: 7px 10px; border-radius: 6px; background: var(--surface2);
+    border: 1px solid var(--border2); color: var(--text-muted); font-size: 13px;
+    cursor: pointer; transition: all 0.15s; flex-shrink: 0; line-height: 1;
+  }
+  .ext-newtab-icon-btn:hover { border-color: var(--border2); color: var(--text); }
 </style>
 </head>
 <body>
@@ -1916,6 +1957,14 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
         </div>
         <button class="feed-clear-btn" onclick="clearFeed()">Clear</button>
       </div>
+      <div class="feed-filters">
+        <button class="feed-filter-pill active" data-f="all"     onclick="setFeedFilter('all')">All</button>
+        <button class="feed-filter-pill"        data-f="allow"   onclick="setFeedFilter('allow')">ALLOW</button>
+        <button class="feed-filter-pill"        data-f="block"   onclick="setFeedFilter('block')">BLOCK</button>
+        <button class="feed-filter-pill"        data-f="hitl"    onclick="setFeedFilter('hitl')">HITL</button>
+        <button class="feed-filter-pill"        data-f="record"  onclick="setFeedFilter('record')">RECORD</button>
+        <button class="feed-filter-pill"        data-f="isolate" onclick="setFeedFilter('isolate')">ISOLATE</button>
+      </div>
       <div id="feed-list">
         <div id="feed-empty">
           <div class="feed-empty-icon">📡</div>
@@ -1932,6 +1981,7 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
           placeholder="https://your-siem.company.com"
           onkeydown="if(event.key==='Enter') loadExtTool()" />
         <button class="ext-load-btn" onclick="loadExtTool()">Load</button>
+        <button class="ext-newtab-icon-btn" onclick="openExtNewTab()" title="Open in new tab">↗</button>
       </div>
       <div class="ext-governance-tag">
         <span class="ext-governance-dot"></span>
@@ -1941,12 +1991,22 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
         <div id="ext-placeholder">
           <div class="ph-icon">🖥</div>
           <div class="ph-title">External Tool</div>
-          Paste a URL above to load your SIEM portal, dashboard, or any web tool — running as a governed concurrent session inside VisIQ's enforcement perimeter.
+          Paste a URL above to load your SIEM portal, dashboard, or internal web tool — running as a governed concurrent session inside VisIQ's enforcement perimeter.
           <div class="ph-note">
-            ⚙️ <strong>Mode 2</strong> leverages VisIQ's browser-native session isolation. The tool runs in a governed context — every request passes through ISOLATE before execution.
+            ⚙️ <strong>Mode 2</strong> leverages VisIQ's browser-native session isolation. The tool runs in a governed context — every request passes through ISOLATE before execution.<br><br>
+            <strong>Note:</strong> Public sites (Google, Twitter, etc.) block embedding by design. Use your own internal tools or dashboards.
           </div>
         </div>
-        <iframe id="ext-iframe" style="display:none;" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+        <div id="ext-error">
+          <div class="err-icon">🔒</div>
+          <div class="err-title">Site blocked embedding</div>
+          This site uses security headers that prevent it from loading inside another page. This is normal for public sites.<br><br>
+          Use an internal tool, intranet dashboard, or VisIQ-governed endpoint instead.
+          <button class="ext-newtab-btn" onclick="openExtNewTab()">Open in new tab ↗</button>
+        </div>
+        <iframe id="ext-iframe" style="display:none;"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          onload="onExtIframeLoad()" onerror="onExtIframeError()"></iframe>
       </div>
     </div>
 
@@ -3936,6 +3996,11 @@ function pushFeedItem(type, action, detail, agent) {
 
   const item = document.createElement('div');
   item.className = 'feed-item';
+  item.dataset.type = type; // used by setFeedFilter
+  // Apply current filter immediately
+  if (currentFeedFilter !== 'all' && currentFeedFilter !== type) {
+    item.classList.add('hidden-by-filter');
+  }
   const labels = { allow:'ALLOW', block:'BLOCK', hitl:'HITL', record:'RECORD', isolate:'ISOLATE' };
   item.innerHTML = `
     <div class="feed-item-top">
@@ -4008,13 +4073,67 @@ function loadExtTool() {
   let url = input.value.trim();
   if (!url) return;
   if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-  const iframe = document.getElementById('ext-iframe');
+  input.value = url; // normalise
+  const iframe   = document.getElementById('ext-iframe');
+  const errDiv   = document.getElementById('ext-error');
   const placeholder = document.getElementById('ext-placeholder');
   placeholder.style.display = 'none';
+  errDiv.classList.remove('show');
   iframe.style.display = 'block';
   iframe.src = url;
   // Log to feed
   pushFeedItem('isolate', 'External session opened', `ISOLATE · governed context · ${url.split('/')[2]}`, null);
+}
+
+function onExtIframeLoad() {
+  // Try to detect X-Frame-Options / CSP block: blocked frames may load with
+  // an empty, cross-origin document we can't read, but the src won't match
+  // about:blank and the contentDocument will be inaccessible.
+  const iframe = document.getElementById('ext-iframe');
+  let blocked = false;
+  try {
+    // If cross-origin block, accessing contentDocument throws or gives null
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    // A blocked load sometimes gives an empty doc with no body children
+    if (doc && doc.body && doc.body.innerHTML.trim() === '') blocked = true;
+  } catch(e) {
+    blocked = true;
+  }
+  if (blocked) {
+    onExtIframeError();
+  }
+  // Otherwise frame loaded fine — leave as-is
+}
+
+function onExtIframeError() {
+  const iframe = document.getElementById('ext-iframe');
+  const errDiv = document.getElementById('ext-error');
+  iframe.style.display = 'none';
+  errDiv.classList.add('show');
+}
+
+function openExtNewTab() {
+  const input = document.getElementById('ext-url-input');
+  let url = input ? input.value.trim() : '';
+  if (!url) return;
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+// ── Feed Filter ────────────────────────────────────────────────────────────────
+let currentFeedFilter = 'all';
+
+function setFeedFilter(type) {
+  currentFeedFilter = type;
+  // Update pill active state
+  document.querySelectorAll('.feed-filter-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.dataset.f === type);
+  });
+  // Show/hide feed items
+  document.querySelectorAll('#feed-list .feed-item').forEach(item => {
+    const match = type === 'all' || item.dataset.type === type;
+    item.classList.toggle('hidden-by-filter', !match);
+  });
 }
 
 // Feed is hooked directly into resolveHITL above.
