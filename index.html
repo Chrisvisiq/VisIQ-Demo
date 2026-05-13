@@ -104,10 +104,10 @@
   @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.7} }
 
   /* ── Main ── */
-  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; transition: margin-right 0.22s cubic-bezier(0.4,0,0.2,1); }
-  body.panel-open #main { margin-right: var(--panel-w); }
-  .page { padding: 28px 32px; display: none; }
+  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+  .page { padding: 28px 32px; display: none; transition: padding 0.22s cubic-bezier(0.4,0,0.2,1); }
   .page.active { display: block; }
+  body.panel-open .page.active { padding-right: calc(var(--panel-w) + 20px); }
 
   .page-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-start; }
   .page-title { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; }
@@ -124,8 +124,8 @@
   .live-ticker { font-size: 11px; color: var(--text-muted); font-family: var(--mono); overflow: hidden; white-space: nowrap; flex: 1; }
 
   /* ── Stats ── */
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; transition: gap 0.22s; }
-  body.panel-open .stats-grid { gap: 8px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; transition: grid-template-columns 0s, gap 0.22s; }
+  body.panel-open .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .stat-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
     padding: 18px; position: relative; overflow: hidden; transition: padding 0.22s;
@@ -744,6 +744,22 @@
   .feed-ts { font-size: 10px; color: var(--text-muted); font-family: var(--mono); }
   .feed-action { font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 3px; }
   .feed-detail { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  /* HITL inline actions in feed */
+  .feed-hitl-actions { display: flex; gap: 6px; margin-top: 10px; }
+  .feed-hitl-btn {
+    flex: 1; padding: 6px 0; border-radius: 6px; font-size: 11px; font-weight: 700;
+    border: none; cursor: pointer; letter-spacing: 0.04em; transition: opacity 0.15s;
+  }
+  .feed-hitl-btn:hover { opacity: 0.85; }
+  .feed-hitl-btn.approve { background: rgba(16,185,129,0.18); color: var(--green); border: 1px solid rgba(16,185,129,0.35); }
+  .feed-hitl-btn.reject  { background: rgba(239,68,68,0.15);  color: var(--red);   border: 1px solid rgba(239,68,68,0.3); }
+  .feed-hitl-result {
+    margin-top: 10px; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+    text-align: center;
+  }
+  .feed-hitl-result.approved { background: rgba(16,185,129,0.12); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .feed-hitl-result.rejected { background: rgba(239,68,68,0.10);  color: var(--red);   border: 1px solid rgba(239,68,68,0.25); }
 
   #feed-empty {
     text-align: center; color: var(--text-muted); font-size: 12px;
@@ -3492,8 +3508,12 @@ function saveRuleFromHITL(id, action, btnId) {
 
 function resolveHITL(id, action) {
   const item = HITL.find(h=>h.id===id);
-  // Feed hook — push enforcement event to right panel
-  if (typeof feedHITLDecision === 'function' && item) {
+  if (!item) return;
+  // Mark resolved to prevent double-firing from panel
+  const alreadyResolved = item._resolved;
+  item._resolved = true;
+  // Feed hook — only push if we haven't already pushed from the panel
+  if (!alreadyResolved && typeof feedHITLDecision === 'function') {
     feedHITLDecision(action, item.action, item.agent);
   }
   const card = document.getElementById('card-'+id);
@@ -4006,6 +4026,13 @@ function pushFeedItem(type, action, detail, agent) {
     item.classList.add('hidden-by-filter');
   }
   const labels = { allow:'ALLOW', block:'BLOCK', hitl:'HITL', record:'RECORD', isolate:'ISOLATE' };
+  const feedId = 'fi-' + Date.now() + '-' + Math.floor(Math.random()*9999);
+  item.dataset.feedId = feedId;
+  const hitlButtons = type === 'hitl' ? `
+    <div class="feed-hitl-actions" id="fha-${feedId}">
+      <button class="feed-hitl-btn approve" onclick="feedResolveHITL('${feedId}','approve')">✓ Approve</button>
+      <button class="feed-hitl-btn reject"  onclick="feedResolveHITL('${feedId}','reject')">✗ Reject</button>
+    </div>` : '';
   item.innerHTML = `
     <div class="feed-item-top">
       <span class="feed-badge ${type}">${labels[type] || type}</span>
@@ -4014,6 +4041,7 @@ function pushFeedItem(type, action, detail, agent) {
     <div class="feed-action">${action}</div>
     <div class="feed-detail">${detail}</div>
     ${agent ? `<div class="feed-detail" style="margin-top:3px;color:var(--text-muted);font-size:10px;font-family:var(--mono)">${agent}</div>` : ''}
+    ${hitlButtons}
   `;
   list.insertBefore(item, list.firstChild);
   feedItems.unshift({ type, action, detail, agent });
@@ -4144,6 +4172,48 @@ function setFeedFilter(type) {
     const match = type === 'all' || item.dataset.type === type;
     item.classList.toggle('hidden-by-filter', !match);
   });
+}
+
+// ── Feed HITL inline resolution ───────────────────────────────────────────────
+
+function feedResolveHITL(feedId, decision) {
+  // Find the feed item element
+  const item = document.querySelector(`[data-feed-id="${feedId}"]`);
+  if (!item) return;
+
+  const isApprove = decision === 'approve';
+
+  // Replace the action buttons with a result badge
+  const actionsEl = document.getElementById('fha-' + feedId);
+  if (actionsEl) {
+    const result = document.createElement('div');
+    result.className = 'feed-hitl-result ' + (isApprove ? 'approved' : 'rejected');
+    result.textContent = isApprove ? '✓ Approved — releasing to ALLOW' : '✗ Rejected — blocked by human decision';
+    actionsEl.replaceWith(result);
+  }
+
+  // Upgrade the badge from HITL → ALLOW or BLOCK
+  const badge = item.querySelector('.feed-badge');
+  if (badge) {
+    badge.className = 'feed-badge ' + (isApprove ? 'allow' : 'block');
+    badge.textContent = isApprove ? 'ALLOW' : 'BLOCK';
+  }
+
+  // Get agent/action text from the item for the follow-on events
+  const actionText = item.querySelector('.feed-action')?.textContent || 'HITL decision';
+  const agentEl = item.querySelectorAll('.feed-detail');
+  const agentText = agentEl.length > 1 ? agentEl[agentEl.length - 1].textContent : null;
+
+  // Push a decision event + RECORD receipt to the feed
+  feedHITLDecision(decision, actionText, agentText);
+
+  // Also resolve the oldest pending HITL card in the Escalations page, if any
+  const pending = HITL.filter(h => !h._resolved);
+  if (pending.length > 0) {
+    const target = pending[0];
+    target._resolved = true;
+    resolveHITL(target.id, decision);
+  }
 }
 
 // Feed is hooked directly into resolveHITL above.
