@@ -107,7 +107,7 @@
   #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
   .page { padding: 28px 32px; display: none; transition: padding 0.22s cubic-bezier(0.4,0,0.2,1); }
   .page.active { display: block; }
-  body.panel-open .page.active { padding-right: calc(var(--panel-w) + 20px); }
+  body.panel-open #main { margin-right: var(--panel-w); }
 
   .page-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-start; }
   .page-title { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; }
@@ -940,7 +940,7 @@
   <div class="nav-divider"></div>
 
   <div class="nav-section">
-    <div class="nav-label">DISCOVER</div>
+    <div class="nav-label">DISCOVER <span style="font-size:9px;font-weight:600;color:var(--yellow);background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);border-radius:4px;padding:1px 5px;letter-spacing:0.04em;text-transform:uppercase;vertical-align:middle">Preview</span></div>
     <button class="nav-item" onclick="nav('disc-sources',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
       Sources
