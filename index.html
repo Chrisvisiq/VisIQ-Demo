@@ -124,17 +124,21 @@
   .live-ticker { font-size: 11px; color: var(--text-muted); font-family: var(--mono); overflow: hidden; white-space: nowrap; flex: 1; }
 
   /* ── Stats ── */
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; transition: gap 0.22s; }
+  body.panel-open .stats-grid { gap: 8px; }
   .stat-card {
     background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 18px; position: relative; overflow: hidden;
+    padding: 18px; position: relative; overflow: hidden; transition: padding 0.22s;
   }
+  body.panel-open .stat-card { padding: 12px 14px; }
   .stat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background: var(--accent-color, var(--primary)); }
   .stat-card.green-accent { --accent-color: var(--green); }
   .stat-card.yellow-accent { --accent-color: var(--yellow); }
   .stat-card.blue-accent { --accent-color: var(--blue); }
-  .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 10px; }
-  .stat-value { font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+  .stat-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 10px; transition: margin-bottom 0.22s; }
+  body.panel-open .stat-label { margin-bottom: 6px; }
+  .stat-value { font-size: 30px; font-weight: 800; line-height: 1; letter-spacing: -1px; transition: font-size 0.22s; }
+  body.panel-open .stat-value { font-size: 22px; }
   .stat-desc { font-size: 11px; color: var(--text-muted); margin-top: 7px; }
 
   /* ── Chart ── */
@@ -605,7 +609,7 @@
   .claude-key-input:focus { outline: none; border-color: #6366F1; }
 
   /* ── RIGHT PANEL ── */
-  :root { --panel-w: 320px; }
+  :root { --panel-w: 280px; }
 
   #right-panel {
     position: fixed; right: 0; top: 0; height: 100vh;
@@ -4072,7 +4076,11 @@ function loadExtTool() {
   const input = document.getElementById('ext-url-input');
   let url = input.value.trim();
   if (!url) return;
-  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  // Only prepend https:// if it looks like a domain (contains a dot, no slash prefix)
+  // Relative paths like "visiq-demo-app.html" are left as-is
+  if (!/^https?:\/\//i.test(url) && !url.startsWith('/') && !url.startsWith('.') && url.includes('.') && !url.endsWith('.html') && !url.endsWith('.htm')) {
+    url = 'https://' + url;
+  }
   input.value = url; // normalise
   const iframe   = document.getElementById('ext-iframe');
   const errDiv   = document.getElementById('ext-error');
@@ -4116,7 +4124,9 @@ function openExtNewTab() {
   const input = document.getElementById('ext-url-input');
   let url = input ? input.value.trim() : '';
   if (!url) return;
-  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  if (!/^https?:\/\//i.test(url) && !url.startsWith('/') && !url.startsWith('.') && url.includes('.') && !url.endsWith('.html') && !url.endsWith('.htm')) {
+    url = 'https://' + url;
+  }
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 
