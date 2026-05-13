@@ -179,7 +179,7 @@
 
   /* ── Tables ── */
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table { width: 100%; min-width: 640px; border-collapse: collapse; }
+  table { width: 100%; min-width: 780px; border-collapse: collapse; }
   th { padding: 9px 14px; text-align: left; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); }
   td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
@@ -3480,20 +3480,48 @@ function renderAudit() {
     const matchSearch = !q || r.agent.includes(q) || r.action.includes(q) || r.resource.toLowerCase().includes(q);
     return matchFilter && matchSearch;
   });
-  document.getElementById('audit-body').innerHTML = filtered.map(r=>`
-    <tr>
+  document.getElementById('audit-body').innerHTML = filtered.map(r=>{
+    const isHITL = r.decision === 'hitl';
+    const hitlId = 'ledger-hitl-' + r.time.replace(/\W/g,'') + r.action.slice(0,6);
+    const hitlCell = isHITL
+      ? `<td>
+           <div style="display:flex;flex-direction:column;gap:5px">
+             <span class="badge ${auditDecisionClass(r.decision)}" id="badge-${hitlId}">${auditDecisionLabel(r.decision)}</span>
+             <div id="btns-${hitlId}" style="display:flex;gap:4px">
+               <button onclick="ledgerResolveHITL('${hitlId}','approve','${r.action}','${r.agent}')" style="flex:1;padding:3px 6px;font-size:10px;font-weight:700;border:1px solid rgba(16,185,129,0.4);background:rgba(16,185,129,0.12);color:var(--green);border-radius:4px;cursor:pointer">✓ Approve</button>
+               <button onclick="ledgerResolveHITL('${hitlId}','reject','${r.action}','${r.agent}')" style="flex:1;padding:3px 6px;font-size:10px;font-weight:700;border:1px solid rgba(239,68,68,0.35);background:rgba(239,68,68,0.1);color:var(--red);border-radius:4px;cursor:pointer">✗ Reject</button>
+             </div>
+           </div>
+         </td>`
+      : `<td><span class="badge ${auditDecisionClass(r.decision)}">${auditDecisionLabel(r.decision)}</span></td>`;
+    return `<tr${isHITL ? ' style="background:rgba(245,158,11,0.04)"' : ''}>
       <td class="mono">${r.time}</td>
       <td style="font-family:var(--mono);font-size:12px">${r.agent}</td>
       <td class="mono" style="color:var(--primary-hover)">${r.action}</td>
       <td class="mono" style="color:var(--text-muted);font-size:11px">${r.resource}</td>
-      <td><span class="badge ${auditDecisionClass(r.decision)}">${auditDecisionLabel(r.decision)}</span></td>
+      ${hitlCell}
       <td class="mono" style="color:var(--text-muted)">${r.lat}</td>
       <td style="font-size:12px;color:var(--text-muted)">${r.rule}</td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
   document.getElementById('audit-count').textContent = `${filtered.length} of ${AUDIT.length} entries`;
 }
 
 function buildAudit() { renderAudit(); }
+
+function ledgerResolveHITL(hitlId, decision, action, agent) {
+  const btns  = document.getElementById('btns-' + hitlId);
+  const badge = document.getElementById('badge-' + hitlId);
+  if (!btns || !badge) return;
+  // Replace buttons with result
+  btns.style.display = 'none';
+  const approved = decision === 'approve';
+  badge.className = 'badge ' + (approved ? 'badge-green' : 'badge-red');
+  badge.textContent = approved ? 'APPROVED' : 'REJECTED';
+  // Also emit into the enforcement feed
+  feedHITLDecision(decision, action, agent);
+  toast(approved ? '✓ Approved' : '✗ Rejected', `${action} · ${agent}`);
+}
 
 function auditFilter(val, el) {
   auditCurrentFilter = val;
