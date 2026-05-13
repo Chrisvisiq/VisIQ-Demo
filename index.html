@@ -602,6 +602,173 @@
     box-sizing: border-box; margin-top: 8px;
   }
   .claude-key-input:focus { outline: none; border-color: #6366F1; }
+
+  /* ── RIGHT PANEL ── */
+  :root { --panel-w: 320px; }
+
+  #right-panel {
+    position: fixed; right: 0; top: 0; height: 100vh;
+    width: var(--panel-w); background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+    z-index: 200;
+  }
+  #right-panel.open { transform: translateX(0); }
+  body.panel-open #main { margin-right: var(--panel-w); }
+
+  #panel-toggle {
+    position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+    width: 22px; height: 56px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-right: none; border-radius: 6px 0 0 6px;
+    cursor: pointer; z-index: 201;
+    display: flex; align-items: center; justify-content: center;
+    transition: right 0.22s cubic-bezier(0.4,0,0.2,1), background 0.15s;
+    color: var(--text-muted); font-size: 10px;
+  }
+  #panel-toggle:hover { background: var(--surface3); color: var(--text); }
+  body.panel-open #panel-toggle { right: var(--panel-w); }
+
+  .panel-header {
+    padding: 14px 16px 0; border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .panel-title-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .panel-title {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted);
+  }
+  .panel-close-btn {
+    width: 20px; height: 20px; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; color: var(--text-muted);
+    border-radius: 4px; font-size: 14px; background: none; border: none;
+    transition: color 0.15s;
+  }
+  .panel-close-btn:hover { color: var(--text); }
+
+  .panel-mode-tabs {
+    display: flex; gap: 4px; padding-bottom: 12px;
+  }
+  .panel-mode-tab {
+    flex: 1; padding: 6px 8px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    text-align: center; border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted);
+    transition: all 0.15s; letter-spacing: 0.02em;
+  }
+  .panel-mode-tab.active {
+    background: var(--surface2); border-color: var(--primary);
+    color: var(--text);
+  }
+  .panel-mode-tab:hover:not(.active) { border-color: var(--border2); color: var(--text-dim); }
+
+  .panel-body { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+
+  /* Mode 1 — Enforcement Feed */
+  #feed-mode { display: flex; flex-direction: column; height: 100%; }
+  #feed-mode.hidden, #ext-mode.hidden { display: none; }
+
+  .feed-controls {
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+  }
+  .feed-status { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-muted); }
+  .feed-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--green);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+  .feed-clear-btn {
+    font-size: 10px; color: var(--text-muted); cursor: pointer;
+    background: none; border: none; padding: 3px 7px;
+    border-radius: 4px; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .feed-clear-btn:hover { color: var(--text); }
+
+  #feed-list {
+    flex: 1; overflow-y: auto; padding: 10px 12px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  #feed-list::-webkit-scrollbar { width: 4px; }
+  #feed-list::-webkit-scrollbar-track { background: transparent; }
+  #feed-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .feed-item {
+    border-radius: 7px; padding: 10px 12px;
+    border: 1px solid var(--border); background: var(--surface2);
+    animation: feed-in 0.2s ease;
+  }
+  @keyframes feed-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+  .feed-item-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
+  .feed-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  .feed-badge.allow   { background: rgba(16,185,129,0.15); color: var(--green); border: 1px solid rgba(16,185,129,0.3); }
+  .feed-badge.block   { background: rgba(239,68,68,0.15);  color: var(--red);   border: 1px solid rgba(239,68,68,0.3); }
+  .feed-badge.hitl    { background: rgba(245,158,11,0.15); color: var(--yellow);border: 1px solid rgba(245,158,11,0.3); }
+  .feed-badge.record  { background: rgba(6,182,212,0.12);  color: var(--cyan);  border: 1px solid rgba(6,182,212,0.25); }
+  .feed-badge.isolate { background: rgba(139,92,246,0.12); color: var(--purple);border: 1px solid rgba(139,92,246,0.3); }
+
+  .feed-ts { font-size: 10px; color: var(--text-muted); font-family: var(--mono); }
+  .feed-action { font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 3px; }
+  .feed-detail { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  #feed-empty {
+    text-align: center; color: var(--text-muted); font-size: 12px;
+    margin-top: 40px; padding: 0 16px; line-height: 1.6;
+  }
+  #feed-empty .feed-empty-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.5; }
+
+  /* Mode 2 — External Tool */
+  #ext-mode { display: flex; flex-direction: column; height: 100%; }
+  .ext-url-bar {
+    padding: 10px 14px; border-bottom: 1px solid var(--border);
+    display: flex; gap: 8px; flex-shrink: 0;
+  }
+  .ext-url-input {
+    flex: 1; background: var(--surface2); border: 1px solid var(--border2);
+    border-radius: 6px; padding: 7px 10px; font-size: 12px; color: var(--text);
+    font-family: var(--mono); outline: none;
+  }
+  .ext-url-input:focus { border-color: var(--primary); }
+  .ext-url-input::placeholder { color: var(--text-muted); }
+  .ext-load-btn {
+    padding: 7px 12px; border-radius: 6px; background: var(--primary);
+    color: #fff; font-size: 12px; font-weight: 600; border: none;
+    cursor: pointer; white-space: nowrap; transition: background 0.15s;
+  }
+  .ext-load-btn:hover { background: var(--primary-hover); }
+  .ext-governance-tag {
+    padding: 6px 14px; font-size: 10px; color: var(--text-muted);
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .ext-governance-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  #ext-iframe-wrap { flex: 1; position: relative; overflow: hidden; }
+  #ext-iframe-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+  #ext-placeholder {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 12px; text-align: center; padding: 24px;
+    line-height: 1.6;
+  }
+  #ext-placeholder .ph-icon { font-size: 32px; margin-bottom: 12px; opacity: 0.4; }
+  #ext-placeholder .ph-title { font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+  #ext-placeholder .ph-note {
+    font-size: 10px; margin-top: 14px; padding: 8px 10px;
+    border: 1px solid var(--border); border-radius: 6px;
+    background: var(--surface2); text-align: left; line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -753,10 +920,10 @@
   </div><!-- /sidebar-nav -->
 
   <div class="sidebar-footer">
-    <div class="avatar">CM</div>
+    <div class="avatar">C</div>
     <div>
-      <div class="footer-name">Chris Mancuso</div>
-      <div class="footer-email">Founder · VisIQ Labs</div>
+      <div class="footer-name">CHRIS</div>
+      <div class="footer-email">Co-Founder · VisIQ Labs</div>
     </div>
   </div>
 </nav>
@@ -1716,6 +1883,75 @@ result = rt.<span class="code-fn">validate_at_exec</span>(
 
 
 </main>
+
+<!-- RIGHT PANEL TOGGLE TAB -->
+<button id="panel-toggle" onclick="togglePanel()" title="Toggle VisIQ Panel">
+  <span id="panel-toggle-arrow">◀</span>
+</button>
+
+<!-- RIGHT PANEL -->
+<div id="right-panel">
+
+  <!-- Header -->
+  <div class="panel-header">
+    <div class="panel-title-row">
+      <span class="panel-title">VisIQ Panel</span>
+      <button class="panel-close-btn" onclick="togglePanel()" title="Close panel">✕</button>
+    </div>
+    <div class="panel-mode-tabs">
+      <button class="panel-mode-tab active" id="tab-feed" onclick="setPanelMode('feed')">⚡ Enforcement Feed</button>
+      <button class="panel-mode-tab" id="tab-ext" onclick="setPanelMode('ext')">🔗 External Tool</button>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="panel-body">
+
+    <!-- Mode 1: Enforcement Feed -->
+    <div id="feed-mode">
+      <div class="feed-controls">
+        <div class="feed-status">
+          <span class="feed-dot"></span>
+          <span id="feed-status-text">Live · ALLOW + RECORD</span>
+        </div>
+        <button class="feed-clear-btn" onclick="clearFeed()">Clear</button>
+      </div>
+      <div id="feed-list">
+        <div id="feed-empty">
+          <div class="feed-empty-icon">📡</div>
+          Enforcement events will appear here as you interact with the demo.
+          Try approving or rejecting items in the HITL queue.
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode 2: External Tool -->
+    <div id="ext-mode" class="hidden">
+      <div class="ext-url-bar">
+        <input class="ext-url-input" id="ext-url-input" type="url"
+          placeholder="https://your-siem.company.com"
+          onkeydown="if(event.key==='Enter') loadExtTool()" />
+        <button class="ext-load-btn" onclick="loadExtTool()">Load</button>
+      </div>
+      <div class="ext-governance-tag">
+        <span class="ext-governance-dot"></span>
+        Governed concurrent session · Browser-as-Perimeter
+      </div>
+      <div id="ext-iframe-wrap">
+        <div id="ext-placeholder">
+          <div class="ph-icon">🖥</div>
+          <div class="ph-title">External Tool</div>
+          Paste a URL above to load your SIEM portal, dashboard, or any web tool — running as a governed concurrent session inside VisIQ's enforcement perimeter.
+          <div class="ph-note">
+            ⚙️ <strong>Mode 2</strong> leverages VisIQ's browser-native session isolation. The tool runs in a governed context — every request passes through ISOLATE before execution.
+          </div>
+        </div>
+        <iframe id="ext-iframe" style="display:none;" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <div id="toast"><div class="toast-title" id="toast-title"></div><div class="toast-body" id="toast-body"></div></div>
 
@@ -3192,6 +3428,10 @@ function saveRuleFromHITL(id, action, btnId) {
 
 function resolveHITL(id, action) {
   const item = HITL.find(h=>h.id===id);
+  // Feed hook — push enforcement event to right panel
+  if (typeof feedHITLDecision === 'function' && item) {
+    feedHITLDecision(action, item.action, item.agent);
+  }
   const card = document.getElementById('card-'+id);
   const actionsEl = document.getElementById('actions-'+id);
   const streamEl = document.getElementById('stream-'+id);
@@ -3637,6 +3877,148 @@ function rerunClaudeAnalysis(itemId) {
     <div id="claude-key-error" style="display:none;font-size:11px;color:var(--red);margin-top:8px"></div>
   </div>
 </div>
+
+<script>
+// ── RIGHT PANEL ──────────────────────────────────────────────────────────────
+
+let panelOpen = false;
+let panelMode = 'feed'; // 'feed' | 'ext'
+let feedItems = [];
+let feedAutoInterval = null;
+
+function togglePanel() {
+  panelOpen = !panelOpen;
+  const panel = document.getElementById('right-panel');
+  const toggle = document.getElementById('panel-toggle');
+  const arrow = document.getElementById('panel-toggle-arrow');
+  panel.classList.toggle('open', panelOpen);
+  document.body.classList.toggle('panel-open', panelOpen);
+  arrow.textContent = panelOpen ? '▶' : '◀';
+  if (panelOpen && feedAutoInterval === null) startFeedAuto();
+}
+
+function setPanelMode(mode) {
+  panelMode = mode;
+  document.getElementById('feed-mode').classList.toggle('hidden', mode !== 'feed');
+  document.getElementById('ext-mode').classList.toggle('hidden', mode !== 'ext');
+  document.getElementById('tab-feed').classList.toggle('active', mode === 'feed');
+  document.getElementById('tab-ext').classList.toggle('active', mode === 'ext');
+  if (mode === 'feed' && feedAutoInterval === null && panelOpen) startFeedAuto();
+}
+
+// ── Feed ──────────────────────────────────────────────────────────────────────
+
+const FEED_AGENTS = ['alice@demo.org → DeepSeek', 'bob@demo.org → ChatGPT', 'dave@demo.org → Claude', 'eve@demo.org → GPT-4o'];
+const FEED_ACTIONS = [
+  { type: 'allow',   action: 'customer.query',        detail: 'ALLOW · Trust Core validated · intercepted_in_browser' },
+  { type: 'allow',   action: 'read:crm_contacts',     detail: 'ALLOW · Policy match: read_only_permitted · released' },
+  { type: 'block',   action: 'bulk_export_pii',        detail: 'BLOCK · blocked_by_enforced_policy · HITL not satisfied' },
+  { type: 'block',   action: 'delete:audit_records',   detail: 'BLOCK · Policy: delete operations require step-up · denied' },
+  { type: 'hitl',    action: 'financial_data_prompt',  detail: 'ESCALATED → HITL queue · awaiting human decision' },
+  { type: 'hitl',    action: 'pii_query (bulk)',        detail: 'ESCALATED → HITL queue · approval scope mismatch' },
+  { type: 'record',  action: 'RECORD receipt issued',  detail: 'Ed25519 signed · bound to posture + policy version' },
+  { type: 'isolate', action: 'request intercepted',    detail: 'ISOLATE · MV3 service worker · held at network layer' },
+  { type: 'allow',   action: 'write:session_context',  detail: 'ALLOW · P19 validated · approved scope matches action' },
+  { type: 'block',   action: 'admin:grant_permissions',detail: 'BLOCK · Policy: admin operations blocked · not_enforceable_from_current_posture' },
+];
+
+function nowTs() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' +
+         d.getMinutes().toString().padStart(2,'0') + ':' +
+         d.getSeconds().toString().padStart(2,'0');
+}
+
+function pushFeedItem(type, action, detail, agent) {
+  const list = document.getElementById('feed-list');
+  const empty = document.getElementById('feed-empty');
+  if (empty) empty.style.display = 'none';
+
+  const item = document.createElement('div');
+  item.className = 'feed-item';
+  const labels = { allow:'ALLOW', block:'BLOCK', hitl:'HITL', record:'RECORD', isolate:'ISOLATE' };
+  item.innerHTML = `
+    <div class="feed-item-top">
+      <span class="feed-badge ${type}">${labels[type] || type}</span>
+      <span class="feed-ts">${nowTs()}</span>
+    </div>
+    <div class="feed-action">${action}</div>
+    <div class="feed-detail">${detail}</div>
+    ${agent ? `<div class="feed-detail" style="margin-top:3px;color:var(--text-muted);font-size:10px;font-family:var(--mono)">${agent}</div>` : ''}
+  `;
+  list.insertBefore(item, list.firstChild);
+  feedItems.unshift({ type, action, detail, agent });
+
+  // Keep list trimmed
+  while (list.children.length > 40) list.removeChild(list.lastChild);
+}
+
+// Public hook: called from HITL approve/reject buttons
+function feedHITLDecision(decision, action, agent) {
+  const isApprove = decision === 'approve';
+  pushFeedItem(
+    isApprove ? 'allow' : 'block',
+    isApprove ? `APPROVED: ${action}` : `REJECTED: ${action}`,
+    isApprove
+      ? 'ALLOW · Human decision · RECORD envelope emitted'
+      : 'BLOCK · Human decision · RECORD envelope emitted · blocked_by_enforced_policy',
+    agent
+  );
+  // Always emit a RECORD receipt after a decision
+  setTimeout(() => {
+    const recId = 'REC-' + Math.floor(Math.random()*90000+10000);
+    pushFeedItem('record', `RECORD receipt ${recId}`, 'Cryptographic proof · Ed25519 signed · immutable audit trail', null);
+  }, 600);
+}
+
+// Auto-generate ambient feed events to show platform activity
+function startFeedAuto() {
+  // Fire one immediately, then every 8–14 seconds
+  const fireFeedEvent = () => {
+    const ev = FEED_ACTIONS[Math.floor(Math.random() * FEED_ACTIONS.length)];
+    const agent = ev.type === 'record' || ev.type === 'isolate'
+      ? null
+      : FEED_AGENTS[Math.floor(Math.random() * FEED_AGENTS.length)];
+    pushFeedItem(ev.type, ev.action, ev.detail, agent);
+    // RECORD receipt follows ALLOW/BLOCK decisions
+    if (ev.type === 'allow' || ev.type === 'block') {
+      setTimeout(() => {
+        const recId = 'REC-' + Math.floor(Math.random()*90000+10000);
+        pushFeedItem('record', `RECORD receipt ${recId}`, 'Ed25519 signed · bound to posture + policy version', null);
+      }, 900);
+    }
+  };
+  fireFeedEvent();
+  feedAutoInterval = setInterval(fireFeedEvent, Math.random() * 6000 + 8000);
+}
+
+function clearFeed() {
+  feedItems = [];
+  const list = document.getElementById('feed-list');
+  list.innerHTML = `<div id="feed-empty" style="text-align:center;color:var(--text-muted);font-size:12px;margin-top:40px;padding:0 16px;line-height:1.6">
+    <div style="font-size:28px;margin-bottom:10px;opacity:0.5">📡</div>
+    Enforcement events will appear here as you interact with the demo.
+  </div>`;
+}
+
+// ── External Tool ─────────────────────────────────────────────────────────────
+
+function loadExtTool() {
+  const input = document.getElementById('ext-url-input');
+  let url = input.value.trim();
+  if (!url) return;
+  if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+  const iframe = document.getElementById('ext-iframe');
+  const placeholder = document.getElementById('ext-placeholder');
+  placeholder.style.display = 'none';
+  iframe.style.display = 'block';
+  iframe.src = url;
+  // Log to feed
+  pushFeedItem('isolate', 'External session opened', `ISOLATE · governed context · ${url.split('/')[2]}`, null);
+}
+
+// Feed is hooked directly into resolveHITL above.
+</script>
 
 </body>
 </html>
