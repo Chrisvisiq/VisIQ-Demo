@@ -27,7 +27,7 @@
     --blue: #3b82f6;
     --purple: #8b5cf6;
     --cyan: #06b6d4;
-    --sidebar-w: 248px;
+    --sidebar-w: 200px;
     --radius: 8px;
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
@@ -72,10 +72,10 @@
     padding: 1px 6px; font-size: 9px; color: var(--text-muted); font-weight: 600;
   }
   .nav-item {
-    display: flex; align-items: center; gap: 9px; padding: 7px 14px;
+    display: flex; align-items: center; gap: 8px; padding: 6px 12px;
     color: var(--text-dim); cursor: pointer;
     transition: background 0.12s, color 0.12s; text-decoration: none;
-    border: none; background: none; width: 100%; text-align: left; font-size: 13px;
+    border: none; background: none; width: 100%; text-align: left; font-size: 12px;
     font-family: var(--font);
   }
   .nav-item:hover:not(.disabled) { background: var(--surface2); color: var(--text); }
@@ -179,7 +179,7 @@
 
   /* ── Tables ── */
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table { width: 100%; min-width: 780px; border-collapse: collapse; }
+  table { width: 100%; border-collapse: collapse; }
   th { padding: 9px 14px; text-align: left; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); }
   td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
@@ -876,14 +876,14 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       Agents
     </button>
-    <button class="nav-item" onclick="nav('audit',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      Enforcement Ledger
-    </button>
     <button class="nav-item" onclick="nav('hitl',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Escalations
+      Approvals
       <span class="pending-badge" id="hitl-badge">11</span>
+    </button>
+    <button class="nav-item" onclick="nav('audit',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Decision Log
     </button>
     <div class="nav-divider" style="margin:4px 0"></div>
     <button class="nav-item" onclick="nav('trust-p19',this)">
@@ -1022,10 +1022,10 @@
         <div class="stat-value" id="s-decisions">247</div>
         <div class="stat-desc">Execution trust validations</div>
       </div>
-      <div class="stat-card yellow-accent" onclick="goTo('hitl')" style="cursor:pointer" title="View Escalation Queue">
-        <div class="stat-label">Runtime Escalations</div>
+      <div class="stat-card yellow-accent" onclick="goTo('hitl')" style="cursor:pointer" title="View Approvals">
+        <div class="stat-label">Pending Approvals</div>
         <div class="stat-value" id="s-hitl" style="color:var(--yellow)">11</div>
-        <div class="stat-desc">Actions requiring escalation</div>
+        <div class="stat-desc">Actions awaiting human decision</div>
       </div>
       <div class="stat-card green-accent" onclick="goTo('rules')" style="cursor:pointer" title="View Enforcement Rules">
         <div class="stat-label">Execution Coverage</div>
@@ -1184,7 +1184,7 @@
       <div class="card" style="margin-bottom:0">
         <div class="card-title">Quick Actions</div>
         <div class="qa-item" onclick="nav('rules',null)"><div class="qa-title">Manage Runtime Policies</div><div class="qa-desc">Define and edit execution enforcement policies</div></div>
-        <div class="qa-item" onclick="nav('hitl',null)"><div class="qa-title">Escalation Queue <span id="qa-pending" style="color:var(--yellow);font-weight:700;">· 11 pending</span></div><div class="qa-desc">Review agent actions requiring manual escalation</div></div>
+        <div class="qa-item" onclick="nav('hitl',null)"><div class="qa-title">Approvals <span id="qa-pending" style="color:var(--yellow);font-weight:700;">· 11 pending</span></div><div class="qa-desc">Review agent actions requiring manual escalation</div></div>
         <div class="qa-item" onclick="nav('audit',null)"><div class="qa-title">Audit Log</div><div class="qa-desc">Complete record of every enforcement decision</div></div>
       </div>
       <div class="card" style="margin-bottom:0">
@@ -1420,7 +1420,7 @@
 
   <!-- ══ AUDIT ══ -->
   <div id="page-audit" class="page">
-    <div class="page-header"><div><div class="page-title">Enforcement Ledger</div><div class="page-desc">Every enforcement decision, immutably recorded and cryptographically signed</div></div></div>
+    <div class="page-header"><div><div class="page-title">Decision Log</div><div class="page-desc">Every enforcement decision, immutably recorded and cryptographically signed</div></div></div>
     <div class="filter-bar">
       <button class="filter-tab active" onclick="auditFilter('all',this)">All</button>
       <button class="filter-tab" onclick="auditFilter('permit',this)">PERMIT</button>
@@ -1442,8 +1442,8 @@
   <div id="page-hitl" class="page">
     <div class="page-header">
       <div>
-        <div class="page-title">Runtime Escalation Queue</div>
-        <div class="page-desc">Agent actions intercepted at the execution boundary — paused for escalation review before any external system is reached</div>
+        <div class="page-title">Approvals</div>
+        <div class="page-desc">AI actions intercepted and held — a human decision is required before execution continues</div>
       </div>
       <button class="btn" onclick="resetEscalations()" style="background:var(--surface2);border:1px solid var(--border2);color:var(--text-muted);display:flex;align-items:center;gap:6px;font-size:12px" title="Reset all escalations to pending state for demo">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
@@ -3945,7 +3945,7 @@ async function analyzeWithClaude(itemId) {
 
   const streamEl = document.getElementById(`claude-stream-text-${itemId}`);
 
-  const prompt = `You are VisIQ's enforcement advisor embedded in the Runtime Escalation Queue. A browser-intercepted AI agent action is held for human review. Analyze it and produce a structured recommendation.
+  const prompt = `You are VisIQ's enforcement advisor embedded in the Runtime Approvals. A browser-intercepted AI agent action is held for human review. Analyze it and produce a structured recommendation.
 
 INTERCEPTED ACTION
 Agent: ${item.agent}
