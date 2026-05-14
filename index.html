@@ -27,7 +27,7 @@
     --blue: #3b82f6;
     --purple: #8b5cf6;
     --cyan: #06b6d4;
-    --sidebar-w: 200px;
+    --sidebar-w: 248px;
     --radius: 8px;
     --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
@@ -72,10 +72,10 @@
     padding: 1px 6px; font-size: 9px; color: var(--text-muted); font-weight: 600;
   }
   .nav-item {
-    display: flex; align-items: center; gap: 8px; padding: 6px 12px;
+    display: flex; align-items: center; gap: 9px; padding: 7px 14px;
     color: var(--text-dim); cursor: pointer;
     transition: background 0.12s, color 0.12s; text-decoration: none;
-    border: none; background: none; width: 100%; text-align: left; font-size: 12px;
+    border: none; background: none; width: 100%; text-align: left; font-size: 13px;
     font-family: var(--font);
   }
   .nav-item:hover:not(.disabled) { background: var(--surface2); color: var(--text); }
@@ -104,10 +104,10 @@
   @keyframes pulse-badge { 0%,100%{opacity:1} 50%{opacity:0.7} }
 
   /* ── Main ── */
-  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; min-width: 0; }
+  #main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
   .page { padding: 28px 32px; display: none; transition: padding 0.22s cubic-bezier(0.4,0,0.2,1); }
   .page.active { display: block; }
-  body.panel-open #main { margin-right: var(--panel-w); }
+  body.panel-open .page.active { padding-right: calc(var(--panel-w) + 20px); }
 
   .page-header { margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-start; }
   .page-title { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; }
@@ -178,10 +178,10 @@
   .step-link { color: var(--primary-hover); cursor: pointer; font-family: var(--font); }
 
   /* ── Tables ── */
-  .table-wrap { overflow-x: visible; }
+  .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; }
   th { padding: 9px 14px; text-align: left; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid var(--border); }
-  td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; word-break: break-word; overflow-wrap: anywhere; }
+  td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
   tr:hover td { background: rgba(255,255,255,0.015); }
 
@@ -866,6 +866,37 @@
 
   <div class="nav-divider"></div>
 
+  <div class="nav-section" id="discover-section">
+    <button onclick="toggleDiscover()" style="width:100%;background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:6px;padding:6px 12px 4px 14px;">
+      <span style="font-size:10px;font-weight:700;color:#ffffff;text-transform:uppercase;letter-spacing:0.1em;flex:1;text-align:left">DISCOVER</span>
+      <span style="background:rgba(245,158,11,0.15);color:#f59e0b;border-radius:99px;padding:1px 6px;font-size:9px;font-weight:700;letter-spacing:0.06em">PREVIEW</span>
+      <svg id="discover-chevron" viewBox="0 0 24 24" fill="none" stroke-width="2.5" style="width:12px;height:12px;stroke:#ffffff;opacity:0.5;transition:transform 0.2s;transform:rotate(0deg)"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div id="discover-items" style="display:none">
+    <button class="nav-item" onclick="nav('disc-sources',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
+      Sources
+    </button>
+    <button class="nav-item" onclick="nav('disc-inventory',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+      Inventory
+      <span class="pending-badge" id="disc-inv-badge" style="background:var(--cyan);color:#001a1f">24</span>
+    </button>
+    <button class="nav-item" onclick="nav('disc-findings',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Findings
+      <span class="pending-badge" id="disc-find-badge">6</span>
+    </button>
+    <button class="nav-item" onclick="nav('disc-merge',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Merge Review
+      <span class="pending-badge" id="disc-merge-badge" style="background:var(--purple);color:white">3</span>
+    </button>
+    </div>
+  </div>
+
+  <div class="nav-divider"></div>
+
   <div class="nav-section">
     <div class="nav-label">ALLOW</div>
     <button class="nav-item" onclick="nav('rules',this)">
@@ -876,14 +907,14 @@
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       Agents
     </button>
-    <button class="nav-item" onclick="nav('hitl',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Approvals
-      <span class="pending-badge" id="hitl-badge">11</span>
-    </button>
     <button class="nav-item" onclick="nav('audit',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      Decision Log
+      Enforcement Ledger
+    </button>
+    <button class="nav-item" onclick="nav('hitl',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Escalations
+      <span class="pending-badge" id="hitl-badge">11</span>
     </button>
     <div class="nav-divider" style="margin:4px 0"></div>
     <button class="nav-item" onclick="nav('trust-p19',this)">
@@ -934,31 +965,6 @@
     <button class="nav-item" onclick="nav('exports',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Exports
-    </button>
-  </div>
-
-  <div class="nav-divider"></div>
-
-  <div class="nav-section">
-    <div class="nav-label">DISCOVER <span style="font-size:9px;font-weight:600;color:var(--yellow);background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);border-radius:4px;padding:1px 5px;letter-spacing:0.04em;text-transform:uppercase;vertical-align:middle">Preview</span></div>
-    <button class="nav-item" onclick="nav('disc-sources',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
-      Sources
-    </button>
-    <button class="nav-item" onclick="nav('disc-inventory',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-      Inventory
-      <span class="pending-badge" id="disc-inv-badge" style="background:var(--cyan);color:#001a1f">24</span>
-    </button>
-    <button class="nav-item" onclick="nav('disc-findings',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      Findings
-      <span class="pending-badge" id="disc-find-badge">6</span>
-    </button>
-    <button class="nav-item" onclick="nav('disc-merge',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      Merge Review
-      <span class="pending-badge" id="disc-merge-badge" style="background:var(--purple);color:white">3</span>
     </button>
   </div>
 
@@ -1022,10 +1028,10 @@
         <div class="stat-value" id="s-decisions">247</div>
         <div class="stat-desc">Execution trust validations</div>
       </div>
-      <div class="stat-card yellow-accent" onclick="goTo('hitl')" style="cursor:pointer" title="View Approvals">
-        <div class="stat-label">Pending Approvals</div>
+      <div class="stat-card yellow-accent" onclick="goTo('hitl')" style="cursor:pointer" title="View Escalation Queue">
+        <div class="stat-label">Runtime Escalations</div>
         <div class="stat-value" id="s-hitl" style="color:var(--yellow)">11</div>
-        <div class="stat-desc">Actions awaiting human decision</div>
+        <div class="stat-desc">Actions requiring escalation</div>
       </div>
       <div class="stat-card green-accent" onclick="goTo('rules')" style="cursor:pointer" title="View Enforcement Rules">
         <div class="stat-label">Execution Coverage</div>
@@ -1184,7 +1190,7 @@
       <div class="card" style="margin-bottom:0">
         <div class="card-title">Quick Actions</div>
         <div class="qa-item" onclick="nav('rules',null)"><div class="qa-title">Manage Runtime Policies</div><div class="qa-desc">Define and edit execution enforcement policies</div></div>
-        <div class="qa-item" onclick="nav('hitl',null)"><div class="qa-title">Approvals <span id="qa-pending" style="color:var(--yellow);font-weight:700;">· 11 pending</span></div><div class="qa-desc">Review agent actions requiring manual escalation</div></div>
+        <div class="qa-item" onclick="nav('hitl',null)"><div class="qa-title">Escalation Queue <span id="qa-pending" style="color:var(--yellow);font-weight:700;">· 11 pending</span></div><div class="qa-desc">Review agent actions requiring manual escalation</div></div>
         <div class="qa-item" onclick="nav('audit',null)"><div class="qa-title">Audit Log</div><div class="qa-desc">Complete record of every enforcement decision</div></div>
       </div>
       <div class="card" style="margin-bottom:0">
@@ -1247,16 +1253,6 @@
       <div><div class="page-title">Discovery Sources</div><div class="page-desc">Browser extensions deployed across managed devices — observing AI tool usage, classifying actors and surfaces, and emitting normalized truth packets. Observation is not enforcement.</div></div>
       <button class="btn btn-primary" onclick="openAddSourceModal()">+ Add Source</button>
     </div>
-
-    <!-- SIMULATION BANNER -->
-    <div style="display:flex;align-items:flex-start;gap:12px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:14px 16px;margin-bottom:20px">
-      <span style="font-size:18px;line-height:1">🔭</span>
-      <div>
-        <div style="font-size:11px;font-weight:800;color:var(--yellow);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Architecture Preview — Not Yet Live</div>
-        <div style="font-size:12px;color:var(--text-muted);line-height:1.6">DISCOVER requires the VisIQ browser extension deployed on managed devices. What you see here is a simulation of what enforcement intelligence will surface once the extension is live — real platform connectors, real actor sessions, real posture signals. <strong style="color:var(--text-dim)">The data shown is illustrative, not from your environment.</strong></div>
-      </div>
-    </div>
-
     <div id="disc-sources-grid" class="source-grid"></div>
     <div class="card">
       <div class="card-title">Recent Ingest Runs</div>
@@ -1271,10 +1267,6 @@
   <div id="page-disc-inventory" class="page">
     <div class="page-header">
       <div><div class="page-title">Inventory</div><div class="page-desc">AI tools, API endpoints, and users detected via browser extension — deduplicated, ownership-mapped, and risk-classified</div></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted)">
-      <span style="font-size:14px">🔭</span>
-      <span><strong style="color:var(--yellow);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Architecture Preview</strong> &nbsp;—&nbsp; Illustrative data. Live inventory requires the VisIQ browser extension on managed devices.</span>
     </div>
     <div class="inv-filters">
       <button class="inv-type-tab active" onclick="invFilter('all',this)">All <span style="margin-left:4px;opacity:0.6">19</span></button>
@@ -1296,10 +1288,6 @@
   <div id="page-disc-findings" class="page">
     <div class="page-header">
       <div><div class="page-title">Findings</div><div class="page-desc">Prioritized issues from browser observation — unsanctioned AI tools, sensitive data in prompts, unapproved usage patterns</div></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted)">
-      <span style="font-size:14px">🔭</span>
-      <span><strong style="color:var(--yellow);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Architecture Preview</strong> &nbsp;—&nbsp; Illustrative findings. Live detection requires the VisIQ browser extension on managed devices.</span>
     </div>
     <!-- DISCOVER → ALLOW motion banner -->
     <div style="display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(6,182,212,0.07),rgba(99,102,241,0.07));border:1px solid rgba(99,102,241,0.2);border-radius:8px;padding:12px 16px;margin-bottom:16px">
@@ -1327,10 +1315,6 @@
   <div id="page-disc-merge" class="page">
     <div class="page-header">
       <div><div class="page-title">Merge Review</div><div class="page-desc">AI tools detected under multiple identities — soft-match candidates flagged for review before deduplication</div></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--text-muted)">
-      <span style="font-size:14px">🔭</span>
-      <span><strong style="color:var(--yellow);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Architecture Preview</strong> &nbsp;—&nbsp; Illustrative data. Live deduplication requires the VisIQ browser extension on managed devices.</span>
     </div>
     <div id="disc-merge-list"></div>
   </div>
@@ -1420,7 +1404,7 @@
 
   <!-- ══ AUDIT ══ -->
   <div id="page-audit" class="page">
-    <div class="page-header"><div><div class="page-title">Decision Log</div><div class="page-desc">Every enforcement decision, immutably recorded and cryptographically signed</div></div></div>
+    <div class="page-header"><div><div class="page-title">Enforcement Ledger</div><div class="page-desc">Every enforcement decision, immutably recorded and cryptographically signed</div></div></div>
     <div class="filter-bar">
       <button class="filter-tab active" onclick="auditFilter('all',this)">All</button>
       <button class="filter-tab" onclick="auditFilter('permit',this)">PERMIT</button>
@@ -1442,8 +1426,8 @@
   <div id="page-hitl" class="page">
     <div class="page-header">
       <div>
-        <div class="page-title">Approvals</div>
-        <div class="page-desc">AI actions intercepted and held — a human decision is required before execution continues</div>
+        <div class="page-title">Runtime Escalation Queue</div>
+        <div class="page-desc">Agent actions intercepted at the execution boundary — paused for escalation review before any external system is reached</div>
       </div>
       <button class="btn" onclick="resetEscalations()" style="background:var(--surface2);border:1px solid var(--border2);color:var(--text-muted);display:flex;align-items:center;gap:6px;font-size:12px" title="Reset all escalations to pending state for demo">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
@@ -1502,40 +1486,17 @@
 
   <!-- ══ RECORD ══ -->
   <div id="page-record" class="page">
-    <div class="page-header">
-      <div>
-        <div class="page-title">Records</div>
-        <div class="page-desc">Tamper-evident audit trail — every action, every outcome</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;margin-left:auto">
-        <div style="display:flex;background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden">
-          <button id="record-toggle-demo" onclick="setRecordView('demo')" style="padding:6px 14px;font-size:11px;font-weight:700;border:none;cursor:pointer;background:transparent;color:var(--text-muted);font-family:var(--font);letter-spacing:0.04em">DEMO</button>
-          <button id="record-toggle-live" onclick="setRecordView('live')" style="padding:6px 14px;font-size:11px;font-weight:700;border:none;cursor:pointer;background:var(--primary);color:#fff;font-family:var(--font);letter-spacing:0.04em;border-radius:6px">LIVE DB</button>
-        </div>
-        <span id="record-live-badge" style="display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--green);background:var(--green-glow);border:1px solid rgba(16,185,129,0.3);border-radius:99px;padding:4px 10px">
-          <span style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 1.5s infinite"></span>
-          LIVE
-        </span>
-        <span id="record-count" style="font-size:11px;color:var(--text-muted)">0 events</span>
-      </div>
-    </div>
-    <div class="card" style="padding:0">
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Record ID</th><th>Actor</th><th>Action / Resource</th><th>Decision</th><th>Enforcement Basis</th><th>Timestamp</th><th>Integrity</th></tr></thead>
-          <tbody id="record-live-tbody">
-            <tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">Connecting to live database…</td></tr>
-          </tbody>
-          <tbody id="record-demo-tbody" style="display:none">
-            <tr><td class="mono">#REC-0442</td><td>dave@demo.org → Claude</td><td>customer PII query</td><td><span class="badge badge-green">ALLOW</span></td><td style="font-size:11px;color:var(--text-muted)">intercepted · browser</td><td class="mono" style="font-size:11px">May 5, 14:38:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-            <tr><td class="mono">#REC-0441</td><td>alice@demo.org → ChatGPT</td><td>support query</td><td><span class="badge badge-green">ALLOW</span></td><td style="font-size:11px;color:var(--text-muted)">intercepted · browser</td><td class="mono" style="font-size:11px">May 5, 14:23:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-            <tr><td class="mono">#REC-0440</td><td>bob@demo.org → ChatGPT</td><td>financial data in prompt</td><td><span class="badge badge-red">BLOCK</span></td><td style="font-size:11px;color:var(--text-muted)">blocked · enforced</td><td class="mono" style="font-size:11px">May 5, 14:17:44</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-            <tr><td class="mono">#REC-0439</td><td>dave@demo.org → Claude</td><td>PII query · escalated</td><td><span class="badge badge-yellow">HITL</span></td><td style="font-size:11px;color:var(--text-muted)">intercepted · browser</td><td class="mono" style="font-size:11px">May 5, 14:11:22</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-            <tr><td class="mono">#REC-0438</td><td>carol@demo.org → Gemini</td><td>HR data in prompt</td><td><span class="badge badge-red">BLOCK</span></td><td style="font-size:11px;color:var(--text-muted)">blocked · enforced</td><td class="mono" style="font-size:11px">May 5, 14:02:33</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <div class="page-header"><div><div class="page-title">Records</div><div class="page-desc">Tamper-evident audit trail — every action, every outcome</div></div></div>
+    <div class="card" style="padding:0"><div class="table-wrap"><table>
+      <thead><tr><th>Record ID</th><th>Agent</th><th>Action</th><th>Outcome</th><th>Timestamp</th><th>Integrity</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">#REC-0442</td><td>dave@demo.org → Claude</td><td>customer PII query</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:38:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0441</td><td>alice@demo.org → ChatGPT</td><td>support query</td><td><span class="badge badge-green">Permitted</span></td><td class="mono">2026-05-05 14:23:01</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0440</td><td>bob@demo.org → ChatGPT</td><td>financial data in prompt</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:17:44</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0439</td><td>dave@demo.org → Claude</td><td>PII query · escalated</td><td><span class="badge badge-yellow">Escalated</span></td><td class="mono">2026-05-05 14:11:22</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+        <tr><td class="mono">#REC-0438</td><td>carol@demo.org → Gemini</td><td>HR data in prompt</td><td><span class="badge badge-red">Blocked</span></td><td class="mono">2026-05-05 14:02:33</td><td><span class="badge badge-cyan">✓ Signed</span></td></tr>
+      </tbody>
+    </table></div></div>
   </div>
 
   <!-- ══ EXPORTS ══ -->
@@ -2171,14 +2132,6 @@ const R = (() => {
     confH: (0.88 + Math.random()*0.09).toFixed(2),
     riskF: (0.55 + Math.random()*0.18).toFixed(2),
     riskG: (0.82 + Math.random()*0.11).toFixed(2),
-    // Shadow AI conflict HITL
-    sidL: sid(), sigL: hex(48),
-    minK: rnd(2, 6),
-    shadowDeviceId: 'DEV-' + hex(8).toUpperCase(),
-    shadowContactId: 'CRM-' + rnd(1000, 9999),
-    shadowFindingId: 'FIND-' + rnd(100, 999),
-    riskK: (0.71 + Math.random()*0.12).toFixed(2),
-    confK: (0.93 + Math.random()*0.05).toFixed(2),
   };
 })();
 
@@ -2265,7 +2218,6 @@ const AGENTS = [
 const AUDIT = [
   // ── Case Study: Finance / Payments ───────────────────────────────────────────
   { time:"15:09:14", agent:"bob@demo.org → ChatGPT",     action:"financial_data_upload",      resource:"api.openai.com/v1/chat",         decision:"invalidated", lat:"12ms", rule:"Validity Decay · Scope Expansion · data volume exceeded approved threshold" },
-  { time:"15:10:08", agent:"eve@demo.org → ChatGPT",   action:"data_access_query",         resource:`api.openai.com/v1/chat`,          decision:"hitl",        lat:"5ms",  rule:"Shadow AI context escalation" },
   { time:"15:07:52", agent:"dave@demo.org → Claude",  action:"customer_pii_query",        resource:`api.anthropic.com/v1/messages`,   decision:"hitl",        lat:"8ms",  rule:"PII escalation gate" },
   { time:"15:06:33", agent:"bob@demo.org → ChatGPT",  action:"bulk_data_prompt",          resource:"api.openai.com/v1/chat",          decision:"invalidated", lat:"9ms",  rule:"Validity Decay · Risk Escalation · risk score 0.41→0.87" },
   { time:"15:05:11", agent:"finance-agent",           action:"approve_invoice_payment",   resource:"ap/invoices/INV-9914",            decision:"permit",      lat:"4ms",  rule:"Permit reads" },
@@ -2793,58 +2745,6 @@ const HITL = [
     ],
     approveReceipt: { id:`REC-${R.recBase+12}`, decision:"RELEASED (ESCALATED)", agent:"alice@demo.org → ChatGPT", action:`customer_credit_query ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` },
     rejectReceipt:  { id:`REC-${R.recBase+12}`, decision:"BLOCKED (ESCALATED)",   agent:"alice@demo.org → ChatGPT", action:`customer_credit_query ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` }
-  },
-  // ── eve@demo.org · shadow AI context escalation — DISCOVER → ALLOW integration ──
-  {
-    id: `H-SHADOW-${R.shadowDeviceId}`,
-    agent: "eve@demo.org → ChatGPT",
-    action: "data_access_query",
-    resource: `api.openai.com/v1/chat`,
-    urgency: "critical",
-    created: `${R.minK} minutes ago`,
-    session: R.sidL,
-    callChain: ["Chrome Extension", "ChatGPT session · eve@demo.org", "Shadow AI context detected — escalated by DISCOVER"],
-    payload: {
-      agent_id: "eve@demo.org",
-      session_id: R.sidL,
-      action: "data_access_query",
-      resource: `crm/contacts/${R.shadowContactId}`,
-      context: {
-        shadow_ai_detected: true,
-        prior_session: "personal.eve@gmail.com → Gemini",
-        device_fingerprint: R.shadowDeviceId,
-        time_since_shadow_session: `${R.minK}m`,
-        enforcement_basis_prior: "observed_only",
-        corporate_data_exposure_risk: "unknown",
-        discover_finding: R.shadowFindingId,
-        risk_score: parseFloat(R.riskK)
-      }
-    },
-    approveStream: [
-      { icon:"⏸",  text:"Agent execution paused · Shadow AI context detected on device",                                   cls:"step-system",         delay:0 },
-      { icon:"👁",  text:`DISCOVER · Shadow AI conflict · personal Gemini session observed on ${R.shadowDeviceId} · ${R.minK}m ago`, cls:"step-intent-pending", delay:700 },
-      { icon:"⚠️",  text:"Context contamination risk · corporate data exposure to ungoverned session: unknown",             cls:"step-warn",           delay:1300 },
-      { icon:"✅",  text:"Decision: APPROVED by Chris Mancuso · shadow AI context acknowledged",                           cls:"step-complete",       delay:2000 },
-      { icon:"🧠",  text:"ALLOW · Intent · Verifying intent alignment…",                                                   cls:"step-intent-pending", delay:2300 },
-      { icon:"✔",   text:`ALLOW · Intent · Approval congruent with requested scope (confidence: ${R.confK})`,              cls:"step-intent",         delay:2700 },
-      { icon:"🔓",  text:`ALLOW · Authorization artifact validated · releasing agent · ${R.sidL}`,                         cls:"step-complete",       delay:3200 },
-      { icon:"📡",  text:`data_access_query forwarded · CRM contacts · ${R.shadowContactId}`,                             cls:"step-complete",       delay:3800 },
-      { icon:"📋",  text:"Shadow AI incident logged · Security team notified · device flagged for posture review",         cls:"step-system",         delay:4600 },
-      { icon:"→",   text:"Event queued · /visiq/decisions · DISCOVER finding linked · audit pipeline updated",             cls:"step-system",         delay:5200 },
-      { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",                                                  cls:"step-receipt",        delay:5800 },
-    ],
-    rejectStream: [
-      { icon:"⏸",  text:"Agent execution paused · Shadow AI context detected on device",                                   cls:"step-system",  delay:0 },
-      { icon:"🚫",  text:"Decision: REJECTED by Chris Mancuso",                                                             cls:"step-deny",    delay:600 },
-      { icon:"🛑",  text:"data_access_query blocked · shadow AI context not cleared",                                       cls:"step-deny",    delay:1100 },
-      { icon:"🤖",  text:"eve@demo.org session blocked · device posture must be remediated before re-request",              cls:"step-system",  delay:1700 },
-      { icon:"🔍",  text:"Shadow AI incident escalated · Security team investigating · DISCOVER finding linked",            cls:"step-system",  delay:2400 },
-      { icon:"📝",  text:"Incident logged · device quarantine recommended · IT admin notified",                             cls:"step-system",  delay:3000 },
-      { icon:"→",   text:"Event queued · /visiq/decisions · audit pipeline updated",                                        cls:"step-system",  delay:3600 },
-      { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",                                                   cls:"step-receipt", delay:4200 },
-    ],
-    approveReceipt: { id:`REC-${R.recBase+13}`, decision:"RELEASED (SHADOW-AI-CONTEXT)", agent:"eve@demo.org → ChatGPT", action:`data_access_query · shadow AI context acknowledged (${R.shadowDeviceId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigL}` },
-    rejectReceipt:  { id:`REC-${R.recBase+13}`, decision:"BLOCKED (SHADOW-AI-CONTEXT)",   agent:"eve@demo.org → ChatGPT", action:`data_access_query · shadow AI context not cleared (${R.shadowDeviceId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigL}` }
   }
 ];
 
@@ -2868,8 +2768,6 @@ function buildChart() {
 
 // ── Live stream on dashboard ──────────────────────────────────────────────────
 const streamEvents = [
-  {t:"15:11:02",a:"[DISCOVER]",                act:"Shadow AI conflict · personal Gemini session on managed device · eve@demo.org · escalated to ALLOW", d:"discover"},
-  {t:"15:10:08",a:"eve@demo.org → ChatGPT",    act:"data_access_query · shadow AI context on device · escalated for review", d:"hitl"},
   {t:"15:09:14",a:"bob@demo.org → ChatGPT",    act:"Financial data uploaded to prompt · Q1 earnings",            d:"invalidated"},
   {t:"15:07:52",a:"dave@demo.org → Claude",    act:"Customer PII in query · profile lookup",                     d:"hitl"},
   {t:"15:06:33",a:"bob@demo.org → ChatGPT",    act:"Bulk contact export request · 47k records attached",         d:"invalidated"},
@@ -2880,6 +2778,8 @@ const streamEvents = [
   {t:"14:56:08",a:"dave@demo.org → Claude",    act:"Sensitive credential query · escalated for review",          d:"hitl"},
   {t:"14:55:22",a:"[DISCOVER]",                act:"ex-employee@demo.org session observed · stale credentials",  d:"discover"},
   {t:"14:52:55",a:"carol@demo.org → Gemini",   act:"Policy query · standard HR use case · approved",             d:"permit"},
+  {t:"14:50:12",a:"alice@demo.org → ChatGPT",  act:"Customer refund eligibility check · PII detected · escalated",d:"hitl"},
+  {t:"14:48:44",a:"bob@demo.org → ChatGPT",    act:"Source code attached to prompt · IP risk detected",          d:"invalidated"},
 ];
 function buildStream() {
   const dc = {permit:'badge-green',deny:'badge-red',hitl:'badge-yellow',invalidated:'badge-orange',discover:'badge-cyan'};
@@ -2899,7 +2799,6 @@ function buildStream() {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const DISC_SOURCES = [
-  // Browser extension deployment sources
   { id:'src_chrome_all', name:'Chrome · All Employees', type:'Browser Extension', provider:'discover_extension', icon:'🌐',
     health:'healthy', connection:'connected', mode:'browser_observed',
     lastSync:'2026-04-28 19:12', coverage:{ 'Managed seats':847, 'Active today':312, 'AI sessions':1247, 'Blocked requests':23 },
@@ -2912,32 +2811,6 @@ const DISC_SOURCES = [
     health:'warning', connection:'degraded', mode:'browser_observed',
     lastSync:'2026-04-28 18:41', coverage:{ 'Managed seats':12, 'Active today':9, 'AI sessions':41, 'Blocked requests':0 },
     error:'Safari WebExtension API limits request body inspection on iOS. Blocking capability unavailable on mobile.' },
-
-  // Platform connector adapters — from Dan's provider matrix
-  { id:'conn_chatgpt', name:'ChatGPT (OpenAI)', type:'Platform Connector', provider:'openai', icon:'💬',
-    health:'warning', connection:'active', mode:'platform_connector',
-    lastSync:'2026-05-13 14:02', coverage:{ 'Witness health':'heartbeat_missing', 'Conflict risk':'High', 'Drift risk':'Medium', 'Session TTL':'4h' },
-    error:'Personal-account sessions on managed devices detected. Corporate + personal ChatGPT cannot be distinguished at request layer without identity binding.' },
-  { id:'conn_claude', name:'Claude (Anthropic)', type:'Platform Connector', provider:'anthropic', icon:'🤖',
-    health:'healthy', connection:'active', mode:'platform_connector',
-    lastSync:'2026-05-13 14:08', coverage:{ 'Witness health':'active', 'Conflict risk':'Low', 'Drift risk':'Low–Medium', 'Session TTL':'session-scoped' },
-    error: null },
-  { id:'conn_gemini', name:'Gemini (Google)', type:'Platform Connector', provider:'google', icon:'✦',
-    health:'warning', connection:'active', mode:'platform_connector',
-    lastSync:'2026-05-13 13:55', coverage:{ 'Witness health':'active', 'Conflict risk':'High', 'Drift risk':'Medium', 'Session TTL':'varies' },
-    error:'Multi-account conflict detected: personal Gmail session active on managed device alongside corporate Workspace session. Shadow AI risk elevated.' },
-  { id:'conn_copilot', name:'Microsoft Copilot', type:'Platform Connector', provider:'microsoft', icon:'⧉',
-    health:'warning', connection:'active', mode:'platform_connector',
-    lastSync:'2026-05-13 13:48', coverage:{ 'Witness health':'degraded', 'Conflict risk':'Medium', 'Drift risk':'High', 'Session TTL':'2h' },
-    error:'Copilot for M365 vs. standalone Copilot.microsoft.com produce divergent session signals. TTL drift observed — sessions outliving expected 2h window.' },
-  { id:'conn_perplexity', name:'Perplexity', type:'Platform Connector', provider:'perplexity', icon:'🔍',
-    health:'healthy', connection:'active', mode:'platform_connector',
-    lastSync:'2026-05-13 14:01', coverage:{ 'Witness health':'active', 'Conflict risk':'Low', 'Drift risk':'Low', 'Session TTL':'session-scoped' },
-    error: null },
-  { id:'conn_grok', name:'Grok (xAI)', type:'Platform Connector', provider:'xai', icon:'𝕏',
-    health:'unknown', connection:'stale', mode:'platform_connector',
-    lastSync:'2026-05-13 11:12', coverage:{ 'Witness health':'stale', 'Conflict risk':'Medium', 'Drift risk':'Medium', 'Session TTL':'unknown' },
-    error:'Heartbeat missing for 3h. Connector may require re-authentication. Usage data may be incomplete.' },
 ];
 
 const DISC_RUNS = [
@@ -2969,13 +2842,6 @@ const DISC_INVENTORY = [
 ];
 
 let DISC_FINDINGS = [
-  { id:'find_shadow', type:'SHADOW_AI_CONFLICT', severity:'high',
-    title:'Shadow AI: Personal Gmail → Gemini on managed device',
-    desc:'A personal Google account (not corporate Workspace) was observed initiating Gemini sessions from a managed device. Corporate SSO was not used. VisIQ cannot enforce Gemini policy on personal-account sessions — this traffic is visible but not governable from current posture.',
-    target:'conn_gemini', targetLabel:'personal-account@gmail.com → Gemini · managed device',
-    source:'Chrome Extension · All Employees',
-    evidence:['Personal Gmail session active alongside corporate session','Gemini sessions not bound to corporate identity','enforcement_basis: observed_only — not intercepted_in_browser','0 ALLOW rules applied to this session'],
-    status:'open' },
   { id:'find_1', type:'UNSANCTIONED_AI', severity:'high', title:'Unsanctioned AI service: DeepSeek', desc:'DeepSeek sessions detected from alice@demo.org. No governance rule exists in ALLOW. Customer data submitted in 3 of 4 sessions.', target:'api.deepseek.com', targetLabel:'alice@demo.org → DeepSeek', source:'Chrome Extension · All Employees', evidence:['3 sessions with customer data','No ALLOW rule match','0 DLP controls applied'], status:'open' },
   { id:'find_2', type:'UNAPPROVED_AI_TOOL', severity:'high', title:'Unsanctioned AI tool in use: ChatGPT', desc:'Browser runtime observed active ChatGPT sessions from 3 principals in the last 24h. No sanction record exists for openai.com. Data submitted includes CRM exports and financial summaries.', target:'ai_chatgpt', targetLabel:'tool:openai.com/chatgpt', source:'Exec Browser Observation', evidence:['3 principals observed','CRM data in prompts','No sanction record'], status:'open' },
   { id:'find_3', type:'SANCTION_REVIEW_REQUIRED', severity:'medium', title:'Sanction truth missing: Gemini', desc:'Gemini was observed in browser sessions but has no sanction decision recorded. Tool cannot be classified as approved or unapproved until sanction truth is set on the linked service.', target:'ai_gemini', targetLabel:'tool:gemini.google.com', source:'Exec Browser Observation', evidence:['2 principals observed','No sanction record','Linked service: google.com'], status:'open' },
@@ -3008,7 +2874,7 @@ function riskBadge(r) {
   return `<span class="inv-risk ${r}">${r.toUpperCase()}</span>`;
 }
 function findTypeBadge(t) {
-  const map = { UNKNOWN_NHI:'badge-red', UNAPPROVED_AI_TOOL:'badge-red', SHADOW_AI_CONFLICT:'badge-red', SANCTION_REVIEW_REQUIRED:'badge-yellow', OWNERSHIP_GAP:'badge-yellow', STALE_COVERAGE:'badge-cyan', UNSANCTIONED_AI:'badge-red' };
+  const map = { UNKNOWN_NHI:'badge-red', UNAPPROVED_AI_TOOL:'badge-red', SANCTION_REVIEW_REQUIRED:'badge-yellow', OWNERSHIP_GAP:'badge-yellow', STALE_COVERAGE:'badge-cyan' };
   return `<span class="badge ${map[t]||'badge-gray'}" style="font-size:10px">${t.replace(/_/g,' ')}</span>`;
 }
 function statusBadge(s) {
@@ -3044,23 +2910,8 @@ function togglePrivacy(sourceId) {
 }
 
 // ── Sources ───────────────────────────────────────────────────────────────────
-function witnessHealthBadge(h) {
-  const map = { active:'badge-green', heartbeat_missing:'badge-yellow', degraded:'badge-yellow', stale:'badge-red', unknown:'badge-gray' };
-  const label = { active:'● active', heartbeat_missing:'⚠ heartbeat missing', degraded:'⚠ degraded', stale:'✕ stale', unknown:'? unknown' };
-  return `<span class="badge ${map[h]||'badge-gray'}" style="font-size:10px">${label[h]||h}</span>`;
-}
-
-function conflictRiskBadge(r) {
-  if (!r) return '';
-  const map = { High:'badge-red', Medium:'badge-yellow', Low:'badge-green', 'Low–Medium':'badge-yellow' };
-  return `<span class="badge ${map[r]||'badge-gray'}" style="font-size:10px">${r}</span>`;
-}
-
 function buildDiscSources() {
-  const extensions  = DISC_SOURCES.filter(s => s.mode === 'browser_observed');
-  const connectors  = DISC_SOURCES.filter(s => s.mode === 'platform_connector');
-
-  const extHtml = extensions.map(s => `
+  document.getElementById('disc-sources-grid').innerHTML = DISC_SOURCES.map(s => `
     <div class="source-card ${s.health}" id="sc-${s.id}">
       <div class="source-top">
         <div>
@@ -3091,41 +2942,6 @@ function buildDiscSources() {
         <button class="source-sync-btn" onclick="triggerSync('${s.id}','${s.name}',this)">Sync now</button>
       </div>
     </div>`).join('');
-
-  // Platform connector section
-  const connHtml = connectors.map(s => {
-    const wh = s.coverage['Witness health'] || 'unknown';
-    const cr = s.coverage['Conflict risk'];
-    const dr = s.coverage['Drift risk'];
-    const ttl = s.coverage['Session TTL'];
-    return `
-    <div class="source-card ${s.health}" id="sc-${s.id}">
-      <div class="source-top">
-        <div>
-          <div class="source-name">${s.icon} ${s.name}</div>
-          <div class="source-type">Platform Connector · browser-observed</div>
-        </div>
-        ${witnessHealthBadge(wh)}
-      </div>
-      ${s.error ? `<div style="font-size:11px;color:var(--yellow);background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:4px;padding:6px 10px;margin-bottom:10px">⚠ ${s.error}</div>` : ''}
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px">
-        <div style="font-size:11px;color:var(--text-muted)">Conflict risk &nbsp;${conflictRiskBadge(cr)}</div>
-        <div style="font-size:11px;color:var(--text-muted)">Drift risk &nbsp;<span class="badge ${dr==='High'?'badge-red':dr&&dr.includes('Medium')?'badge-yellow':'badge-green'}" style="font-size:10px">${dr||'—'}</span></div>
-        <div style="font-size:11px;color:var(--text-muted)">Session TTL &nbsp;<span style="font-family:var(--mono);color:var(--text-dim)">${ttl||'—'}</span></div>
-      </div>
-      <div class="source-footer">
-        <span>${s.lastSync ? '⟳ '+s.lastSync : '⏳ Awaiting first sync'}</span>
-        <button class="source-sync-btn" onclick="triggerSync('${s.id}','${s.name}',this)">Sync now</button>
-      </div>
-    </div>`;
-  }).join('');
-
-  const grid = document.getElementById('disc-sources-grid');
-  grid.innerHTML =
-    `<div style="grid-column:1/-1;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Browser Extension Deployments</div>` +
-    extHtml +
-    `<div style="grid-column:1/-1;font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin:12px 0 4px">Platform Connector Adapters <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--text-muted);font-size:10px">— from Dan's provider matrix</span></div>` +
-    connHtml;
 
   document.getElementById('disc-runs-body').innerHTML = DISC_RUNS.map(r => {
     const sc = { completed:'badge-green', partial_failure:'badge-yellow', running:'badge-cyan', failed:'badge-red' };
@@ -3541,48 +3357,20 @@ function renderAudit() {
     const matchSearch = !q || r.agent.includes(q) || r.action.includes(q) || r.resource.toLowerCase().includes(q);
     return matchFilter && matchSearch;
   });
-  document.getElementById('audit-body').innerHTML = filtered.map(r=>{
-    const isHITL = r.decision === 'hitl';
-    const hitlId = 'ledger-hitl-' + r.time.replace(/\W/g,'') + r.action.slice(0,6);
-    const hitlCell = isHITL
-      ? `<td>
-           <div style="display:flex;flex-direction:column;gap:5px">
-             <span class="badge ${auditDecisionClass(r.decision)}" id="badge-${hitlId}">${auditDecisionLabel(r.decision)}</span>
-             <div id="btns-${hitlId}" style="display:flex;gap:4px">
-               <button onclick="ledgerResolveHITL('${hitlId}','approve','${r.action}','${r.agent}')" style="flex:1;padding:3px 6px;font-size:10px;font-weight:700;border:1px solid rgba(16,185,129,0.4);background:rgba(16,185,129,0.12);color:var(--green);border-radius:4px;cursor:pointer">✓ Approve</button>
-               <button onclick="ledgerResolveHITL('${hitlId}','reject','${r.action}','${r.agent}')" style="flex:1;padding:3px 6px;font-size:10px;font-weight:700;border:1px solid rgba(239,68,68,0.35);background:rgba(239,68,68,0.1);color:var(--red);border-radius:4px;cursor:pointer">✗ Reject</button>
-             </div>
-           </div>
-         </td>`
-      : `<td><span class="badge ${auditDecisionClass(r.decision)}">${auditDecisionLabel(r.decision)}</span></td>`;
-    return `<tr${isHITL ? ' style="background:rgba(245,158,11,0.04)"' : ''}>
+  document.getElementById('audit-body').innerHTML = filtered.map(r=>`
+    <tr>
       <td class="mono">${r.time}</td>
       <td style="font-family:var(--mono);font-size:12px">${r.agent}</td>
       <td class="mono" style="color:var(--primary-hover)">${r.action}</td>
       <td class="mono" style="color:var(--text-muted);font-size:11px">${r.resource}</td>
-      ${hitlCell}
+      <td><span class="badge ${auditDecisionClass(r.decision)}">${auditDecisionLabel(r.decision)}</span></td>
       <td class="mono" style="color:var(--text-muted)">${r.lat}</td>
       <td style="font-size:12px;color:var(--text-muted)">${r.rule}</td>
-    </tr>`;
-  }).join('');
+    </tr>`).join('');
   document.getElementById('audit-count').textContent = `${filtered.length} of ${AUDIT.length} entries`;
 }
 
 function buildAudit() { renderAudit(); }
-
-function ledgerResolveHITL(hitlId, decision, action, agent) {
-  const btns  = document.getElementById('btns-' + hitlId);
-  const badge = document.getElementById('badge-' + hitlId);
-  if (!btns || !badge) return;
-  // Replace buttons with result
-  btns.style.display = 'none';
-  const approved = decision === 'approve';
-  badge.className = 'badge ' + (approved ? 'badge-green' : 'badge-red');
-  badge.textContent = approved ? 'APPROVED' : 'REJECTED';
-  // Also emit into the enforcement feed
-  feedHITLDecision(decision, action, agent);
-  toast(approved ? '✓ Approved' : '✗ Rejected', `${action} · ${agent}`);
-}
 
 function auditFilter(val, el) {
   auditCurrentFilter = val;
@@ -3597,7 +3385,7 @@ function auditSearch(val) {
 }
 
 // ── HITL ──────────────────────────────────────────────────────────────────────
-let pendingCount = 12;
+let pendingCount = 11;
 
 function resetEscalations() {
   document.getElementById('hitl-empty').style.display = 'none';
@@ -3866,6 +3654,14 @@ setInterval(rotateTicker, 3500);
 document.getElementById('ticker').style.transition = 'opacity 0.3s';
 
 // ── Navigation ────────────────────────────────────────────────────────────────
+function toggleDiscover() {
+  const items = document.getElementById('discover-items');
+  const chevron = document.getElementById('discover-chevron');
+  const open = items.style.display === 'none';
+  items.style.display = open ? 'block' : 'none';
+  chevron.style.transform = open ? 'rotate(90deg)' : 'rotate(0deg)';
+}
+
 function nav(pageId, el) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -3878,8 +3674,6 @@ function nav(pageId, el) {
   }
   // Re-apply panel layout so newly active page also gets right padding
   if (panelOpen) applyPanelLayout(true);
-  // Start/stop live RECORD polling
-  if (pageId === 'record') { setRecordView(recordView); } else { stopRecordLive(); }
 }
 
 function goTo(pageId) {
@@ -4006,7 +3800,7 @@ async function analyzeWithClaude(itemId) {
 
   const streamEl = document.getElementById(`claude-stream-text-${itemId}`);
 
-  const prompt = `You are VisIQ's enforcement advisor embedded in the Runtime Approvals. A browser-intercepted AI agent action is held for human review. Analyze it and produce a structured recommendation.
+  const prompt = `You are VisIQ's enforcement advisor embedded in the Runtime Escalation Queue. A browser-intercepted AI agent action is held for human review. Analyze it and produce a structured recommendation.
 
 INTERCEPTED ACTION
 Agent: ${item.agent}
@@ -4201,35 +3995,6 @@ let panelMode = 'feed'; // 'feed' | 'ext'
 let feedItems = [];
 let feedAutoInterval = null;
 
-// ── Supabase real recording ─────────────────────────────────────────────────
-const SB_URL  = 'https://pahszcrakgzwmqrpsmma.supabase.co';
-const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhaHN6Y3Jha2d6d21xcnBzbW1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg2ODEzMTIsImV4cCI6MjA5NDI1NzMxMn0.uu-n3L0D09wus0Gpj7r3QeGONr7BujAlTLQLWZKryTk';
-const SB_SESSION = 'demo-' + Date.now() + '-' + Math.random().toString(36).slice(2,7);
-
-function recordToSupabase(type, action, detail, agent) {
-  const payload = {
-    session_id: SB_SESSION,
-    actor: agent || 'VisIQ-Demo',
-    action_type: type,
-    decision: type === 'allow' ? 'ALLOW' : type === 'block' ? 'BLOCK' : type.toUpperCase(),
-    tool: detail || null,
-    resource: action || null,
-    enforcement_basis: type === 'block' ? 'blocked_by_enforced_policy' : type === 'allow' ? 'intercepted_in_browser' : 'observed_only',
-    policy_version: 'v1.0-demo',
-    raw: { action, detail, agent, ts: new Date().toISOString() }
-  };
-  fetch(SB_URL + '/rest/v1/enforcement_events', {
-    method: 'POST',
-    headers: {
-      'apikey': SB_KEY,
-      'Authorization': 'Bearer ' + SB_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=minimal'
-    },
-    body: JSON.stringify(payload)
-  }).catch(() => {}); // fire-and-forget, never block the UI
-}
-
 function togglePanel() {
   panelOpen = !panelOpen;
   const panel = document.getElementById('right-panel');
@@ -4242,8 +4007,12 @@ function togglePanel() {
 }
 
 function applyPanelLayout(open) {
-  // CSS handles margin-right on #main via body.panel-open class.
-  // Grid reflows (stats-grid, pipeline-mini-grid, two-col) also handled by CSS classes.
+  const pw = getComputedStyle(document.documentElement).getPropertyValue('--panel-w').trim() || '280px';
+  // Give the active page extra right padding so content clears the fixed panel
+  document.querySelectorAll('.page.active').forEach(p => {
+    p.style.paddingRight = open ? 'calc(' + pw + ' + 24px)' : '';
+  });
+  // CSS classes handle grid reflow for stats-grid, pipeline-mini-grid, two-col
 }
 
 function setPanelMode(mode) {
@@ -4311,11 +4080,6 @@ function pushFeedItem(type, action, detail, agent) {
   list.insertBefore(item, list.firstChild);
   feedItems.unshift({ type, action, detail, agent });
 
-  // Record real enforcement events to Supabase
-  if (['allow','block','hitl','record'].includes(type)) {
-    recordToSupabase(type, action, detail, agent);
-  }
-
   // Keep list trimmed
   while (list.children.length > 40) list.removeChild(list.lastChild);
 }
@@ -4336,114 +4100,6 @@ function feedHITLDecision(decision, action, agent) {
     const recId = 'REC-' + Math.floor(Math.random()*90000+10000);
     pushFeedItem('record', `RECORD receipt ${recId}`, 'Cryptographic proof · Ed25519 signed · immutable audit trail', null);
   }, 600);
-}
-
-// ── RECORD live database view ──────────────────────────────────────────────
-let recordPollInterval = null;
-
-function decisionBadge(decision) {
-  if (!decision) return '<span class="badge badge-cyan">RECORD</span>';
-  const d = decision.toUpperCase();
-  if (d === 'ALLOW' || d === 'PERMITTED') return '<span class="badge badge-green">ALLOW</span>';
-  if (d === 'BLOCK' || d === 'BLOCKED')   return '<span class="badge badge-red">BLOCK</span>';
-  if (d === 'HITL'  || d === 'ESCALATED') return '<span class="badge badge-yellow">HITL</span>';
-  return `<span class="badge badge-cyan">${d}</span>`;
-}
-
-function basisLabel(basis) {
-  if (!basis) return '—';
-  const map = {
-    'blocked_by_enforced_policy': 'blocked · enforced',
-    'intercepted_in_browser':     'intercepted · browser',
-    'observed_only':              'observed only',
-    'not_enforceable_from_current_posture': 'not enforceable'
-  };
-  return map[basis] || basis;
-}
-
-function formatTs(ts) {
-  if (!ts) return '—';
-  try {
-    const d = new Date(ts);
-    return d.toLocaleString('en-US', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false });
-  } catch { return ts; }
-}
-
-async function fetchRecordEvents() {
-  try {
-    const res = await fetch(
-      SB_URL + '/rest/v1/enforcement_events?order=created_at.desc&limit=50',
-      { headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY } }
-    );
-    if (!res.ok) return;
-    const rows = await res.json();
-    const tbody = document.getElementById('record-live-tbody');
-    const countEl = document.getElementById('record-count');
-    if (!tbody) return;
-
-    if (rows.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:32px">No events yet — run the demo to generate records</td></tr>';
-      return;
-    }
-
-    if (countEl) countEl.textContent = rows.length + ' event' + (rows.length !== 1 ? 's' : '');
-
-    tbody.innerHTML = rows.map((r, i) => {
-      const recId = '#REC-' + String(r.id || i).slice(0,8).toUpperCase();
-      const actor = r.actor || '—';
-      const resource = r.resource || r.tool || '—';
-      const isNew = i === 0;
-      return `<tr style="${isNew ? 'background:rgba(99,102,241,0.06);' : ''}">
-        <td class="mono" style="font-size:11px;color:var(--text-muted)">${recId}</td>
-        <td style="font-size:12px">${actor}</td>
-        <td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${resource}">${resource}</td>
-        <td>${decisionBadge(r.decision)}</td>
-        <td style="font-size:11px;color:var(--text-muted)">${basisLabel(r.enforcement_basis)}</td>
-        <td class="mono" style="font-size:11px">${formatTs(r.created_at)}</td>
-        <td><span class="badge badge-cyan">✓ Stored</span></td>
-      </tr>`;
-    }).join('');
-  } catch(e) {}
-}
-
-let recordView = 'live'; // 'live' | 'demo'
-
-function setRecordView(mode) {
-  recordView = mode;
-  const liveTbody  = document.getElementById('record-live-tbody');
-  const demoTbody  = document.getElementById('record-demo-tbody');
-  const liveBadge  = document.getElementById('record-live-badge');
-  const countEl    = document.getElementById('record-count');
-  const btnDemo    = document.getElementById('record-toggle-demo');
-  const btnLive    = document.getElementById('record-toggle-live');
-
-  if (mode === 'live') {
-    if (liveTbody)  liveTbody.style.display  = '';
-    if (demoTbody)  demoTbody.style.display  = 'none';
-    if (liveBadge)  liveBadge.style.display  = 'flex';
-    if (countEl)    countEl.style.display     = '';
-    if (btnLive)  { btnLive.style.background  = 'var(--primary)'; btnLive.style.color = '#fff'; }
-    if (btnDemo)  { btnDemo.style.background  = 'transparent';    btnDemo.style.color = 'var(--text-muted)'; }
-    startRecordLive();
-  } else {
-    if (liveTbody)  liveTbody.style.display  = 'none';
-    if (demoTbody)  demoTbody.style.display  = '';
-    if (liveBadge)  liveBadge.style.display  = 'none';
-    if (countEl)    countEl.style.display     = 'none';
-    if (btnDemo)  { btnDemo.style.background  = 'var(--primary)'; btnDemo.style.color = '#fff'; }
-    if (btnLive)  { btnLive.style.background  = 'transparent';    btnLive.style.color = 'var(--text-muted)'; }
-    stopRecordLive();
-  }
-}
-
-function startRecordLive() {
-  fetchRecordEvents();
-  if (recordPollInterval) clearInterval(recordPollInterval);
-  recordPollInterval = setInterval(fetchRecordEvents, 5000);
-}
-
-function stopRecordLive() {
-  if (recordPollInterval) { clearInterval(recordPollInterval); recordPollInterval = null; }
 }
 
 // Auto-generate ambient feed events to show platform activity
