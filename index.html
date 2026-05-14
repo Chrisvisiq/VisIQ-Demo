@@ -2171,6 +2171,14 @@ const R = (() => {
     confH: (0.88 + Math.random()*0.09).toFixed(2),
     riskF: (0.55 + Math.random()*0.18).toFixed(2),
     riskG: (0.82 + Math.random()*0.11).toFixed(2),
+    // Shadow AI conflict HITL
+    sidL: sid(), sigL: hex(48),
+    minK: rnd(2, 6),
+    shadowDeviceId: 'DEV-' + hex(8).toUpperCase(),
+    shadowContactId: 'CRM-' + rnd(1000, 9999),
+    shadowFindingId: 'FIND-' + rnd(100, 999),
+    riskK: (0.71 + Math.random()*0.12).toFixed(2),
+    confK: (0.93 + Math.random()*0.05).toFixed(2),
   };
 })();
 
@@ -2257,6 +2265,7 @@ const AGENTS = [
 const AUDIT = [
   // ── Case Study: Finance / Payments ───────────────────────────────────────────
   { time:"15:09:14", agent:"bob@demo.org → ChatGPT",     action:"financial_data_upload",      resource:"api.openai.com/v1/chat",         decision:"invalidated", lat:"12ms", rule:"Validity Decay · Scope Expansion · data volume exceeded approved threshold" },
+  { time:"15:10:08", agent:"eve@demo.org → ChatGPT",   action:"data_access_query",         resource:`api.openai.com/v1/chat`,          decision:"hitl",        lat:"5ms",  rule:"Shadow AI context escalation" },
   { time:"15:07:52", agent:"dave@demo.org → Claude",  action:"customer_pii_query",        resource:`api.anthropic.com/v1/messages`,   decision:"hitl",        lat:"8ms",  rule:"PII escalation gate" },
   { time:"15:06:33", agent:"bob@demo.org → ChatGPT",  action:"bulk_data_prompt",          resource:"api.openai.com/v1/chat",          decision:"invalidated", lat:"9ms",  rule:"Validity Decay · Risk Escalation · risk score 0.41→0.87" },
   { time:"15:05:11", agent:"finance-agent",           action:"approve_invoice_payment",   resource:"ap/invoices/INV-9914",            decision:"permit",      lat:"4ms",  rule:"Permit reads" },
@@ -2784,6 +2793,58 @@ const HITL = [
     ],
     approveReceipt: { id:`REC-${R.recBase+12}`, decision:"RELEASED (ESCALATED)", agent:"alice@demo.org → ChatGPT", action:`customer_credit_query ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` },
     rejectReceipt:  { id:`REC-${R.recBase+12}`, decision:"BLOCKED (ESCALATED)",   agent:"alice@demo.org → ChatGPT", action:`customer_credit_query ($${R.custCreditAmt} · ${R.custCreditId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigK}` }
+  },
+  // ── eve@demo.org · shadow AI context escalation — DISCOVER → ALLOW integration ──
+  {
+    id: `H-SHADOW-${R.shadowDeviceId}`,
+    agent: "eve@demo.org → ChatGPT",
+    action: "data_access_query",
+    resource: `api.openai.com/v1/chat`,
+    urgency: "critical",
+    created: `${R.minK} minutes ago`,
+    session: R.sidL,
+    callChain: ["Chrome Extension", "ChatGPT session · eve@demo.org", "Shadow AI context detected — escalated by DISCOVER"],
+    payload: {
+      agent_id: "eve@demo.org",
+      session_id: R.sidL,
+      action: "data_access_query",
+      resource: `crm/contacts/${R.shadowContactId}`,
+      context: {
+        shadow_ai_detected: true,
+        prior_session: "personal.eve@gmail.com → Gemini",
+        device_fingerprint: R.shadowDeviceId,
+        time_since_shadow_session: `${R.minK}m`,
+        enforcement_basis_prior: "observed_only",
+        corporate_data_exposure_risk: "unknown",
+        discover_finding: R.shadowFindingId,
+        risk_score: parseFloat(R.riskK)
+      }
+    },
+    approveStream: [
+      { icon:"⏸",  text:"Agent execution paused · Shadow AI context detected on device",                                   cls:"step-system",         delay:0 },
+      { icon:"👁",  text:`DISCOVER · Shadow AI conflict · personal Gemini session observed on ${R.shadowDeviceId} · ${R.minK}m ago`, cls:"step-intent-pending", delay:700 },
+      { icon:"⚠️",  text:"Context contamination risk · corporate data exposure to ungoverned session: unknown",             cls:"step-warn",           delay:1300 },
+      { icon:"✅",  text:"Decision: APPROVED by Chris Mancuso · shadow AI context acknowledged",                           cls:"step-complete",       delay:2000 },
+      { icon:"🧠",  text:"ALLOW · Intent · Verifying intent alignment…",                                                   cls:"step-intent-pending", delay:2300 },
+      { icon:"✔",   text:`ALLOW · Intent · Approval congruent with requested scope (confidence: ${R.confK})`,              cls:"step-intent",         delay:2700 },
+      { icon:"🔓",  text:`ALLOW · Authorization artifact validated · releasing agent · ${R.sidL}`,                         cls:"step-complete",       delay:3200 },
+      { icon:"📡",  text:`data_access_query forwarded · CRM contacts · ${R.shadowContactId}`,                             cls:"step-complete",       delay:3800 },
+      { icon:"📋",  text:"Shadow AI incident logged · Security team notified · device flagged for posture review",         cls:"step-system",         delay:4600 },
+      { icon:"→",   text:"Event queued · /visiq/decisions · DISCOVER finding linked · audit pipeline updated",             cls:"step-system",         delay:5200 },
+      { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",                                                  cls:"step-receipt",        delay:5800 },
+    ],
+    rejectStream: [
+      { icon:"⏸",  text:"Agent execution paused · Shadow AI context detected on device",                                   cls:"step-system",  delay:0 },
+      { icon:"🚫",  text:"Decision: REJECTED by Chris Mancuso",                                                             cls:"step-deny",    delay:600 },
+      { icon:"🛑",  text:"data_access_query blocked · shadow AI context not cleared",                                       cls:"step-deny",    delay:1100 },
+      { icon:"🤖",  text:"eve@demo.org session blocked · device posture must be remediated before re-request",              cls:"step-system",  delay:1700 },
+      { icon:"🔍",  text:"Shadow AI incident escalated · Security team investigating · DISCOVER finding linked",            cls:"step-system",  delay:2400 },
+      { icon:"📝",  text:"Incident logged · device quarantine recommended · IT admin notified",                             cls:"step-system",  delay:3000 },
+      { icon:"→",   text:"Event queued · /visiq/decisions · audit pipeline updated",                                        cls:"step-system",  delay:3600 },
+      { icon:"🔐",  text:"Decision recorded · Ed25519 signature applied",                                                   cls:"step-receipt", delay:4200 },
+    ],
+    approveReceipt: { id:`REC-${R.recBase+13}`, decision:"RELEASED (SHADOW-AI-CONTEXT)", agent:"eve@demo.org → ChatGPT", action:`data_access_query · shadow AI context acknowledged (${R.shadowDeviceId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigL}` },
+    rejectReceipt:  { id:`REC-${R.recBase+13}`, decision:"BLOCKED (SHADOW-AI-CONTEXT)",   agent:"eve@demo.org → ChatGPT", action:`data_access_query · shadow AI context not cleared (${R.shadowDeviceId})`, approver:"Chris Mancuso", sig:`Ed25519:${R.sigL}` }
   }
 ];
 
@@ -2807,6 +2868,8 @@ function buildChart() {
 
 // ── Live stream on dashboard ──────────────────────────────────────────────────
 const streamEvents = [
+  {t:"15:11:02",a:"[DISCOVER]",                act:"Shadow AI conflict · personal Gemini session on managed device · eve@demo.org · escalated to ALLOW", d:"discover"},
+  {t:"15:10:08",a:"eve@demo.org → ChatGPT",    act:"data_access_query · shadow AI context on device · escalated for review", d:"hitl"},
   {t:"15:09:14",a:"bob@demo.org → ChatGPT",    act:"Financial data uploaded to prompt · Q1 earnings",            d:"invalidated"},
   {t:"15:07:52",a:"dave@demo.org → Claude",    act:"Customer PII in query · profile lookup",                     d:"hitl"},
   {t:"15:06:33",a:"bob@demo.org → ChatGPT",    act:"Bulk contact export request · 47k records attached",         d:"invalidated"},
@@ -2817,8 +2880,6 @@ const streamEvents = [
   {t:"14:56:08",a:"dave@demo.org → Claude",    act:"Sensitive credential query · escalated for review",          d:"hitl"},
   {t:"14:55:22",a:"[DISCOVER]",                act:"ex-employee@demo.org session observed · stale credentials",  d:"discover"},
   {t:"14:52:55",a:"carol@demo.org → Gemini",   act:"Policy query · standard HR use case · approved",             d:"permit"},
-  {t:"14:50:12",a:"alice@demo.org → ChatGPT",  act:"Customer refund eligibility check · PII detected · escalated",d:"hitl"},
-  {t:"14:48:44",a:"bob@demo.org → ChatGPT",    act:"Source code attached to prompt · IP risk detected",          d:"invalidated"},
 ];
 function buildStream() {
   const dc = {permit:'badge-green',deny:'badge-red',hitl:'badge-yellow',invalidated:'badge-orange',discover:'badge-cyan'};
@@ -3536,7 +3597,7 @@ function auditSearch(val) {
 }
 
 // ── HITL ──────────────────────────────────────────────────────────────────────
-let pendingCount = 11;
+let pendingCount = 12;
 
 function resetEscalations() {
   document.getElementById('hitl-empty').style.display = 'none';
